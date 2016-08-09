@@ -45,10 +45,15 @@ that reads the registrations in the cash register and
 generates a control code.
 
 
+https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/anmalakassaregisterandringarochfel.4.69ef368911e1304a62580008748.html
+
 """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': ['point_of_sale',],
+    'external_dependencies': {
+        'python': ['jsonrpclib'],
+    },
     'data': [],
     'application': False,
     'installable': True,
