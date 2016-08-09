@@ -75,7 +75,7 @@ class pos_order(models.Model):
 
 import jsonrpclib
 
-class fcu_post(Object):
+class fcu_post(object):
     
     # server proxy object
     url = "http://%s:%s/jsonrpc" % ('localhost', '8069')
