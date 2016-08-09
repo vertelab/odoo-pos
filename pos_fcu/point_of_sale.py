@@ -9,6 +9,14 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
+class pos_config(models.Model):
+    """ POS order  """
+    _inherit = 'pos.config'
+
+    iface_fcu = field.Boolean(string="Financial Control Unit")
+    fcu_contract = fields.Char(string="FCU Contract")
+    fcu_server = fields.Char("FCU Server (http://server[:port])")
+    
 class pos_order(models.Model):
     """ POS order  """
     _inherit = 'pos.order'
@@ -39,7 +47,7 @@ class pos_order(models.Model):
         order_id = super(pos_order, self)._process_order(cr,uid,order,context)
         _logger.error('POS: %s' % order_id)
         o = self.browse(cr,uid,order_id)
-        # pos_client = fcu_post({'reciept':''},app_id)
+        # pos_client = fcu_post({'reciept':''},contract,app_id)
         o.fcu_id = "controle_code"  # get controle_code
         
         
@@ -109,11 +117,16 @@ class pos_fcu_json(http.Controller):
         }
 
 # curl -H "Content-type:application/json" -X POST localhost:8069/fcu/kalle/add -d '{"method":"pluyy"}'|python -m json.tool
+# openerp-server.conf:
+#db_name = pos
+#dbfilter = pos
+#list_db = false
 
 """
 https://www.skatteverket.se/rattsinformation/arkivforrattsligvagledning/foreskrifter/konsoliderade/2009/skvfs200912.5.2e56d4ba1202f950120800012422.html
 http://www4.skatteverket.se/download/18.7d4d4f0515244e542f5a9fd/1453733397842/SKVFS+2009+2.pdf
 http://www.skatteverket.se/download/18.76a43be412206334b89800012557/SKVFS+2009.03.pd
+https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/anmalakassaregisterandringarochfel.4.69ef368911e1304a62580008748.html
 Data 	Beskrivning 	Format
 Datum och tid 	Datum och klockslag för försäljning enligt 28 § c SKVFS 2009:1 	12 siffror, format YYYYMMDDttmm
 Organisationsnummer 	Företagets organisationsnummer eller personnummer enligt 28 § a SKVFS 2009:1 	10 siffror
