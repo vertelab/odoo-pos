@@ -77,29 +77,30 @@ import jsonrpclib
 
 class fcu_post(object):
     
-    # server proxy object
-    url = "http://%s:%s/jsonrpc" % ('localhost', '8069')
-    server = jsonrpclib.Server(url)
+    def __init__(self):
+        # server proxy object
+        url = "http://%s:%s/jsonrpc" % ('localhost', '8069')
+        server = jsonrpclib.Server(url)
 
-    # log in the given database
-    uid = server.call(service="common", method="login", args=['pos', 'admin', 'admin'])
+        # log in the given database
+        uid = server.call(service="common", method="login", args=['pos', 'admin', 'admin'])
 
-    # helper function for invoking model methods
-    def invoke(model, method, *args):
-        args = ['pos', uid, 'admin', model, method] + list(args)
-        return server.call(service="object", method="execute", args=args)
+        # helper function for invoking model methods
+        def invoke(model, method, *args):
+            args = ['pos', uid, 'admin', model, method] + list(args)
+            return server.call(service="object", method="execute", args=args)
 
-    # create a new note
-    args = {
-        'name' : 'anders',
-        'login' : 'This is another note',
-        'create_uid': uid,
-    }
-    note_id = invoke('res.users', 'search', [('name','ilike','Demo User')])
-    for u in note_id:
-        print u
-        print u['name']
-    #~ note_id = invoke('note.note', 'create', args)
+        # create a new note
+        args = {
+            'name' : 'anders',
+            'login' : 'This is another note',
+            'create_uid': uid,
+        }
+        note_id = invoke('res.users', 'search', [('name','ilike','Demo User')])
+        for u in note_id:
+            print u
+            print u['name']
+        #~ note_id = invoke('note.note', 'create', args)
 
 
         
