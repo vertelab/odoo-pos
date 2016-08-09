@@ -1,1 +1,1 @@
-import res_partner
+import point_of_sale

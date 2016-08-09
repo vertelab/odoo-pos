@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'POS Financial Control Unit (client)',
+    'name': 'POS Financial Control Unit',
     'version': '0.1',
     'category': 'pos',
     'summary': 'Sends transactions to a FCU',
@@ -48,12 +48,10 @@ generates a control code.
 """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['base',],
-    'data': [ 'res_partner_view.xml',
-    #'security/ir.model.access.csv',
-    ],
+    'depends': ['point_of_sale',],
+    'data': [],
     'application': False,
     'installable': True,
-    'demo': [,],
+    'demo': [],
 }
 # vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:
