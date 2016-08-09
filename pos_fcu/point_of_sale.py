@@ -33,7 +33,7 @@ class pos_config(models.Model):
     """ POS order  """
     _inherit = 'pos.config'
 
-    iface_fcu = field.Boolean(string="Financial Control Unit")
+    iface_fcu = fields.Boolean(string="Financial Control Unit")
     fcu_contract = fields.Char(string="FCU Contract")
     fcu_server = fields.Char("FCU Server (http://server[:port])")
     
