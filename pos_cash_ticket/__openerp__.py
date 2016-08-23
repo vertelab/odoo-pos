@@ -47,6 +47,32 @@ generates a control code.
 
 https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/anmalakassaregisterandringarochfel.4.69ef368911e1304a62580008748.html
 
+
+
+Fakturan ska innehålla
+
+    Datum då fakturan är utställd
+    Fakturanummer
+    Säljarens och köparens adress
+    Säljarens momsregistreringsnummer
+    Köparens momsregistreringsnummer i vissa fall (t ex vid EU-handel)
+    Transaktionens art och omfattning
+    Datum då leverans eller tillhandahållande skett eller a contobetalning (delbetalning, vanligen i form av förskottsbetalning) gjorts om det är annat än fakturadatum
+    Specifikation (vad fakturan omfattar)
+    Pris
+    Beskattningsunderlag för varje momssats eller undantag
+    Tillämpad momssats
+    Momsbelopp
+    Vid befrielse från moms – hänvisning till relevant bestämmelse.
+
+I aktiebolag är följande uppgifter obligatoriska
+
+    I vilken kommun bolaget har sitt säte.
+    Bolagets organisationsnummer.
+    Bolagets namn.
+
+
+
 """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
