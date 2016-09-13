@@ -14,11 +14,23 @@
       <field name="inherit_id" ref="base.view_partner_form" />
       <field name="arch" type="xml">
         <div class="oe_right oe_button_box" position="inside">
-          <button name="%(pos_partner.action_pos_order_list_button)d" type="action" class="oe_stat_button oe_inline" icon="fa-money" help="POS orders">  <!-- fa-shopping-cart -->
+          <button name="%(pos_partner.action_pos_order_list_button)d" type="action" class="oe_stat_button oe_inline" icon="fa-money" help="POS orders">
+            <!-- fa-shopping-cart -->
             <field name="pos_order_sum" widget="statinfo" string="Ordersum" />
           </button>
         </div>
       </field>
     </record>
+  <record id="view_pos_order_filter" model="ir.ui.view">
+    <field name="name">pos.order.list.select.partner</field>
+    <field name="model">pos.order</field>
+    <field name="inherit_id" ref="point_of_sale.view_pos_order_filter" />
+    <field name="arch" type="xml">
+      <field name="date_order" position="after">
+        <field name="partner_id" />
+      </field>
+    </field>
+  </record>
   </data>
+
 </openerp>
