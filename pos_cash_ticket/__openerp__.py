@@ -80,7 +80,7 @@ I aktiebolag är följande uppgifter obligatoriska
     'external_dependencies': {
         'python': ['jsonrpclib'],
     },
-    'data': ['point_of_sale.xml'],
+    'data': ['point_of_sale.xml','res_company_view.xml'],
     'qweb': ['static/src/xml/*.xml'],
     'application': False,
     'installable': True,

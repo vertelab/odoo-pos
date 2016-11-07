@@ -505,12 +505,12 @@
 
     <t t-name="XmlReceipt">
         <receipt align='center' width='40' value-thousands-separator='' >
-            <t t-if='receipt.company.logo'>
-                <img t-att-src='receipt.company.logo' />
+            <t t-if='receipt.company.pos_logo or receipt.company.pos_logo'>
+                <img t-att-src='receipt.company.pos_logo if receipt.company.pos_logo else receipt.company.pos_logo' />
                 <br/>
             </t>
             <t t-if='!receipt.company.logo'>
-                <h1><t t-esc='receipt.company.name' /></h1>
+                <h1><t t-esc='receipt.company.name' /></h1>no logo
                 <br/>
             </t>
             <div font='b'>
@@ -934,6 +934,15 @@
             <div class="pos-center-align"><t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
                 Date.CultureInfo.formatPatterns.longTime)"/> <t t-esc="order.get('name')"/></div>
             <br />
+            <t t-if='widget.pos.company.pos_logo or widget.pos.company.pos_logo'>
+                <img t-att-src='widget.pos.company.pos_logo if widget.pos.company.pos_logo else widget.pos.company.pos_logo' />
+                <br/>
+            </t>
+            <t t-if='not (widget.pos.company.pos_logo or widget.pos.company.logo)'>
+                <h1><t t-esc='widget.pos.company.name' /></h1>no logo
+                <br/>
+            </t>
+            
             <t t-esc="widget.pos.company.name"/><br />
             <span t-esc="widget.pos.company.vat ? widget.pos.company.vat : ''"/><br />
             <span t-esc="widget.pos.company.city ? widget.pos.company.city : ''"/><br />
