@@ -539,7 +539,10 @@
                     <div>--------------------------------</div>
                     <div>Served by <t t-esc='receipt.cashier' /></div>
                 </t>
+            <t t-set='client' t-value='False' />
+<!--
             <t t-set='client' t-value='reciept.get("selectedOrder").get_client()' />
+-->
             <div t-if="!client">
                 <span>No cash ticket</span>
             </div>
