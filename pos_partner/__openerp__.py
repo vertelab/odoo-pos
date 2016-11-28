@@ -35,6 +35,7 @@
         #~ 'python': ['jsonrpclib'],
     #~ },
     'data': ['res_partner_view.xml'],
+    'qweb': ['static/src/xml/*.xml'],
     'application': False,
     'installable': True,
     'demo': [],

@@ -19,6 +19,9 @@
 #
 ##############################################################################
 from openerp import models, fields, api, _
+from openerp import http
+from openerp.http import request
+import werkzeug
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 import logging
@@ -29,3 +32,17 @@ class res_company(models.Model):
     _inherit = 'res.company'
 
     pos_logo = fields.Binary(string="POS Logo")
+
+class companyLogo(http.Controller):
+
+    @http.route(['/company_logo.png'], type='http', auth="public", website=True)
+    def company_logo(self):
+        company = request.env['res.users'].browse(request.env.uid).company_id
+        response = werkzeug.wrappers.Response()
+        if company.pos_logo:
+            return request.env['website']._image('res.company', company.id, 'pos_logo', response, max_width=None, max_height=200)
+        elif company.logo:
+            return request.env['website']._image('res.company', company.id, 'logo', response, max_width=None, max_height=200)
+        else:
+            return None
+

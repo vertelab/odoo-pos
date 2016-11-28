@@ -32,5 +32,9 @@
     </field>
   </record>
   </data>
-
+  <data noupdate="1">
+    <record id="categ_pos_customer" model="res.partner.category">
+      <field name="name">PoS Customer</field>
+    </record>
+  </data>
 </openerp>
