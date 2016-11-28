@@ -4,112 +4,114 @@
 
 <template>
     <t t-extend="PosTicket">
-        <t t-jquery=".pos-center-align" t-operation="replace">
-            <div class="pos-center-align"><t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
-                Date.CultureInfo.formatPatterns.longTime)"/> <t t-esc="order.get('name')"/></div>
-            <img src="/company_logo.png" style="margin: auto; display: block;"/>
-            <br />
-            <t t-esc="widget.pos.company.name"/><br />
-            <t t-esc="widget.pos.company.vat ? widget.pos.company.vat : ''" style="text-align: center;"/><br />
-            <t t-esc="widget.pos.company.city ? widget.pos.company.city : ''" style="text-align: center;"/><br />
-            Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
-            User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
-            Shop: <t t-esc="widget.pos.shop.name"/><br />
-            <br />
-            <t t-if="widget.pos.config.receipt_header">
-                <div style="text-align:center">
-                    <t t-esc="widget.pos.config.receipt_header" />
-                </div>
+        <t t-jquery=".pos-sale-ticket" t-operation="replace">
+            <div class="pos-sale-ticket">
+                <div class="pos-center-align"><t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
+                    Date.CultureInfo.formatPatterns.longTime)"/> <t t-esc="order.get('name')"/></div>
+                <img src="/company_logo.png" style="margin: auto; display: block;"/>
                 <br />
-            </t>
-            <table>
-                <colgroup>
-                    <col width="50%" />
-                    <col width="25%" />
-                    <col width="25%" />
-                </colgroup>
-                <tr t-foreach="orderlines" t-as="orderline">
-                    <td>
-                        <t t-esc="orderline.get_product().display_name"/>
-                         <t t-if="orderline.get_discount() > 0">
-                            <div class="pos-disc-font">
-                                With a <t t-esc="orderline.get_discount()"/>% discount
-                            </div>
-                        </t>
-                    </td>
-                    <td class="pos-right-align">
-                        <t t-esc="orderline.get_quantity_str_with_unit()"/>
-                    </td>
-                    <td class="pos-right-align">
-                        <t t-esc="widget.format_currency(orderline.get_display_price())"/>
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <t t-set="client" t-value="widget.pos.get('selectedOrder').get_client()" />
-            <div t-if="!client">
-                <span>No cash ticket</span>
-            </div>
-            <div t-if="client">
-               <t t-esc="client.parent_id ? (client.parent_id.name + ',') : ''"/> <!-- there is no parent_id -->
-               <t t-esc="client.name ? client.name : ''"/><br/>
-               <t t-esc="client.street ? client.street : ''"/><br/>
-               <t t-esc="client.street2 ? client.street2 : ''"/><br/>
-               <t t-esc="client.zip ? client.zip : ''"/>   <t t-esc="client.city ? client.city : ''"/><br/>
-               <t t-esc="client.vat ? client.vat : 'no vat'"/><br/>
-            </div>
-            <br/>
-            <table>
-                <tr>
-                    <td>Subtotal:</td>
-                    <td class="pos-right-align">
-                        <t t-esc="widget.format_currency(order.getTotalTaxExcluded())"/>
-                    </td>
-                </tr>
-                <t t-foreach="order.getTaxDetails()" t-as="taxdetail">
-                    <tr>
-                        <td><t t-esc="taxdetail.name" /></td>
+                <t t-esc="widget.pos.company.name"/><br />
+                <t t-esc="widget.pos.company.vat ? widget.pos.company.vat : ''" style="text-align: center;"/><br />
+                <t t-esc="widget.pos.company.city ? widget.pos.company.city : ''" style="text-align: center;"/><br />
+                Phone: <t t-esc="widget.pos.company.phone || ''"/><br />
+                User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
+                Shop: <t t-esc="widget.pos.shop.name"/><br />
+                <br />
+                <t t-if="widget.pos.config.receipt_header">
+                    <div style="text-align:center">
+                        <t t-esc="widget.pos.config.receipt_header" />
+                    </div>
+                    <br />
+                </t>
+                <table>
+                    <colgroup>
+                        <col width="50%" />
+                        <col width="25%" />
+                        <col width="25%" />
+                    </colgroup>
+                    <tr t-foreach="orderlines" t-as="orderline">
+                        <td>
+                            <t t-esc="orderline.get_product().display_name"/>
+                             <t t-if="orderline.get_discount() > 0">
+                                <div class="pos-disc-font">
+                                    With a <t t-esc="orderline.get_discount()"/>% discount
+                                </div>
+                            </t>
+                        </td>
                         <td class="pos-right-align">
-                            <t t-esc="widget.format_currency(taxdetail.amount)" />
+                            <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(orderline.get_display_price())"/>
                         </td>
                     </tr>
-                </t>
-                <tr>
-                    <td>Discount:</td>
-                    <td class="pos-right-align">
-                        <t t-esc="widget.format_currency(order.getDiscountTotal())"/>
-                    </td>
-                </tr>
-                <tr class="emph">
-                    <td>Total:</td>
-                    <td class="pos-right-align">
-                        <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/>
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <table>
-                <tr t-foreach="paymentlines" t-as="line">
-                    <td>
-                        <t t-esc="line.name"/>
-                    </td>
-                    <td class="pos-right-align">
-                        <t t-esc="widget.format_currency(line.get_amount())"/>
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <table>
-                <tr><td>Change:</td><td class="pos-right-align">
-                    <t t-esc="widget.format_currency(order.getChange())"/>
-                    </td></tr>
-            </table>
-            <t t-if="widget.pos.config.receipt_footer">
+                </table>
                 <br />
-                <div style="text-align:center">
-                    <t t-esc="widget.pos.config.receipt_footer" />
+                <t t-set="client" t-value="widget.pos.get('selectedOrder').get_client()" />
+                <div t-if="!client">
+                    <span>No cash ticket</span>
                 </div>
-            </t>
+                <div t-if="client">
+                   <t t-esc="client.parent_id ? (client.parent_id.name + ',') : ''"/> <!-- there is no parent_id -->
+                   <t t-esc="client.name ? client.name : ''"/><br/>
+                   <t t-esc="client.street ? client.street : ''"/><br/>
+                   <t t-esc="client.street2 ? client.street2 : ''"/><br/>
+                   <t t-esc="client.zip ? client.zip : ''"/>   <t t-esc="client.city ? client.city : ''"/><br/>
+                   <t t-esc="client.vat ? client.vat : 'no vat'"/><br/>
+                </div>
+                <br/>
+                <table>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(order.getTotalTaxExcluded())"/>
+                        </td>
+                    </tr>
+                    <t t-foreach="order.getTaxDetails()" t-as="taxdetail">
+                        <tr>
+                            <td><t t-esc="taxdetail.name" /></td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(taxdetail.amount)" />
+                            </td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td>Discount:</td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(order.getDiscountTotal())"/>
+                        </td>
+                    </tr>
+                    <tr class="emph">
+                        <td>Total:</td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <table>
+                    <tr t-foreach="paymentlines" t-as="line">
+                        <td>
+                            <t t-esc="line.name"/>
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(line.get_amount())"/>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <table>
+                    <tr><td>Change:</td><td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.getChange())"/>
+                        </td></tr>
+                </table>
+                <t t-if="widget.pos.config.receipt_footer">
+                    <br />
+                    <div style="text-align:center">
+                        <t t-esc="widget.pos.config.receipt_footer" />
+                    </div>
+                </t>
+            </div>
         </t>
     </t>
 
