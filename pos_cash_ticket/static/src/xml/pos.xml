@@ -5,7 +5,7 @@
 <template>
     <t t-extend="PosTicket">
         <t t-jquery=".pos-sale-ticket" t-operation="replace">
-            <div class="pos-sale-ticket">
+            <div class="pos-sale-ticket" style="font-family: inherit !important;">
                 <div class="pos-center-align"><t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
                     Date.CultureInfo.formatPatterns.longTime)"/> <t t-esc="order.get('name')"/></div>
                 <img src="/company_logo.png" style="margin: auto; display: block;"/>
@@ -17,6 +17,19 @@
                 User: <t t-esc="widget.pos.cashier ? widget.pos.cashier.name : widget.pos.user.name"/><br />
                 Shop: <t t-esc="widget.pos.shop.name"/><br />
                 <br />
+                <t t-set="client" t-value="widget.pos.get('selectedOrder').get_client()" />
+                <div t-if="!client">
+                    <span>No cash ticket</span>
+                </div>
+                <div t-if="client">
+                   <t t-esc="client.parent_id ? (client.parent_id.name + ',') : ''"/> <!-- there is no parent_id -->
+                   <t t-esc="client.name ? client.name : ''"/><br/>
+                   <t t-esc="client.street ? client.street : ''"/><br/>
+                   <t t-esc="client.street2 ? client.street2 : ''"/><br/>
+                   <t t-esc="client.zip ? client.zip : ''"/>   <t t-esc="client.city ? client.city : ''"/><br/>
+                   <t t-esc="client.vat ? client.vat : 'no vat'"/><br/>
+                </div>
+                <br/>
                 <t t-if="widget.pos.config.receipt_header">
                     <div style="text-align:center">
                         <t t-esc="widget.pos.config.receipt_header" />
@@ -47,19 +60,6 @@
                     </tr>
                 </table>
                 <br />
-                <t t-set="client" t-value="widget.pos.get('selectedOrder').get_client()" />
-                <div t-if="!client">
-                    <span>No cash ticket</span>
-                </div>
-                <div t-if="client">
-                   <t t-esc="client.parent_id ? (client.parent_id.name + ',') : ''"/> <!-- there is no parent_id -->
-                   <t t-esc="client.name ? client.name : ''"/><br/>
-                   <t t-esc="client.street ? client.street : ''"/><br/>
-                   <t t-esc="client.street2 ? client.street2 : ''"/><br/>
-                   <t t-esc="client.zip ? client.zip : ''"/>   <t t-esc="client.city ? client.city : ''"/><br/>
-                   <t t-esc="client.vat ? client.vat : 'no vat'"/><br/>
-                </div>
-                <br/>
                 <table>
                     <tr>
                         <td>Subtotal:</td>
