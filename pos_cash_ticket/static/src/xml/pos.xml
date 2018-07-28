@@ -8,7 +8,7 @@
             <div class="pos-sale-ticket" style="font-family: inherit !important;">
                 <div class="pos-center-align"><t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
                     Date.CultureInfo.formatPatterns.longTime)"/> <t t-esc="order.get('name')"/></div>
-                <img src="/company_logo.png" style="margin: auto; display: block;"/>
+                <img src="/company_logo.png" style="margin: auto; display: block; width: 100%;"/>
                 <br />
                 <t t-esc="widget.pos.company.name"/><br />
                 <t t-esc="widget.pos.company.vat ? widget.pos.company.vat : ''" style="text-align: center;"/><br />
