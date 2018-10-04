@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution, third party addon
-#    Copyright (C) 2004-2016 Vertel AB (<http://vertel.se>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2017- Vertel (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,22 +20,20 @@
 ##############################################################################
 
 {
-    'name': 'POS Partner',
+    'name': 'POS Ref',
     'version': '0.1',
     'category': 'pos',
-    'summary': 'Connect Partner to POS-orders',
+    'summary': 'Override post.order name',
     'licence': 'AGPL-3',
     'description': """
-        Adds POS Order button to Partner
+Override post.order name in session
+===================================
 """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': ['point_of_sale',],
-    #~ 'external_dependencies': {
-        #~ 'python': ['jsonrpclib'],
-    #~ },
-    'data': ['res_partner_view.xml'],
-    'qweb': ['static/src/xml/*.xml'],
+    'data': [],
+    'qweb': ['static/src/xml/pos.xml'],
     'application': False,
     'installable': True,
     'demo': [],

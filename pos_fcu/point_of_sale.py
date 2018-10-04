@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution, third party addon
-#    Copyright (C) 2004-2016 Vertel AB (<http://vertel.se>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2017- Vertel (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,12 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models, fields, api, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo import models, fields, api, _
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
-from openerp import http
-from openerp.http import request
-from openerp import SUPERUSER_ID
+from odoo import http
+from odoo.http import request
+from odoo import SUPERUSER_ID
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -36,13 +36,13 @@ class pos_config(models.Model):
     iface_fcu = fields.Boolean(string="Financial Control Unit")
     fcu_contract = fields.Char(string="FCU Contract")
     fcu_server = fields.Char("FCU Server (http://server[:port])")
-    
+
 class pos_order(models.Model):
     """ POS order  """
     _inherit = 'pos.order'
 
     fcu_id = fields.Char()
-    
+
     #~ @api.multi
     #~ def action_done(self):
         #~ _logger.error('POS: %s' % self)
@@ -59,9 +59,9 @@ class pos_order(models.Model):
             #~ o_list = super(pos_order, s).create_from_ui(orders)
         #~ return o_list
         #~ #raise Warning('Action create_from_ui %s %s %s' % (orders,o_list,self))
-        
-    
- 
+
+
+
     def _process_order(self,cr, uid, order, context=None):
         _logger.error('POS: %s' % order)
         order_id = super(pos_order, self)._process_order(cr,uid,order,context)
@@ -69,14 +69,14 @@ class pos_order(models.Model):
         o = self.browse(cr,uid,order_id)
         # pos_client = fcu_post({'reciept':''},contract,app_id)
         o.fcu_id = "controle_code"  # get controle_code
-        
-        
+
+
 #pos_fcu.py
 
 import jsonrpclib
 
 class fcu_post(object):
-    
+
     def __init__(self):
         # server proxy object
         url = "http://%s:%s/jsonrpc" % ('localhost', '8069')
@@ -103,7 +103,7 @@ class fcu_post(object):
         #~ note_id = invoke('note.note', 'create', args)
 
 
-        
+
 class pos_fcu_json(http.Controller):
 
     @http.route(['/pos_fcu/<string:form_name>/add', ], type='json', auth="none",)
@@ -148,27 +148,27 @@ https://www.skatteverket.se/rattsinformation/arkivforrattsligvagledning/foreskri
 http://www4.skatteverket.se/download/18.7d4d4f0515244e542f5a9fd/1453733397842/SKVFS+2009+2.pdf
 http://www.skatteverket.se/download/18.76a43be412206334b89800012557/SKVFS+2009.03.pd
 https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/anmalakassaregisterandringarochfel.4.69ef368911e1304a62580008748.html
-Data 	Beskrivning 	Format
-Datum och tid 	Datum och klockslag för försäljning enligt 28 § c SKVFS 2009:1 	12 siffror, format YYYYMMDDttmm
-Organisationsnummer 	Företagets organisationsnummer eller personnummer enligt 28 § a SKVFS 2009:1 	10 siffror
-Kassabeteckning 	Kassabeteckning enligt 10 § SKVFS 2009:3 	Maximalt 16 alfanumeriska tecken
-Löpnummer 	Löpnummer enligt 28 § d SKVFS 2009:1 	Maximalt 12 siffror
-Kvittotyp 	Beroende av kvittotyp ska motsvarande text skapas: 	Maximalt 6 alfanumeriska tecken
-  	- normal 	 
-  	- kopia 	 
-  	- ovning 	 
-  	- profo 	 
-Returbelopp 	Absolutvärde för summerat belopp returposter på ett kvitto 	Maximalt 14 tecken inkl. decimalkomma*)
-Försäljningsbelopp 	Belopp för kunden att betala enligt 28 § h SKVFS 2009:1 	Maximalt 14 tecken inkl. decimalkomma*)
-Momssats 1; Momssumma 1 	Första momssats i procent; Belopp första momssats enligt 28 § j SKVFS 2009:1 	<Procentsats>;<Belopp> Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
-Momssats 2; Momssumma 2 	Andra momssats i procent; Belopp andra momssats enligt 28 § j SKVFS 2009:1 	Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
-Momssats 3; Momssumma 3 	Tredje momssats i procent; Belopp tredje momssats enligt 28 § j SKVFS 2009:1 	<Procentsats>;<Belopp> Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
-Momssats 4; Momssumma 4 	Fjärde momssats i procent; Belopp fjärde momssats enligt 28 § j SKVFS 2009:1 	<Procentsats>;<Belopp> Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
+Data    Beskrivning     Format
+Datum och tid   Datum och klockslag för försäljning enligt 28 § c SKVFS 2009:1  12 siffror, format YYYYMMDDttmm
+Organisationsnummer     Företagets organisationsnummer eller personnummer enligt 28 § a SKVFS 2009:1    10 siffror
+Kassabeteckning     Kassabeteckning enligt 10 § SKVFS 2009:3    Maximalt 16 alfanumeriska tecken
+Löpnummer   Löpnummer enligt 28 § d SKVFS 2009:1    Maximalt 12 siffror
+Kvittotyp   Beroende av kvittotyp ska motsvarande text skapas:  Maximalt 6 alfanumeriska tecken
+    - normal
+    - kopia
+    - ovning
+    - profo
+Returbelopp     Absolutvärde för summerat belopp returposter på ett kvitto  Maximalt 14 tecken inkl. decimalkomma*)
+Försäljningsbelopp  Belopp för kunden att betala enligt 28 § h SKVFS 2009:1     Maximalt 14 tecken inkl. decimalkomma*)
+Momssats 1; Momssumma 1     Första momssats i procent; Belopp första momssats enligt 28 § j SKVFS 2009:1    <Procentsats>;<Belopp> Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
+Momssats 2; Momssumma 2     Andra momssats i procent; Belopp andra momssats enligt 28 § j SKVFS 2009:1  Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
+Momssats 3; Momssumma 3     Tredje momssats i procent; Belopp tredje momssats enligt 28 § j SKVFS 2009:1    <Procentsats>;<Belopp> Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
+Momssats 4; Momssumma 4     Fjärde momssats i procent; Belopp fjärde momssats enligt 28 § j SKVFS 2009:1    <Procentsats>;<Belopp> Procentsats: maximalt 5 tecken inkl. decimalkomma.*) Belopp: maximalt 14 tecken inkl. decimalkomma.*) Fältlängd: 20 tecken inkl. semikolon.
 *) Det ska alltid vara två siffror efter decimalkommat
 
- 
-5 §    Data ska vara i ASCII teckenformat och högerjusterad, eventuellt ifylld med blanka tecken (mellanslag) för att uppnå angiven fältlängd.  
-"""  
+
+5 §    Data ska vara i ASCII teckenformat och högerjusterad, eventuellt ifylld med blanka tecken (mellanslag) för att uppnå angiven fältlängd.
+"""
 
 
 class account_analytic_account(models.Model):
@@ -176,6 +176,6 @@ class account_analytic_account(models.Model):
 
     cash_register_id = fields.Char()
     app_id = fields.Char()
-    
+
     def fcu_post(self,reciept,app_id):
         return "control_code"

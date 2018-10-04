@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2008 PC Solutions (<http://pcsol.be>). All Rights Reserved
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2017- Vertel (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,9 +28,9 @@ import time
 import random
 import werkzeug.utils
 
-from openerp import http
-from openerp.http import request
-from openerp.addons.web.controllers.main import module_boot, login_redirect
+from odoo import http
+from odoo.http import request
+from odoo.addons.web.controllers.main import module_boot, login_redirect
 
 _logger = logging.getLogger(__name__)
 

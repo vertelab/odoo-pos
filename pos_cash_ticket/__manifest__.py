@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution, third party addon
-#    Copyright (C) 2004-2016 Vertel AB (<http://vertel.se>).
+#    Odoo, Open Source Management Solution
+#    Copyright (C) 2017- Vertel (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,16 +20,16 @@
 ##############################################################################
 
 {
-    'name': 'POS Financial Control Unit',
+    'name': 'POS Cash Ticket',
     'version': '0.1',
     'category': 'pos',
-    'summary': 'Sends transactions to a FCU',
+    'summary': 'Ticket with more information of the buyer',
     'licence': 'AGPL-3',
     'description': """
-According to tax regulations in some countries POS and Cash registers has to send 
-a copy of their transactions to a Financial Control Unit, a sield piece 
+According to tax regulations in some countries POS and Cash registers has to send
+a copy of their transactions to a Financial Control Unit, a sield piece
 of harware from Tax Agency (Skatteverket in Sweden).
-The POS-system should be connected to a certified control unit that reads the 
+The POS-system should be connected to a certified control unit that reads the
 registrations in the cash register and generates a control code and has
 to be declaired by manufacutrer.
 
@@ -37,15 +37,41 @@ https://www.skatteverket.se/rattsinformation/arkivforrattsligvagledning/foreskri
 https://www.skatteverket.se/download/18.3810a01c150939e893f20d61/1453380934762/613B02.pdf
 
 To be approved, a cash register needs to meet the following requirements
-• It should have a manufacturer’s declaration – note 
-that a new declaration must also be issued with 
+• It should have a manufacturer’s declaration – note
+that a new declaration must also be issued with
 each new version of the cash register.
-• It should be connected to a certified control unit 
-that reads the registrations in the cash register and 
+• It should be connected to a certified control unit
+that reads the registrations in the cash register and
 generates a control code.
 
 
 https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/anmalakassaregisterandringarochfel.4.69ef368911e1304a62580008748.html
+
+
+
+Fakturan ska innehålla
+
+    Datum då fakturan är utställd
+    Fakturanummer
+    Säljarens och köparens adress
+    Säljarens momsregistreringsnummer
+    Köparens momsregistreringsnummer i vissa fall (t ex vid EU-handel)
+    Transaktionens art och omfattning
+    Datum då leverans eller tillhandahållande skett eller a contobetalning (delbetalning, vanligen i form av förskottsbetalning) gjorts om det är annat än fakturadatum
+    Specifikation (vad fakturan omfattar)
+    Pris
+    Beskattningsunderlag för varje momssats eller undantag
+    Tillämpad momssats
+    Momsbelopp
+    Vid befrielse från moms – hänvisning till relevant bestämmelse.
+
+I aktiebolag är följande uppgifter obligatoriska
+
+    I vilken kommun bolaget har sitt säte.
+    Bolagets organisationsnummer.
+    Bolagets namn.
+
+
 
 """,
     'author': 'Vertel AB',
@@ -54,7 +80,8 @@ https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/an
     'external_dependencies': {
         'python': ['jsonrpclib'],
     },
-    'data': [],
+    'data': ['point_of_sale.xml','res_company_view.xml'],
+    'qweb': ['static/src/xml/*.xml'],
     'application': False,
     'installable': True,
     'demo': [],

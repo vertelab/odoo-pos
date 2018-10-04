@@ -18,31 +18,26 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from odoo import models, fields, api, _
-from odoo import http
-from odoo.http import request
-import werkzeug
-from openerp.exceptions import except_orm, Warning, RedirectWarning
 
-import logging
-_logger = logging.getLogger(__name__)
-
-
-class res_company(models.Model):
-    _inherit = 'res.company'
-
-    pos_logo = fields.Binary(string="POS Logo")
-
-class companyLogo(http.Controller):
-
-    @http.route(['/company_logo.png'], type='http', auth="public", website=True)
-    def company_logo(self):
-        company = request.env['res.users'].browse(request.env.uid).company_id
-        response = werkzeug.wrappers.Response()
-        if company.pos_logo:
-            return request.env['website']._image('res.company', company.id, 'pos_logo', response, max_width=None, max_height=200)
-        elif company.logo:
-            return request.env['website']._image('res.company', company.id, 'logo', response, max_width=None, max_height=200)
-        else:
-            return None
-
+{
+    'name': 'POS Partner',
+    'version': '0.1',
+    'category': 'pos',
+    'summary': 'Connect Partner to POS-orders',
+    'licence': 'AGPL-3',
+    'description': """
+        Adds POS Order button to Partner
+""",
+    'author': 'Vertel AB',
+    'website': 'http://www.vertel.se',
+    'depends': ['point_of_sale',],
+    #~ 'external_dependencies': {
+        #~ 'python': ['jsonrpclib'],
+    #~ },
+    'data': ['res_partner_view.xml'],
+    'qweb': ['static/src/xml/*.xml'],
+    'application': False,
+    'installable': True,
+    'demo': [],
+}
+# vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:
