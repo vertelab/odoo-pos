@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="x_daily_report_document" name="X Daily Report Document">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.user_id.partner_id.lang})" />
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <h2>X Daily Report</h2>
+                    <div class="row">
+                        <table class="table table-striped table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td>Company</td><td><t t-esc="doc.get_company_name()"/> (<t t-esc="doc.get_company_orgnr()"/>)</td>
+                                </tr>
+                                <tr>
+                                    <td>Date &amp; Time</td><td><t t-esc="doc.stop_at"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Statement that it is an X-day report</td><td>This is a X-daily-report</td>
+                                </tr>
+                                <tr>
+                                    <td>POS designation</td><td><t t-esc="doc.config_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Total sales sum (total sales amount)</td><td><t t-esc="doc.get_sale_total_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Total sales sum for different main groups if main groups are used</td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax 25%</td><td><t t-esc="doc.get_tax_mp1_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax 12%</td><td><t t-esc="doc.get_tax_mp2_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax 6%</td><td><t t-esc="doc.get_tax_mp3_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Incoming exchange</td><td><t t-esc="doc.get_incoming_exchange()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sold goods quantity</td><td><t t-esc="doc.get_sold_goods_quantity()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sold services quantity</td><td><t t-esc="doc.get_sold_services_quantity()"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <small class="text-muted">
+                            <ul>
+                            <li>företagets namn och organisationsnummer eller personnummer</li>
+                            <li>datum och klockslag</li>
+                            <li>uppgift att det är en X-dagrapport</li>
+                            <li>kassabeteckning</li>
+                            <li>total försäljningssumma (summerade försäljningsbelopp)</li>
+                            <li>total försäljningssumma för olika huvudgrupper om huvudgrupper används</li>
+                            <li>mervärdesskatten fördelad på olika mervärdesskattesatser</li>
+                            <li>ingående växelkassa</li>
+                            <li>antal sålda varor</li>
+                            <li>antal sålda tjänster</li>
+                            <li>antal kassakvitton</li>
+                            <li>antal lådöppningar</li>
+                            <li>antal kvittokopior och belopp</li>
+                            <li>antal registreringar i övningsläge och belopp</li>
+                            <li>försäljningssumman fördelad på olika betalningsmedel</li>
+                            <li>antal returer och belopp</li>
+                            <li>rabatter</li>
+                            <li>övriga registreringar som minskat dagens försäljning och till vilket  belopp</li>
+                            <li>antal oavslutade försäljningar</li>
+                            <li>grand total försäljning</li>
+                            <li>grand total retur</li>
+                            <li>grand total netto.</li>
+                            </ul>
+                        </small>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="x_daily_report" name="X Daily Report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="pos_fcu.x_daily_report_document" t-lang="doc.user_id.partner_id.lang" />
+                </t>
+            </t>
+        </template>
+        <template id="z_daily_report_document" name="Z Daily Report Document">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.user_id.partner_id.lang})" />
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <h2>Z Daily Report</h2>
+                    <div class="row">
+                        <small class="text-muted">
+                            <ul>
+                            <li>företagets namn och organisationsnummer eller personnummer</li>
+                            <li>datum och klockslag</li>
+                            <li>löpnummer ur en obruten stigande nummerserie</li>
+                            <li>uppgift att det är en Z-dagrapport</li>
+                            <li>kassabeteckning</li>
+                            <li>total försäljningssumma (summerade försäljningsbelopp)</li>
+                            <li>total försäljningssumma för olika huvudgrupper om huvudgrupper används</li>
+                            <li>mervärdesskatten fördelad på olika mervärdesskattesatser</li>
+                            <li>ingående växelkassa</li>
+                            <li>antal sålda varor</li>
+                            <li>antal sålda tjänster</li>
+                            <li>antal kassakvitton</li>
+                            <li>antal lådöppningar</li>
+                            <li>antal kvittokopior och belopp</li>
+                            <li>antal registreringar i övningsläge och belopp</li>
+                            <li>försäljningssumman fördelad på olika betalningsmedel</li>
+                            <li>antal returer och belopp</li>
+                            <li>rabatter</li>
+                            <li>övriga transaktioner som minskat dagens försäljningsbelopp och till vilket  belopp</li>
+                            <li>antal oavslutade försäljningar</li>
+                            <li>grand total försäljning</li>
+                            <li>grand total retur</li>
+                            <li>grand total netto.</li>
+                            </ul>
+                        </small>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <template id="z_daily_report" name="Z Daily Report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="pos_fcu.z_daily_report_document" t-lang="doc.user_id.partner_id.lang" />
+                </t>
+            </t>
+        </template>
+        <report
+            id="report_x_daily_report"
+            model="pos.session"
+            string="Print X Daily Report"
+            report_type="qweb-pdf"
+            name="pos_fcu.x_daily_report"
+            file="pos_fcu.x_daily_report"
+            attachment_use="False"
+            attachment="('X-report-'+(object.name or '').replace('/','')+'.pdf')"
+        />
+        <report
+            id="report_z_daily_report"
+            model="pos.session"
+            string="Print Z Daily Report"
+            report_type="qweb-pdf"
+            name="pos_fcu.z_daily_report"
+            file="pos_fcu.z_daily_report"
+            attachment_use="False"
+            attachment="('Z-report-'+(object.name or '').replace('/','')+'.pdf')"
+        />
+    </data>
+</odoo>

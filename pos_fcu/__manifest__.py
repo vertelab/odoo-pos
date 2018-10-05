@@ -27,7 +27,7 @@
     'licence': 'AGPL-3',
     'description': """
 According to tax regulations in some countries POS and Cash registers has to send
-a copy of their transactions to a Financial Control Unit, a sield piece
+a copy of their transactions to a Financial Control Unit, a sealed piece
 of harware from Tax Agency (Skatteverket in Sweden).
 The POS-system should be connected to a certified control unit that reads the
 registrations in the cash register and generates a control code and has
@@ -50,11 +50,14 @@ https://www.skatteverket.se/foretagochorganisationer/foretagare/kassaregister/an
 """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['point_of_sale',],
+    'depends': ['point_of_sale', 'l10n_se'],
     'external_dependencies': {
         'python': ['jsonrpclib'],
     },
-    'data': [],
+    'data': [
+        'reports.xml',
+        'point_of_sale_view.xml',
+    ],
     'application': False,
     'installable': True,
     'demo': [],

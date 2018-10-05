@@ -60,18 +60,73 @@ class pos_order(models.Model):
         #~ return o_list
         #~ #raise Warning('Action create_from_ui %s %s %s' % (orders,o_list,self))
 
-
-
-    def _process_order(self,cr, uid, order, context=None):
+    def _process_order(self, order):
         _logger.error('POS: %s' % order)
-        order_id = super(pos_order, self)._process_order(cr,uid,order,context)
-        _logger.error('POS: %s' % order_id)
-        o = self.browse(cr,uid,order_id)
+        res = super(pos_order, self)._process_order(order)
+        _logger.error('POS: %s' % res)
+        o = self.browse(res.id)
         # pos_client = fcu_post({'reciept':''},contract,app_id)
-        o.fcu_id = "controle_code"  # get controle_code
-
+        o.fcu_id = "controle_code %s" %o.id # get controle_code
+        return res
 
 #pos_fcu.py
+
+class post_session(models.Model):
+    _inherit = 'pos.session'
+
+    @api.multi
+    def get_company_name(self):
+        self.ensure_one()
+        return self.env.user.partner_id.company_id.name
+
+    @api.multi
+    def get_company_orgnr(self):
+        self.ensure_one()
+        return self.env.user.partner_id.company_id.company_registry
+
+    @api.multi
+    def get_company_currency(self):
+        self.ensure_one()
+        return self.env.user.partner_id.company_id.currency_id.symbol
+
+    @api.multi
+    def get_sale_total_amount(self):
+        self.ensure_one()
+        return sum(self.statement_ids.mapped('total_entry_encoding'))
+
+    # only on tax in line
+    @api.multi
+    def get_tax_mp1_amount(self):
+        self.ensure_one()
+        lines = self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: self.env['account.tax'].search([('name', '=', 'MP1')]) in l.tax_ids)
+        return sum([(line.price_subtotal_incl - line.price_subtotal) for line in lines])
+
+    @api.multi
+    def get_tax_mp2_amount(self):
+        self.ensure_one()
+        lines = self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: self.env['account.tax'].search([('name', '=', 'MP2')]) in l.tax_ids)
+        return sum([(line.price_subtotal_incl - line.price_subtotal) for line in lines])
+
+    @api.multi
+    def get_tax_mp3_amount(self):
+        self.ensure_one()
+        lines = self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: self.env['account.tax'].search([('name', '=', 'MP3')]) in l.tax_ids)
+        return sum([(line.price_subtotal_incl - line.price_subtotal) for line in lines])
+
+    @api.multi
+    def get_incoming_exchange(self):
+        return sum(self.statement_ids.mapped('balance_start'))
+
+    @api.multi
+    def get_sold_goods_quantity(self):
+        self.ensure_one()
+        return sum(self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: l.product_id.type != 'service').mapped('qty'))
+
+    @api.multi
+    def get_sold_services_quantity(self):
+        self.ensure_one()
+        return sum(self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: l.product_id.type == 'service').mapped('qty'))
+
 
 import jsonrpclib
 
@@ -103,12 +158,10 @@ class fcu_post(object):
         #~ note_id = invoke('note.note', 'create', args)
 
 
-
 class pos_fcu_json(http.Controller):
 
-    @http.route(['/pos_fcu/<string:form_name>/add', ], type='json', auth="none",)
-    def fcu_add(self, form_name=False,**post):
-        cr, uid, context, pool = request.cr, request.uid, request.context, request.registry
+    @http.route(['/pos_fcu/<string:form_name>/add', ], type='json', auth="public",)
+    def fcu_add(self, form_name=False, **post):
         return {
             'form_name': form_name,
             #'appcert': appcert,
@@ -119,12 +172,11 @@ class pos_fcu_json(http.Controller):
             'post': post,
         }
     @http.route(['/post_fcu/<string:contract>/post', ], type='json', auth="public",)
-    def fcu_post(self,contract=None,appcert=None,**post):
-        cr, uid, context, pool = request.cr, request.uid, request.context, request.registry
+    def fcu_post(self, contract=None, appcert=None, **post):
         contract = request.env['account.analytic.account'].search([('cash_register_id','=',contract)])
         if contract:
             return {
-                'control_code': contract.fcu_post(reciept,appcert),
+                'control_code': contract.fcu_post(reciept, appcert),
             }
         return {
             'appcert': appcert,
