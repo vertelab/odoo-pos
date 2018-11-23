@@ -28,6 +28,10 @@ from odoo import SUPERUSER_ID
 import logging
 _logger = logging.getLogger(__name__)
 
+class AccountTax(models.Model):
+    _inherit = 'account.tax'
+
+    is_fcu_vat = fields.Boolean(string='FCU VAT', help='Checking this will make the FCU count this tax as VAT.')
 
 class pos_config(models.Model):
     """ POS config  """
@@ -37,6 +41,10 @@ class pos_config(models.Model):
     fcu_contract = fields.Char(string="FCU Contract")
     fcu_server = fields.Char("FCU Server (http://server[:port])")
     cash_register_id = fields.Char()
+    registry_id = fields.Many2one(string='Registry', comodel_name='pos.registry', compute='_get_registry_id')
+    
+    def _get_registry_id(self):
+        self.registry_id = self.env['pos.registry'].sudo().search([('pos_id', '=', self.id)])
     
     def fcu_post(self, reciept, app_id):
         return "control_code"
@@ -115,7 +123,7 @@ c. löpnummer ur en obruten stigande nummerserie
 d. uppgift att det är en Z-dagrapport
 e. kassabeteckning                                                                          pos_config.cash_register_id
 f. total försäljningssumma (summerade försäljningsbelopp)
-g. total försäljningssumma för olika huvudgrupper om huvudgrupper används
+g. total försäljningssumma för olika huvudgrupper om huvudgrupper används                   vad är en huvudgrupp? kategori?
 h. mervärdesskatten fördelad på olika mervärdesskattesatser
 i. växelkassa
 j. antal sålda varor
@@ -134,6 +142,14 @@ v. grand total retur
 w. grand total netto.
 """
 
+# javascript
+# PaymentScreenWidget.validate_order > finalize_validation > push_order
+#     * registrera med FCU
+#     * skriv ut kvitto
+
+# ReceiptScreenWidget.print
+#     * registrera utskrift av kvittokopia
+
 #pos_fcu.py
 class pos_registry(models.Model):
     _name = 'pos.registry'
@@ -141,28 +157,65 @@ class pos_registry(models.Model):
     
     serial_no = fields.Char(string='Serial')
     line_ids = fields.One2many(comodel_name='pos.registry.line', inverse_name='registry_id', string='Registry Lines')
+    pos_id = fields.Many2one(string='POS', comodel_name='pos.config', required=True)
 
-    @api.multi
-    def write(self, values):
-        raise Warning(_("You are not allowed to change the POS registry!"))
+    # ~ @api.multi
+    # ~ def write(self, values):
+        # ~ raise Warning(_("You are not allowed to change the POS registry!"))
 
-    @api.multi
-    def unlink(self):
-        raise Warning(_("You are not allowed to change the POS registry!"))
+    # ~ @api.multi
+    # ~ def unlink(self):
+        # ~ raise Warning(_("You are not allowed to change the POS registry!"))
     
 class pos_registry_line(models.Model):
     _name = 'pos.registry.line'
     _description = 'POS Registry Line'
 
     registry_id = fields.Many2one(comodel_name='pos.registry', string='Registry')
+    receipt_id = fields.Many2one(comodel_name='pos.registry.receipt', string='Receipt')
+    type = fields.Selection([
+        ('receipt', 'Receipt'),
+        ('open', 'Registry Opened'),
+        ('price_change', 'Price Change')])
+    date = fields.Datetime(string='Date')
+    
+    # ~ @api.multi
+    # ~ def write(self, values):
+        # ~ raise Warning(_("You are not allowed to change the POS registry!"))
 
-    @api.multi
-    def write(self, values):
-        raise Warning(_("You are not allowed to change the POS registry!"))
+    # ~ @api.multi
+    # ~ def unlink(self):
+        # ~ raise Warning(_("You are not allowed to change the POS registry!"))
+    
+class pos_registry_receipt(models.Model):
+    _name = 'pos.registry.receipt'
+    _description = 'POS Registry Receipt'
 
-    @api.multi
-    def unlink(self):
-        raise Warning(_("You are not allowed to change the POS registry!"))
+    control_code = fields.Char(string='Control Code', help="Control code from the FCU.")
+    vat_25 = fields.Float(string='VAT 25%')
+    vat_12 = fields.Float(string='VAT 12%')
+    vat_6 = fields.Float(string='VAT 6%')
+    discount = fields.Float(string='Discount Total')
+    is_copy = fields.Float(string='Copy', help="This is a copy of a receipt.")
+    
+
+    refund = fields.Boolean(string='Refund')
+
+    # ~ @api.multi
+    # ~ def write(self, values):
+        # ~ raise Warning(_("You are not allowed to change the POS registry!"))
+
+    # ~ @api.multi
+    # ~ def unlink(self):
+        # ~ raise Warning(_("You are not allowed to change the POS registry!"))
+
+# ~ class pos_registry_receipt_line(models.Model):
+    # ~ _name = 'pos.registry.receipt.line'
+    # ~ _description = 'POS Registry Receipt Line'
+    
+    # ~ name = fields.Char(string='Name')
+    # ~ product_id = fields.Many2one(string='Product', comodel_name='product.product')
+    # ~ price = 
 
 class pos_session(models.Model):
     _inherit = 'pos.session'
@@ -221,7 +274,7 @@ class pos_session(models.Model):
         return sum(self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: l.product_id.type == 'service').mapped('qty'))
 
 
-import jsonrpclib
+# ~ import jsonrpclib
 
 class fcu_post(object):
 
