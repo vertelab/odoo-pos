@@ -38,7 +38,10 @@ class pos_order_line(models.Model):
     @api.depends('product_id', 'qty', 'price_unit', 'price_subtotal', 'margin')
     def _margin_ratio(self):
         for line in self:
-            line.margin_ratio = round(line.margin / line.price_subtotal, 4) * 100
+            if line.price_subtotal == 0.0:
+                line.margin_ratio = 0.0
+            else:
+                line.margin_ratio = round(line.margin / line.price_subtotal, 4) * 100
 
 
 class pos_order(models.Model):
