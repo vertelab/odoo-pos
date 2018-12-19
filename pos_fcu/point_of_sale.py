@@ -42,10 +42,10 @@ class pos_config(models.Model):
     fcu_server = fields.Char("FCU Server (http://server[:port])")
     cash_register_id = fields.Char()
     registry_id = fields.Many2one(string='Registry', comodel_name='pos.registry', compute='_get_registry_id')
-    
+
     def _get_registry_id(self):
         self.registry_id = self.env['pos.registry'].sudo().search([('pos_id', '=', self.id)])
-    
+
     def fcu_post(self, reciept, app_id):
         return "control_code"
 
@@ -80,7 +80,7 @@ class pos_order(models.Model):
         # pos_client = fcu_post({'reciept':''},contract,app_id)
         o.fcu_id = "controle_code %s" %o.id # get controle_code
         return res
-    
+
     # ~ @api.model
     # ~ def create_from_ui(self, orders):
         # ~ """Create new POS orders from the POS UI."""
@@ -113,13 +113,13 @@ class pos_order(models.Model):
                 # ~ pos_order.invoice_id.sudo().action_invoice_open()
                 # ~ pos_order.account_move = pos_order.invoice_id.move_id
         # ~ return order_ids
-    
+
     """
-Z-dagrapport 
+Z-dagrapport
 3 § En Z-dagrapport ska minst innehålla uppgifter om
 a. företagets namn och organisationsnummer eller personnummer
 b. datum och klockslag för när rapporten tas fram
-c. löpnummer ur en obruten stigande nummerserie                                             
+c. löpnummer ur en obruten stigande nummerserie
 d. uppgift att det är en Z-dagrapport
 e. kassabeteckning                                                                          pos_config.cash_register_id
 f. total försäljningssumma (summerade försäljningsbelopp)
@@ -154,7 +154,7 @@ w. grand total netto.
 class pos_registry(models.Model):
     _name = 'pos.registry'
     _description = 'POS Registry'
-    
+
     serial_no = fields.Char(string='Serial')
     line_ids = fields.One2many(comodel_name='pos.registry.line', inverse_name='registry_id', string='Registry Lines')
     pos_id = fields.Many2one(string='POS', comodel_name='pos.config', required=True)
@@ -166,7 +166,7 @@ class pos_registry(models.Model):
     # ~ @api.multi
     # ~ def unlink(self):
         # ~ raise Warning(_("You are not allowed to change the POS registry!"))
-    
+
 class pos_registry_line(models.Model):
     _name = 'pos.registry.line'
     _description = 'POS Registry Line'
@@ -178,7 +178,7 @@ class pos_registry_line(models.Model):
         ('open', 'Registry Opened'),
         ('price_change', 'Price Change')])
     date = fields.Datetime(string='Date')
-    
+
     # ~ @api.multi
     # ~ def write(self, values):
         # ~ raise Warning(_("You are not allowed to change the POS registry!"))
@@ -186,7 +186,7 @@ class pos_registry_line(models.Model):
     # ~ @api.multi
     # ~ def unlink(self):
         # ~ raise Warning(_("You are not allowed to change the POS registry!"))
-    
+
 class pos_registry_receipt(models.Model):
     _name = 'pos.registry.receipt'
     _description = 'POS Registry Receipt'
@@ -197,7 +197,7 @@ class pos_registry_receipt(models.Model):
     vat_6 = fields.Float(string='VAT 6%')
     discount = fields.Float(string='Discount Total')
     is_copy = fields.Float(string='Copy', help="This is a copy of a receipt.")
-    
+
 
     refund = fields.Boolean(string='Refund')
 
@@ -212,10 +212,10 @@ class pos_registry_receipt(models.Model):
 # ~ class pos_registry_receipt_line(models.Model):
     # ~ _name = 'pos.registry.receipt.line'
     # ~ _description = 'POS Registry Receipt Line'
-    
+
     # ~ name = fields.Char(string='Name')
     # ~ product_id = fields.Many2one(string='Product', comodel_name='product.product')
-    # ~ price = 
+    # ~ price =
 
 class pos_session(models.Model):
     _inherit = 'pos.session'
@@ -239,6 +239,11 @@ class pos_session(models.Model):
     def get_sale_total_amount(self):
         self.ensure_one()
         return sum(self.statement_ids.mapped('total_entry_encoding'))
+
+    @api.multi
+    def get_total_sales_sum_for_different_main_groups_if_main_groups_are_used(self):
+        self.ensure_one()
+        return 0.0
 
     # only on tax in line
     @api.multi
@@ -273,6 +278,71 @@ class pos_session(models.Model):
         self.ensure_one()
         return sum(self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]).filtered(lambda l: l.product_id.type == 'service').mapped('qty'))
 
+    @api.multi
+    def get_number_of_pos_receipts(self):
+        self.ensure_one()
+        return len(self.env['pos.order.line'].search([('order_id.session_id', '=', self.id)]))
+
+    @api.multi
+    def get_number_of_latches(self):
+        self.ensure_one()
+        return len(self.statement_ids.mapped('line_ids'))
+
+    @api.multi
+    def get_number_of_receipt_copies_and_amounts(self):
+        self.ensure_one()
+        return 0.0
+
+    @api.multi
+    def get_number_of_registrations_in_exercise_mode_and_amount(self):
+        self.ensure_one()
+        return 0.0
+
+    @api.multi
+    def get_sales_sum_distributed_by_different_way_of_payment(self):
+        self.ensure_one()
+        result = ''
+        statements = self.statement_ids
+        for idx, statement in enumerate(statements):
+            result += '%s: %s' %(statement.journal_id.name, statement.balance_end_real - statement.balance_start)
+            if idx != len(statements) - 1:
+                result += '\n'
+        return result
+
+    @api.multi
+    def get_number_of_returns_and_amounts(self):
+        self.ensure_one()
+        return 0.0
+
+    @api.multi
+    def get_discount(self):
+        self.ensure_one()
+        return 0.0
+
+    @api.multi
+    def get_other_registrations_that_reduced_todays_sales_and_to_what_amount(self):
+        self.ensure_one()
+        return 0.0
+
+    @api.multi
+    def get_number_of_unfinished_sales(self):
+        self.ensure_one()
+        return len(self.statement_ids.filtered(lambda s: s.state != 'confirm'))
+
+    @api.multi
+    def get_grand_total_sales(self):
+        self.ensure_one()
+        return sum([(s.balance_end_real - s.balance_start) for s in self.statement_ids])
+
+    @api.multi
+    def get_grand_total_return(self):
+        self.ensure_one()
+        return 0.0
+
+    @api.multi
+    def get_grand_total_netto(self):
+        self.ensure_one()
+        return sum([(s.balance_end_real - s.balance_start) for s in self.statement_ids])
 
 # ~ import jsonrpclib
 
@@ -377,7 +447,7 @@ SKVFS 2014:9
 4 §  Det ska ur ett kassaregister kunna tas fram aktuella uppgifter om programmeringar och inställningar som upp fyller kraven på behandlingshistorik enligt 5 kap. 11 § bok föringslagen (1999:1078).
 5 §  Om ett kassaregister har en funktion för utskrift av kvittokopia, övningskvitto eller pro forma kvitto ska dessa vara tydligt markerade med orden kopia , övning ( ovning ) respektive ej kvitto. Den markerande texten ska inte kunna ändras och den ska vara minst dubbelt så stor som den text som anger belopp.
 6 §  Ett kassaregister som är avsett att användas med ett kontrollsystem ska kunna ta emot och skicka information som kontrollsystemets buffringsprogram skickar eller begär att få från kassaregistret. Ett kassaregister får skicka uppgifter som behövs till buffringsprogrammet.
-7 §  Ett kassaregisterprogram ska kunna skicka de kvittodata som en kontrollenhet eller ett kontrollsystem behöver.  Kvittodatabelopp ska vara i svenska kronor och ören. 
+7 §  Ett kassaregisterprogram ska kunna skicka de kvittodata som en kontrollenhet eller ett kontrollsystem behöver.  Kvittodatabelopp ska vara i svenska kronor och ören.
 
 6 kap. Funktioner som inte är tillåtna
 1 § Ett kassaregister får inte ha en funktionsom möjliggör att en användare kan ta bort, förändra eller lägga till uppgifter i redan gjorda registreringar.

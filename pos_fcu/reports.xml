@@ -13,7 +13,7 @@
                                     <td>Company</td><td><t t-esc="doc.get_company_name()"/> (<t t-esc="doc.get_company_orgnr()"/>)</td>
                                 </tr>
                                 <tr>
-                                    <td>Date &amp; Time</td><td><t t-esc="doc.stop_at"/></td>
+                                    <td>Date &amp; Time</td><td><t t-esc="doc.stop_at or ''"/></td>
                                 </tr>
                                 <tr>
                                     <td>Statement that it is an X-day report</td><td>This is a X-daily-report</td>
@@ -25,7 +25,7 @@
                                     <td>Total sales sum (total sales amount)</td><td><t t-esc="doc.get_sale_total_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Total sales sum for different main groups if main groups are used</td><td></td>
+                                    <td>Total sales sum for different main groups if main groups are used</td><td><t t-esc="doc.get_total_sales_sum_for_different_main_groups_if_main_groups_are_used()"/> <t t-esc="doc.get_company_currency()"/></td>
                                 </tr>
                                 <tr>
                                     <td>Tax 25%</td><td><t t-esc="doc.get_tax_mp1_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
@@ -44,6 +44,42 @@
                                 </tr>
                                 <tr>
                                     <td>Sold services quantity</td><td><t t-esc="doc.get_sold_services_quantity()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of POS receipts</td><td><t t-esc="doc.get_number_of_pos_receipts()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of latches</td><td><t t-esc="doc.get_number_of_latches()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of receipt copies and amounts</td><td><t t-esc="doc.get_number_of_receipt_copies_and_amounts()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of registrations in exercise mode and amount</td><td><t t-esc="doc.get_number_of_registrations_in_exercise_mode_and_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sales sum distributed by different means of payment</td><td><t t-esc="doc.get_sales_sum_distributed_by_different_way_of_payment()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of returns and amounts</td><td><t t-esc="doc.get_number_of_returns_and_amounts()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Discount</td><td><t t-esc="doc.get_discount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Other registrations that reduced today's sales and to what amount</td><td><t t-esc="doc.get_other_registrations_that_reduced_todays_sales_and_to_what_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of unfinished sales</td><td><t t-esc="doc.get_number_of_unfinished_sales()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand total sales</td><td><t t-esc="doc.get_grand_total_sales()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand total return</td><td><t t-esc="doc.get_grand_total_return()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand total netto</td><td><t t-esc="doc.get_grand_total_netto()"/> <t t-esc="doc.get_company_currency()"/></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,11 +102,11 @@
                             <li>försäljningssumman fördelad på olika betalningsmedel</li>
                             <li>antal returer och belopp</li>
                             <li>rabatter</li>
-                            <li>övriga registreringar som minskat dagens försäljning och till vilket  belopp</li>
+                            <li>övriga registreringar som minskat dagens försäljning och till vilket belopp</li>
                             <li>antal oavslutade försäljningar</li>
                             <li>grand total försäljning</li>
                             <li>grand total retur</li>
-                            <li>grand total netto.</li>
+                            <li>grand total netto</li>
                             </ul>
                         </small>
                     </div>
@@ -90,6 +126,85 @@
                 <div class="page">
                     <h2>Z Daily Report</h2>
                     <div class="row">
+                        <table class="table table-striped table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td>Company</td><td><t t-esc="doc.get_company_name()"/> (<t t-esc="doc.get_company_orgnr()"/>)</td>
+                                </tr>
+                                <tr>
+                                    <td>Date &amp; Time</td><td><t t-esc="doc.stop_at or ''"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Track number from an unbroken rising number series</td><td></td>
+                                </tr>
+                                <tr>
+                                    <td>Statement that it is an Z-day report</td><td>This is a Z-daily-report</td>
+                                </tr>
+                                <tr>
+                                    <td>POS designation</td><td><t t-esc="doc.config_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Total sales sum (total sales amount)</td><td><t t-esc="doc.get_sale_total_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Total sales sum for different main groups if main groups are used</td><td><t t-esc="doc.get_total_sales_sum_for_different_main_groups_if_main_groups_are_used()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax 25%</td><td><t t-esc="doc.get_tax_mp1_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax 12%</td><td><t t-esc="doc.get_tax_mp2_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax 6%</td><td><t t-esc="doc.get_tax_mp3_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Incoming exchange</td><td><t t-esc="doc.get_incoming_exchange()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sold goods quantity</td><td><t t-esc="doc.get_sold_goods_quantity()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sold services quantity</td><td><t t-esc="doc.get_sold_services_quantity()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of POS receipts</td><td><t t-esc="doc.get_number_of_pos_receipts()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of latches</td><td><t t-esc="doc.get_number_of_latches()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of receipt copies and amounts</td><td><t t-esc="doc.get_number_of_receipt_copies_and_amounts()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of registrations in exercise mode and amount</td><td><t t-esc="doc.get_number_of_registrations_in_exercise_mode_and_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Sales sum distributed by different means of payment</td><td><t t-esc="doc.get_sales_sum_distributed_by_different_way_of_payment()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of returns and amounts</td><td><t t-esc="doc.get_number_of_returns_and_amounts()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Discount</td><td><t t-esc="doc.get_discount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Other registrations that reduced today's sales and to what amount</td><td><t t-esc="doc.get_other_registrations_that_reduced_todays_sales_and_to_what_amount()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Number of unfinished sales</td><td><t t-esc="doc.get_number_of_unfinished_sales()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand total sales</td><td><t t-esc="doc.get_grand_total_sales()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand total return</td><td><t t-esc="doc.get_grand_total_return()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand total netto</td><td><t t-esc="doc.get_grand_total_netto()"/> <t t-esc="doc.get_company_currency()"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <small class="text-muted">
                             <ul>
                             <li>företagets namn och organisationsnummer eller personnummer</li>
@@ -110,11 +225,11 @@
                             <li>försäljningssumman fördelad på olika betalningsmedel</li>
                             <li>antal returer och belopp</li>
                             <li>rabatter</li>
-                            <li>övriga transaktioner som minskat dagens försäljningsbelopp och till vilket  belopp</li>
+                            <li>övriga transaktioner som minskat dagens försäljningsbelopp och till vilket belopp</li>
                             <li>antal oavslutade försäljningar</li>
                             <li>grand total försäljning</li>
                             <li>grand total retur</li>
-                            <li>grand total netto.</li>
+                            <li>grand total netto</li>
                             </ul>
                         </small>
                     </div>
