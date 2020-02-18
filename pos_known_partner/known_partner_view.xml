@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  <template id="assets_backend" name="point_of_sale assets" inherit_id="point_of_sale.assets_backend">
+      <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="replace">
+          <script type="text/javascript" src="/pos_known_partner/static/js/known_partner.js"></script>
+      </xpath>
+  </template>
+
+  <record id="pos_config_existing_customer" model="ir.ui.view">
+    <field name="name">pos.config.form.view.existing.customer</field>
+    <field name="model">pos.config</field>
+    <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+    <field name="arch" type="xml">
+      <field name="iface_big_scrollbars" position="after">
+        <field name="existing_customer"/>
+      </field>
+    </field>
+  </record>
+  </data>
+</openerp>
+
+
+
+  
