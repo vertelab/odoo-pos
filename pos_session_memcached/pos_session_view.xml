@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="action_pos_flush_cache" model="ir.actions.server">
+      <field name="name">Flush Cache</field>
+        <field name="state">code</field>
+        <field name="condition" eval="True"/>
+        <field name="model_id" ref="point_of_sale.model_pos_session"/>
+        <field name="code">action=self.flush_memcache()</field>
+    </record>
+        <record model="ir.values" id="pos_flush_cache">
+            <field name="name">Flush Cache</field>
+            <field name="model">pos.session</field>
+            <field name="model_id" ref="point_of_sale.model_pos_session" />
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d' % action_pos_flush_cache" />
+        </record>
+  </data>
+</openerp>
