@@ -29,6 +29,6 @@ _logger = logging.getLogger(__name__)
 class PosSessionMemcached(models.Model):
     _inherit = 'pos.session'
     def flush_memcache(self):
-        output = subprocess.call(['/usr/bin/dn-flush-cache'])
-        _logger.info('abc %s' % output)
+        output = subprocess.call(['sh', '/usr/bin/dn-flush-cache'])
+        _logger.info('flush_memcache %s' % output)
        
