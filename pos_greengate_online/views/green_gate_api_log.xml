@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_greengate_api_log_list" model="ir.ui.view">
+        <field name="name">greengate.api.log.tree</field>
+        <field name="model">greengate.api.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date" widget="datetime"/>
+                <field name="pos_order_id"/>
+                <field name="response_type"/>
+                <field name="greengate_receipt_id"/>
+                <field name="status_code"/>
+                <field name="unit_id"/>
+                <field name="unit_main_status"/>
+            </list>
+        </field>
+    </record>
+    
+    <record id="view_greengate_api_log_form" model="ir.ui.view">
+        <field name="name">greengate.api.log.form</field>
+        <field name="model">greengate.api.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Order Info">
+                            <field name="pos_order_id"/>
+                            <field name="pos_config_id"/>
+                            <field name="receipt_type"/>
+                            <field name="create_date"/>
+                        </group>
+                        <group string="Transaction Details">
+                            <field name="greengate_receipt_id"/>
+                            <field name="greengate_serial_no"/>
+                            <field name="greengate_is_new_session"/>
+                            <field name="url"/>
+                        </group>
+                    </group>
+
+                    <group string="API Response Summary">
+                        <field name="status_code"/>
+                        <field name="response_type"/>
+                        <field name="green_gate_signature"/>
+                    </group>
+
+                    <group string="Unit &amp; Status Info" col="4">
+                        <field name="unit_id"/>
+                        <field name="firmware"/>
+                        <field name="unit_main_status"/>
+                        <field name="unit_storage_status"/>
+                    </group>
+
+                    <group string="Fault Information" invisible="response_type != 'Fault'">
+                        <field name="fault_code"/>
+                        <field name="fault_message"/>
+                    </group>
+
+                    <notebook>
+                        <page string="XML Payloads">
+                            <group string="Request">
+                                <field name="xml_payload" nolabel="1" widget="text"/>
+                            </group>
+                            <group string="Raw Response">
+                                <field name="response" nolabel="1" widget="text"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
