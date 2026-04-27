@@ -13,6 +13,8 @@ patch(PosOrder.prototype, {
         const order = this;
         result.useGreengate = true
         result.greenGateSignature = order.green_gate_signature
+        result.posID = order.config.greengate_pos_id
+        result.unitID = order.unit_id
         return result;
     },
 });

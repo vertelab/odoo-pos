@@ -5,10 +5,16 @@
                 <t t-if="props.data.useGreengate">
                 <br/>
                     <div>
-                       <span>
-                       GreenGate:
-                         <t t-esc="props.data.greenGateSignature"/>
-                       </span>
+                        <span>Pos id: </span>
+                            <t t-esc="props.data.posID"/>
+                        </div>
+                        <div>
+                        <span>Unit id: </span>
+                            <t t-esc="props.data.unitID"/>
+                        </div>
+                        <div>
+                        <span>Signature: </span>
+                            <t t-esc="props.data.greenGateSignature"/>
                     </div>
                 </t>
             
@@ -21,9 +27,18 @@
                 <div style="font-size: 75%;">
                     <br/>
                         <div>
-                        <span>GreenGate: </span>
+                        <span>Pos id: </span>
+                            <t t-esc="props.data.posID"/>
+                        </div>
+                        <div>
+                        <span>Unit id: </span>
+                            <t t-esc="props.data.unitID"/>
+                        </div>
+                        <div>
+                        <span>Signature: </span>
                             <t t-esc="props.data.greenGateSignature"/>
                         </div>
+                        
                 </div>
             </t>
         </xpath>

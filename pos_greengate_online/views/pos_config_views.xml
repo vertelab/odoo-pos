@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="green_gate_signature"/>
+                <field name="unit_id"/>
             </field>
             <!-- Add GreenGate send‑button after existing invoice button -->
             <button name="action_pos_order_invoice" position="after">

@@ -223,6 +223,9 @@ class GreenGateApiLog(models.Model):
             if self.response_type == "RegisterReceiptResponse" and self.green_gate_signature and not self.pos_order_id.green_gate_signature:
                self.pos_order_id.green_gate_signature = self.green_gate_signature
             
+            if self.unit_id and not self.pos_order_id.unit_id:
+               self.pos_order_id.unit_id = self.unit_id
+            
         except requests.exceptions.Timeout:
             self.status_code = "Timeout"
             self.response = "The connection timed out after 30 seconds."
@@ -245,6 +248,10 @@ class PosOrder(models.Model):
         return res
 
     green_gate_signature = fields.Char(
+        readonly=True,
+    )
+    
+    unit_id = fields.Char(
         readonly=True,
     )
 
