@@ -20,6 +20,12 @@
         "views/template.xml",  
         "security/ir.model.access.csv",
     ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'pos_greengate_online/static/src/**/*',
+        ],
+    },
+
     "installable": True,
     "application": False,
     "auto_install": False,

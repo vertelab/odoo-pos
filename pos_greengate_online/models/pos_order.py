@@ -237,6 +237,13 @@ class GreenGateApiLog(models.Model):
 class PosOrder(models.Model):
     _inherit = 'pos.order'
     
+    
+    def action_pos_order_paid(self):
+        res = super().action_pos_order_paid()
+        if self.state == "paid":
+           self.greenGateRegisterReceipt()
+        return res
+
     green_gate_signature = fields.Char(
         readonly=True,
     )
@@ -295,6 +302,8 @@ class PosOrder(models.Model):
         
 
     def greenGateRegisterReceipt(self):
+        if self.green_gate_signature:
+            return
         #We create a greengate.api.log for each attempt.
         #The following is from their documentation on how to handle errors.
         
