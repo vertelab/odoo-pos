@@ -5,6 +5,7 @@ from xml.etree import ElementTree as ET
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from odoo import fields
 import logging
+import time
 _logger = logging.getLogger(__name__)
 
 
@@ -20,38 +21,38 @@ class GreenGateApiLog(models.Model):
             ('Fault', 'Fault/Error'),
         ],
         string="Response Type",
-        readonly=False,
+        readonly=True,
     )
     
     fault_code = fields.Char(
-        readonly=False,
+        readonly=True,
     )
     
     fault_message = fields.Char(
-        readonly=False,
+        readonly=True,
     )
     
     firmware = fields.Char(
-        readonly=False
+        readonly=True
     )
     
-    unit_id = fields.Char(readonly=False, String="UnitId")
+    unit_id = fields.Char(readonly=True, String="UnitId")
     
-    unit_main_status = fields.Char(readonly=False, String="UnitMainStatus")
+    unit_main_status = fields.Char(readonly=True, String="UnitMainStatus")
     
-    unit_storage_status = fields.Char(readonly=False, String="UnitStorageStatus")
+    unit_storage_status = fields.Char(readonly=True, String="UnitStorageStatus")
 
     pos_order_id = fields.Many2one(
         'pos.order',
         string="POS Order",
         ondelete='set null',
-        readonly=False,
+        readonly=True,
     )
 
     pos_config_id = fields.Many2one(
         'pos.config',
         string="POS",
-        readonly=False,
+        readonly=True,
     )
 
     receipt_type = fields.Selection(
@@ -62,43 +63,43 @@ class GreenGateApiLog(models.Model):
             ('ovning', 'Any receipt produced in training mode.'),
         ],
         string="GreenGate Receipt Type",
-        readonly=False,
+        readonly=True,
     )
 
     greengate_receipt_id = fields.Integer(
         string="ReceiptId",
-        readonly=False,
+        readonly=True,
     )
     greengate_serial_no = fields.Integer(
         string="SerialNo",
-        readonly=False,
+        readonly=True,
     )
     greengate_is_new_session = fields.Integer(
         string="IsNewSession",
-        readonly=False,
+        readonly=True,
     )
 
     url = fields.Char(
         string="Called URL",
-        readonly=False,
+        readonly=True,
     )
     
     xml_payload = fields.Char(
         string="Xml Payload",
-        readonly=False,
+        readonly=True,
     )
     
     status_code = fields.Char(
-        readonly=False,
+        readonly=True,
     )
     
     
     response = fields.Char(
-        readonly=False,
+        readonly=True,
     )
     
     green_gate_signature = fields.Char(
-        readonly=False,
+        readonly=True,
     )
     
     def _format_receipt_amount(self, amount):
@@ -207,27 +208,44 @@ class GreenGateApiLog(models.Model):
         </request>'''.strip()
         self.xml_payload = xml_body
         body_bytes = xml_body.encode("iso-8859-1")
-        resp = requests.post(
-            self.url,
-            data=body_bytes,
-            headers=headers,
-            auth=(self.pos_config_id.greengate_username, self.pos_config_id.greengate_password),
-            timeout=30,
-        )
-        self.response = resp.text
-        self.status_code = resp.status_code
+        try:
+            resp = requests.post(
+                self.url,
+                data=body_bytes,
+                headers=headers,
+                auth=(self.pos_config_id.greengate_username, self.pos_config_id.greengate_password),
+                timeout=1,
+            )
+            self.response = resp.text
+            self.status_code = str(resp.status_code)
+            self.parse_and_save_response()
+            
+            if self.response_type == "RegisterReceiptResponse" and self.green_gate_signature and not self.pos_order_id.green_gate_signature:
+               self.pos_order_id.green_gate_signature = self.green_gate_signature
+            
+        except requests.exceptions.Timeout:
+            self.status_code = "Timeout"
+            self.response = "The connection timed out after 30 seconds."
+            _logger.error(f"GreenGate API Timeout for order {self.pos_order_id.id}")
+            
+        except requests.exceptions.RequestException as e:
+            self.status_code = "Error"
+            self.response = str(e)
+            _logger.error(f"GreenGate API Connection Error: {e}")
         
 
 class PosOrder(models.Model):
     _inherit = 'pos.order'
     
-    #green_gate_signature = fields.Char()
+    green_gate_signature = fields.Char(
+        readonly=True,
+    )
 
     greengate_log_ids = fields.One2many(
         'greengate.api.log',
         'pos_order_id',
         string="GreenGate API Log",
-        readonly=False,
+        readonly=True,
     )
     
     green_gate_api_log_count = fields.Integer(
@@ -257,7 +275,7 @@ class PosOrder(models.Model):
     
     greengate_receipt_id = fields.Integer(
         string="GreenGate ReceiptId",
-        readonly=False,
+        readonly=True,
         copy=False,
         help="Unbroken ascending number series for this POS (1, 2, 3, ...).",
     )
@@ -275,20 +293,56 @@ class PosOrder(models.Model):
         self.config_id.greengate_serial_no += 1
         return current_serial_no
         
+
     def greenGateRegisterReceipt(self):
+        #We create a greengate.api.log for each attempt.
+        #The following is from their documentation on how to handle errors.
+        
+        #8.6 Error handling
+        #If a timeout occurs then the request should be resent
+        #twice. (In the case of RegisterReceipt, set IsNewSessionto 0 (zero))
+        
+        #If the server responds to RegisterReceiptwith a FaultInfoobject with Code
+        #equal to 5 (UNIT_BUSY) or Code equal to 97 (SERVER_BUSY) then the client shall wait one second then resend
+        #the receipt with IsNewSessionset to 0 (zero).The client shall send a maximum of five retries.
+        
         greengate_receipt_id = self._get_next_greengate_receipt_id()
-        greengate_serial_no = self._get_next_greengate_serial_no()
         receipt_type = "normal" if self.config_id.greengate_mode == "prod" else "ovning"
         url = self.config_id.greengate_url if self.config_id.greengate_mode == "prod" else self.config_id.greengate_test_url
-        session = self.env['greengate.api.log'].create({
-        "pos_order_id":self.id,
-        "pos_config_id":self.config_id.id,
-        "receipt_type":receipt_type,
-        "url":url,
-        "greengate_is_new_session": 0 if self.greengate_log_ids else 1,
-        "greengate_receipt_id":greengate_receipt_id,
-        "greengate_serial_no":greengate_serial_no,
-        })
-        session.GreenGateRegisterReceipt()
+        
+        max_retries = 5
+        attempt = 0
+        success = False
+
+        while attempt <= max_retries and not success:
+            greengate_serial_no = self._get_next_greengate_serial_no()
+            # Create log for this specific attempt
+            session = self.env['greengate.api.log'].create({
+                "pos_order_id": self.id,
+                "pos_config_id": self.config_id.id,
+                "receipt_type": receipt_type,
+                "url": url,
+                "greengate_is_new_session": 0 if (attempt > 0 or self.greengate_log_ids) else 1,
+                "greengate_receipt_id": greengate_receipt_id,
+                "greengate_serial_no": greengate_serial_no,
+            })
+            session.GreenGateRegisterReceipt()
+            
+            if session.status_code == '200': 
+                if session.response_type == 'Fault' and session.fault_code in ['5', '97']:#5 (UNIT_BUSY) or Code equal to 97 SERVER_BUSY attempts 
+                    attempt += 1
+                    if attempt <= max_retries:
+                        time.sleep(1)
+                        continue
+                    else:
+                        break 
+                else:
+                    success = True
+            elif session.status_code == "Timeout": #Timeout attempts 2
+                if attempt < 2: 
+                    attempt += 1
+                    continue
+                else:
+                    break
         
         

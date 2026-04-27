@@ -6,7 +6,9 @@
         <field name="model">pos.order</field>
         <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
         <field name="arch" type="xml">
-
+            <field name="name" position="after">
+                <field name="green_gate_signature"/>
+            </field>
             <!-- Add GreenGate send‑button after existing invoice button -->
             <button name="action_pos_order_invoice" position="after">
                 <button name="greenGateRegisterReceipt"
