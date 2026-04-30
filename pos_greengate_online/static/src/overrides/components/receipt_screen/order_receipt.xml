@@ -22,6 +22,18 @@
     </t>
 
     <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+            <t t-if="props.data.nbPrint > 0">
+                <div class="pos-receipt-center-align" style="font-weight: bold; font-size: 1.2em;">
+                    KOPIA
+                </div>
+                <t t-if="props.data.firstPrintDate">
+                    <div class="pos-receipt-center-align">
+                        Original printdatum: <t t-esc="props.data.firstPrintDate"/>
+                    </div>
+                </t>
+            </t>
+        </xpath>
         <xpath expr="//div[hasclass('after-footer')]" position="after">
             <t t-if="props.data.useGreengate">
                 <div style="font-size: 75%;">

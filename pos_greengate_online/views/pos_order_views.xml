@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form_greengate_inherit" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit.greengate</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="green_gate_signature"/>
+                <field name="unit_id"/>
+            </field>
+            <!-- Add GreenGate send‑button after existing invoice button -->
+            <button name="action_pos_order_invoice" position="after">
+                <button name="action_greengate_register_receipt"
+                        type="object"
+                        string="Send to GreenGate"
+                        class="oe_stat_button"
+                        icon="fa-cloud-upload"/>
+            </button>
+
+            <!-- Add GreenGate API log stat button after stock picking button -->
+            <button name="action_stock_picking" type="object"
+                    class="oe_stat_button" icon="fa-truck"
+                    invisible="picking_count == 0"
+                    position="after">
+                <button name="action_view_green_gate_api_log"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-list-alt">
+                    <field name="green_gate_api_log_count" widget="statinfo"
+                           string="GreenGate Logs"/>
+                </button>
+            </button>
+
+        </field>
+    </record>
+</odoo>

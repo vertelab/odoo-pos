@@ -43,11 +43,15 @@
                         <field name="green_gate_signature"/>
                     </group>
 
-                    <group string="Unit &amp; Status Info" col="4">
-                        <field name="unit_id"/>
-                        <field name="firmware"/>
-                        <field name="unit_main_status"/>
-                        <field name="unit_storage_status"/>
+                    <group string="Unit &amp; Status Info">
+                        <group>
+                            <field name="unit_id"/>
+                            <field name="firmware"/>
+                        </group>
+                        <group>
+                            <field name="unit_main_status"/>
+                            <field name="unit_storage_status"/>
+                        </group>
                     </group>
 
                     <group string="Fault Information" invisible="response_type != 'Fault'">

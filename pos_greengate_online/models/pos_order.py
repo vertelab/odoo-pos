@@ -1,364 +1,215 @@
-from odoo import models, fields, api
-from odoo.exceptions import ValidationError
-import requests
-from xml.etree import ElementTree as ET
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo import fields
 import logging
 import time
+
+from odoo import fields, models, api
+
 _logger = logging.getLogger(__name__)
 
+BUSY_FAULT_CODES = {"5", "97"}
+MAX_RETRIES_BUSY = 5
+MAX_RETRIES_TIMEOUT = 2
 
-class GreenGateApiLog(models.Model):
-    _name = 'greengate.api.log'
-    _description = 'GreenGate API Attempt Log'
-    _order = 'create_date desc'
-    
-    response_type = fields.Selection(
-        selection=[
-            ('RegisterReceiptResponse', 'Register Receipt'),
-            ('StatusResponse', 'Status'),
-            ('Fault', 'Fault/Error'),
-        ],
-        string="Response Type",
-        readonly=True,
-    )
-    
-    fault_code = fields.Char(
-        readonly=True,
-    )
-    
-    fault_message = fields.Char(
-        readonly=True,
-    )
-    
-    firmware = fields.Char(
-        readonly=True
-    )
-    
-    unit_id = fields.Char(readonly=True, String="UnitId")
-    
-    unit_main_status = fields.Char(readonly=True, String="UnitMainStatus")
-    
-    unit_storage_status = fields.Char(readonly=True, String="UnitStorageStatus")
-
-    pos_order_id = fields.Many2one(
-        'pos.order',
-        string="POS Order",
-        ondelete='set null',
-        readonly=True,
-    )
-
-    pos_config_id = fields.Many2one(
-        'pos.config',
-        string="POS",
-        readonly=True,
-    )
-
-    receipt_type = fields.Selection(
-        selection=[
-            ('normal', 'A normal sales or refund receipt.'),
-            ('kopia', 'A copy of a normal receipt.'),
-            ('profo', 'A table bill or other receipt that counts as a pro forma receipt according to Skatteverkets regulations.'),
-            ('ovning', 'Any receipt produced in training mode.'),
-        ],
-        string="GreenGate Receipt Type",
-        readonly=True,
-    )
-
-    greengate_receipt_id = fields.Integer(
-        string="ReceiptId",
-        readonly=True,
-    )
-    greengate_serial_no = fields.Integer(
-        string="SerialNo",
-        readonly=True,
-    )
-    greengate_is_new_session = fields.Integer(
-        string="IsNewSession",
-        readonly=True,
-    )
-
-    url = fields.Char(
-        string="Called URL",
-        readonly=True,
-    )
-    
-    xml_payload = fields.Char(
-        string="Xml Payload",
-        readonly=True,
-    )
-    
-    status_code = fields.Char(
-        readonly=True,
-    )
-    
-    
-    response = fields.Char(
-        readonly=True,
-    )
-    
-    green_gate_signature = fields.Char(
-        readonly=True,
-    )
-    
-    def _format_receipt_amount(self, amount):
-        #Format: 1-11 digits, comma, 2 digits. E.g “10,00”, “-10,00” 
-        #19.38 -> 19,38
-        return f"{amount:.2f}".replace(".", ",")
-        
-    def parse_and_save_response(self):
-        self.ensure_one()
-        if not self.response:
-            return
-
-        clean_xml = self.response.replace('”', '"').replace('“', '"')
-
-        try:
-            root = ET.fromstring(clean_xml)
-            
-            def find_tag(element, tag_name):
-                for child in element.iter():
-                    if child.tag.endswith(f"}}{tag_name}") or child.tag == tag_name:
-                        return child
-                return None
-
-            def get_text(element, tag_name):
-                found = find_tag(element, tag_name)
-                return found.text if found is not None else ""
-                
-            type_tag = find_tag(root, "type")
-            resp_type = type_tag.text if type_tag is not None else ""
-            self.response_type = resp_type
-
-            if resp_type == 'RegisterReceiptResponse':
-                res = find_tag(root, "RegisterResult")
-                if res is not None:
-                    self.write({
-                        'green_gate_signature': get_text(res, "Code"),
-                        'unit_id': get_text(res, "UnitId"),
-                        'unit_main_status': get_text(res, "UnitMainStatus"),
-                        'unit_storage_status': get_text(res, "UnitStorageStatus"),
-                    })
-
-            elif resp_type == 'Fault':
-                fault = find_tag(root, "FaultInfo")
-                if fault is not None:
-                    self.write({
-                        'fault_code': get_text(fault, "Code"),
-                        'fault_message': get_text(fault, "Message"),
-                    })
-
-            elif resp_type == 'StatusResponse':
-                status = find_tag(root, "Status")
-                if status is not None:
-                    self.write({
-                        'unit_id': get_text(status, "Id"),
-                        'firmware': get_text(status, "Firmware"),
-                        'unit_main_status': get_text(status, "MainStatus"),
-                        'unit_storage_status': get_text(status, "StorageStatus"),
-                    })
-                    
-            if self.receipt_type == "ovning" and self.response_type == 'RegisterReceiptResponse' and not self.green_gate_signature:
-                self.green_gate_signature = f"Test Mode: {self.pos_config_id.name}"
-                
-        except Exception as e:
-            _logger.error(f"Failed to parse XML: {e}")
-        
-    def GreenGateRegisterReceipt(self):
-        NS = "http://www.retailinnovation.se/xccsp"
-
-        headers = {
-            "Accept-Charset": "iso-8859-1",
-            "Content-Type": "text/xml; charset=iso-8859-1",
-            "Accept": "text/xml",
-            "User-Agent": "MySuperPos/1.0",
-        }
-        VatList = [
-            {"Class": 1, "Percentage": "25,00", "Amount": self.pos_order_id.amount_tax},
-        ]
-        
-        dt_local = fields.datetime.now()
-        date = f"{dt_local.year:04}{dt_local.month:02}{dt_local.day:02}{dt_local.hour:02}{dt_local.minute:02}"
-        receipt_total = self._format_receipt_amount(self.pos_order_id.amount_total)
-        amount_tax = self._format_receipt_amount(self.pos_order_id.amount_tax)
-        xml_body = f'''<?xml version="1.0" encoding="ISO-8859-1"?>
-        <request xmlns="{NS}">
-          <type>RegisterReceipt</type>
-          <data>
-            <Receipt>
-              <IsNewSession>0</IsNewSession>
-              <SerialNo>{self.greengate_serial_no}</SerialNo>
-              <PosId>{self.pos_config_id.greengate_pos_id_full}</PosId>
-              <OrgNo>{self.pos_config_id.company_id.company_registry.replace("-","")}</OrgNo>
-              <Date>{date}</Date>
-              <ReceiptId>{self.greengate_receipt_id}</ReceiptId>
-              <ReceiptType>{self.receipt_type}</ReceiptType>
-              <ReceiptTotal>{receipt_total}</ReceiptTotal>
-              <NegativeTotal>{"0,00"}</NegativeTotal>
-              <VatList>
-              <Vat>
-                <Class>1</Class>                  
-                <Percentage>25,00</Percentage>
-                <Amount>{amount_tax}</Amount>
-                </Vat>
-              </VatList>
-            </Receipt>
-          </data>
-        </request>'''.strip()
-        self.xml_payload = xml_body
-        body_bytes = xml_body.encode("iso-8859-1")
-        try:
-            resp = requests.post(
-                self.url,
-                data=body_bytes,
-                headers=headers,
-                auth=(self.pos_config_id.greengate_username, self.pos_config_id.greengate_password),
-                timeout=1,
-            )
-            self.response = resp.text
-            self.status_code = str(resp.status_code)
-            self.parse_and_save_response()
-            
-            if self.response_type == "RegisterReceiptResponse" and self.green_gate_signature and not self.pos_order_id.green_gate_signature:
-               self.pos_order_id.green_gate_signature = self.green_gate_signature
-            
-            if self.unit_id and not self.pos_order_id.unit_id:
-               self.pos_order_id.unit_id = self.unit_id
-            
-        except requests.exceptions.Timeout:
-            self.status_code = "Timeout"
-            self.response = "The connection timed out after 30 seconds."
-            _logger.error(f"GreenGate API Timeout for order {self.pos_order_id.id}")
-            
-        except requests.exceptions.RequestException as e:
-            self.status_code = "Error"
-            self.response = str(e)
-            _logger.error(f"GreenGate API Connection Error: {e}")
-        
 
 class PosOrder(models.Model):
-    _inherit = 'pos.order'
-    
-    
-    def action_pos_order_paid(self):
-        res = super().action_pos_order_paid()
-        if self.state == "paid":
-           self.greenGateRegisterReceipt()
-        return res
+    _inherit = "pos.order"
 
-    green_gate_signature = fields.Char(
-        readonly=True,
-    )
-    
-    unit_id = fields.Char(
-        readonly=True,
-    )
+    green_gate_signature = fields.Char(readonly=True)
+    unit_id = fields.Char(readonly=True)
+    first_print_date = fields.Datetime(string="First Print Date", readonly=True, copy=False)
 
-    greengate_log_ids = fields.One2many(
-        'greengate.api.log',
-        'pos_order_id',
-        string="GreenGate API Log",
-        readonly=True,
-    )
-    
-    green_gate_api_log_count = fields.Integer(
-        string="GreenGate Log Count",
-        compute='_compute_green_gate_api_log_count',
-    )
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        params = super()._load_pos_data_fields(config_id)
+        params += ["green_gate_signature", "unit_id", "first_print_date"]
+        return params
 
-    def _compute_green_gate_api_log_count(self):
-        for order in self:
-            order.green_gate_api_log_count = len(order.greengate_log_ids)
-            
-    def action_view_green_gate_api_log(self):
-        self.ensure_one()
-
-        return {
-            'name': 'GreenGate API Logs',
-            'type': 'ir.actions.act_window',
-            'res_model': 'greengate.api.log',
-            'view_mode': 'list,form',
-            'context': {
-                'search_default_pos_order_id': self.id,
-            },
-            'domain': [
-                ('pos_order_id', '=', self.id),
-            ],
-        }
-    
     greengate_receipt_id = fields.Integer(
         string="GreenGate ReceiptId",
         readonly=True,
         copy=False,
         help="Unbroken ascending number series for this POS (1, 2, 3, ...).",
     )
-    
+
+    greengate_log_ids = fields.One2many(
+        "greengate.api.log",
+        "pos_order_id",
+        string="GreenGate API Log",
+        readonly=True,
+    )
+
+    green_gate_api_log_count = fields.Integer(
+        string="GreenGate Log Count",
+        compute="_compute_green_gate_api_log_count",
+    )
+
+
+    def _compute_green_gate_api_log_count(self):
+        counts = self.env["greengate.api.log"].read_group(
+            domain=[("pos_order_id", "in", self.ids)],
+            fields=["pos_order_id"],
+            groupby=["pos_order_id"],
+        )
+        count_map = {row["pos_order_id"][0]: row["pos_order_id_count"] for row in counts}
+        for order in self:
+            order.green_gate_api_log_count = count_map.get(order.id, 0)
+
+    def action_pos_order_paid(self):
+        res = super().action_pos_order_paid()
+        if self.state == "paid" and not self.green_gate_signature:
+            self._greengate_register_receipt()
+        return res
+
+    @api.model
+    def register_greengate_signature_from_ui(self, order_vals):
+        """
+        Create/Update a draft order and register it with GreenGate to get a signature.
+        Called from the POS UI before final validation.
+        """
+        # Ensure we have a draft order first
+        order_vals['state'] = 'draft'
+        # We use sync_from_ui logic to create/update the order
+        pos_order_id = self.sync_from_ui([order_vals])
+        order = self.browse(pos_order_id['pos.order'][0]['id'])
+        
+        # Register with GreenGate
+        order._greengate_register_receipt()
+        
+        if order.green_gate_signature:
+            return {
+                'green_gate_signature': order.green_gate_signature,
+                'unit_id': order.unit_id,
+            }
+        return False
+
+    def action_view_green_gate_api_log(self):
+        self.ensure_one()
+        return {
+            "name": "GreenGate API Logs",
+            "type": "ir.actions.act_window",
+            "res_model": "greengate.api.log",
+            "view_mode": "list,form",
+            "context": {"search_default_pos_order_id": self.id},
+            "domain": [("pos_order_id", "=", self.id)],
+        }
+
     def _get_next_greengate_receipt_id(self):
-        #Should i lock it so no other adds before i can return value?
-        if not self.greengate_receipt_id:
-            self.greengate_receipt_id = self.config_id.greengate_receipt_id
-            self.config_id.greengate_receipt_id += 1
-        return self.greengate_receipt_id
-        
+        """
+        Allocate a ReceiptId for this order, if not already set.
+        SELECT FOR UPDATE locks the config row to prevent race conditions
+        between concurrent cashier sessions.
+        """
+        self.ensure_one()
+        if self.greengate_receipt_id:
+            return self.greengate_receipt_id
+
+        self.env.cr.execute(
+            "SELECT greengate_receipt_id FROM pos_config WHERE id = %s FOR UPDATE",
+            (self.config_id.id,),
+        )
+        next_id = self.env.cr.fetchone()[0]
+        self.env.cr.execute(
+            "UPDATE pos_config SET greengate_receipt_id = %s WHERE id = %s",
+            (next_id + 1, self.config_id.id),
+        )
+        self.config_id.invalidate_recordset(["greengate_receipt_id"])
+        self.greengate_receipt_id = next_id
+        return next_id
+
     def _get_next_greengate_serial_no(self):
-        #Should i lock it so no other adds before i can return value?
-        current_serial_no = self.config_id.greengate_serial_no
-        self.config_id.greengate_serial_no += 1
-        return current_serial_no
-        
+        """
+        Allocate the next SerialNo. Each retry gets a fresh one per GreenGate spec.
+        SELECT FOR UPDATE prevents concurrent allocation.
+        """
+        self.ensure_one()
+        self.env.cr.execute(
+            "SELECT greengate_serial_no FROM pos_config WHERE id = %s FOR UPDATE",
+            (self.config_id.id,),
+        )
+        current = self.env.cr.fetchone()[0]
+        self.env.cr.execute(
+            "UPDATE pos_config SET greengate_serial_no = %s WHERE id = %s",
+            (current + 1, self.config_id.id),
+        )
+        self.config_id.invalidate_recordset(["greengate_serial_no"])
+        return current
 
-    def greenGateRegisterReceipt(self):
-        if self.green_gate_signature:
+    def _should_attempt_be_new_session(self, attempt: int) -> int:
+        return 1 if attempt == 0 and not self.greengate_log_ids else 0
+
+    def _create_attempt_log(self, *, attempt, greengate_receipt_id, greengate_serial_no):
+        cfg = self.config_id
+        return self.env["greengate.api.log"].create({
+            "pos_order_id": self.id,
+            "pos_config_id": cfg.id,
+            "receipt_type": cfg._get_greengate_receipt_type(),
+            "url": cfg._get_greengate_api_url(),
+            "greengate_is_new_session": self._should_attempt_be_new_session(attempt),
+            "greengate_receipt_id": greengate_receipt_id,
+            "greengate_serial_no": greengate_serial_no,
+        })
+
+
+    def _greengate_register_receipt(self):
+        """
+        Register this order with GreenGate, following §8.6 retry rules:
+        - Already signed → skip.
+        - Timeout → retry up to 2 times.
+        - UNIT_BUSY (5) / SERVER_BUSY (97) → wait 1s, retry up to 5 times.
+        - Each retry gets a fresh SerialNo; ReceiptId stays the same.
+        """
+        self.ensure_one()
+
+        if not self.config_id.use_greengate:
             return
-        #We create a greengate.api.log for each attempt.
-        #The following is from their documentation on how to handle errors.
-        
-        #8.6 Error handling
-        #If a timeout occurs then the request should be resent
-        #twice. (In the case of RegisterReceipt, set IsNewSessionto 0 (zero))
-        
-        #If the server responds to RegisterReceiptwith a FaultInfoobject with Code
-        #equal to 5 (UNIT_BUSY) or Code equal to 97 (SERVER_BUSY) then the client shall wait one second then resend
-        #the receipt with IsNewSessionset to 0 (zero).The client shall send a maximum of five retries.
-        
-        greengate_receipt_id = self._get_next_greengate_receipt_id()
-        receipt_type = "normal" if self.config_id.greengate_mode == "prod" else "ovning"
-        url = self.config_id.greengate_url if self.config_id.greengate_mode == "prod" else self.config_id.greengate_test_url
-        
-        max_retries = 5
-        attempt = 0
-        success = False
 
-        while attempt <= max_retries and not success:
+        if self.green_gate_signature:
+            _logger.info("Order %s already has a GreenGate signature, skipping.", self.id)
+            return
+
+        greengate_receipt_id = self._get_next_greengate_receipt_id()
+        timeout_attempts = 0
+        busy_attempts = 0
+        attempt = 0
+
+        while True:
             greengate_serial_no = self._get_next_greengate_serial_no()
-            # Create log for this specific attempt
-            session = self.env['greengate.api.log'].create({
-                "pos_order_id": self.id,
-                "pos_config_id": self.config_id.id,
-                "receipt_type": receipt_type,
-                "url": url,
-                "greengate_is_new_session": 0 if (attempt > 0 or self.greengate_log_ids) else 1,
-                "greengate_receipt_id": greengate_receipt_id,
-                "greengate_serial_no": greengate_serial_no,
-            })
-            session.GreenGateRegisterReceipt()
-            
-            if session.status_code == '200': 
-                if session.response_type == 'Fault' and session.fault_code in ['5', '97']:#5 (UNIT_BUSY) or Code equal to 97 SERVER_BUSY attempts 
+            log = self._create_attempt_log(
+                attempt=attempt,
+                greengate_receipt_id=greengate_receipt_id,
+                greengate_serial_no=greengate_serial_no,
+            )
+            log.greengate_register_receipt()
+
+            # Success
+            if log.status_code == "200" and log.response_type != "Fault":
+                break
+
+            # UNIT_BUSY / SERVER_BUSY
+            if log.status_code == "200" and log.fault_code in BUSY_FAULT_CODES:
+                if busy_attempts < MAX_RETRIES_BUSY:
+                    busy_attempts += 1
                     attempt += 1
-                    if attempt <= max_retries:
-                        time.sleep(1)
-                        continue
-                    else:
-                        break 
-                else:
-                    success = True
-            elif session.status_code == "Timeout": #Timeout attempts 2
-                if attempt < 2: 
+                    time.sleep(1)
+                    continue
+                _logger.error("GreenGate: order %s hit BUSY limit.", self.id)
+                break
+
+            # Timeout
+            if log.status_code == "Timeout":
+                if timeout_attempts < MAX_RETRIES_TIMEOUT:
+                    timeout_attempts += 1
                     attempt += 1
                     continue
-                else:
-                    break
-        
-        
+                _logger.error("GreenGate: order %s hit Timeout limit.", self.id)
+                break
+
+            # Non-retryable
+            _logger.error(
+                "GreenGate: order %s non-retryable error — status %s, fault %s.",
+                self.id, log.status_code, log.fault_code,
+            )
+            break
+
+    def action_greengate_register_receipt(self):
+        self.ensure_one()
+        self._greengate_register_receipt()

@@ -1,165 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_pos_pos_form_greengate_inherit"
-        model="ir.ui.view">
-        <field name="name">pos.order.form.inherit.greengate</field>
-        <field name="model">pos.order</field>
-        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
-        <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="green_gate_signature"/>
-                <field name="unit_id"/>
-            </field>
-            <!-- Add GreenGate send‑button after existing invoice button -->
-            <button name="action_pos_order_invoice" position="after">
-                <button name="greenGateRegisterReceipt"
-                        type="object"
-                        string="Send to GreenGate"
-                        class="oe_stat_button"
-                        icon="fa-cloud-upload"/>
-            </button>
-
-            <!-- Add GreenGate API log stat button after stock picking button -->
-            <button name="action_stock_picking" type="object"
-                    class="oe_stat_button" icon="fa-truck"
-                    invisible="picking_count == 0"
-                    position="after">
-                <button name="action_view_green_gate_api_log"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-list-alt">
-                    <field name="green_gate_api_log_count" widget="statinfo"
-                           string="GreenGate Logs"/>
-                </button>
-            </button>
-
-        </field>
-    </record>
-    
     <record id="view_pos_config_form_greengate" model="ir.ui.view">
         <field name="name">pos.config.form.inherit.greengate.online</field>
         <field name="model">pos.config</field>
         <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//div[@id='title']" position="after">
 
-            <!-- Insert after the POS title h1 -->
-            <xpath expr="//h1" position="after">
-                <div class="o_setting_container">
+                <div class="row mt16 o_settings_container">
 
-                    <!-- GreenGate toggle (always visible) -->
-                    <div class="row mt16 o_setting_left_padded">
-                        <div class="col-12 o_setting_right_padded">
-                            <div class="o_setting_title">
-                                <div class="o_setting_left_padded">
-                                    <span>Use GreenGate Integration</span>
-                                    <field name="use_greengate"/>
+                    <!-- Block 1: Connection -->
+                    <setting string="GreenGate Integration"
+                             help="Enable GreenGate fiscal integration for this Point of Sale">
+                        <field name="use_greengate"/>
+                        <div class="content-group mt16" invisible="not use_greengate">
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_mode" string="Mode"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_mode"/>
+                                </div>
+                            </div>
+                            <!--<div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_url" string="URL"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_url"
+                                           placeholder="https://greengateonline.origum.se/xccsp"/>
+                                </div>
+                            </div>
+                            -<div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_test_url" string="Test URL"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_test_url"
+                                           placeholder="https://greengateonline.origum.se/xccsp"/>
+                                </div>
+                            </div>-->
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_username" string="Username"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_username"/>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_password" string="Password"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_password" password="True"/>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </setting>
 
-                    <!-- GreenGate Mode -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_mode" string="GreenGate Mode"/>
+                    <!-- Block 2: POS Identity & Counters (only visible when GreenGate is enabled) -->
+                    <setting string="GreenGate POS Identity"
+                             help="Counters and identifiers used in GreenGate fiscal receipts"
+                             invisible="not use_greengate">
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_serial_no" string="Global SerialNo Counter"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_serial_no"/>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_receipt_id" string="Global ReceiptNo Counter"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_receipt_id"/>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_pos_id" string="POS ID"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_pos_id" placeholder="e.g. PosA or 01"/>
+                                </div>
+                            </div>
+                            <div class="row mt8">
+                                <div class="col-lg-4 o_light_label">
+                                    <label for="greengate_pos_id_full" string="Full POS ID (PosId + OrgNo)"/>
+                                </div>
+                                <div class="col-lg-8">
+                                    <field name="greengate_pos_id_full" readonly="1"/>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_mode"/>
-                        </div>
-                    </div>
+                    </setting>
 
-                    <!-- Production URL -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_url" string="GreenGate Production URL"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_url"
-                                   placeholder="https://greengateonline.origum.se/xccsp"/>
-                        </div>
-                    </div>
-
-                    <!-- Test URL -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_test_url" string="GreenGate Test URL"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_test_url"
-                                   placeholder="https://greengateonline.origum.se/xccsp"/>
-                        </div>
-                    </div>
-
-                    <!-- Username -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_username" string="GreenGate Username"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_username"/>
-                        </div>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_password" string="GreenGate Password"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_password" password="True"/>
-                        </div>
-                    </div>
-
-                    <!-- Global SerialNo -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_serial_no" string="Global SerialNo counter"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_serial_no"/>
-                        </div>
-                    </div>
-                    
-                     <!-- Global SerialNo -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_receipt_id" string="Global ReceiptNo counter"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_receipt_id"/>
-                        </div>
-                    </div>
-
-                    <!-- GreenGate POS ID -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_pos_id" string="POS ID for GreenGate"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_pos_id"
-                                   placeholder="e.g. PosA or 01"/>
-                        </div>
-                    </div>
-
-                    <!-- Full POS ID (PosId + OrgNo) -->
-                    <div class="row mt16 o_setting_left_padded"
-                         invisible="not use_greengate">
-                        <div class="col-lg-4 o_light_label">
-                            <label for="greengate_pos_id_full" string="Full POS ID (PosId + OrgNo)"/>
-                        </div>
-                        <div class="col-lg-8">
-                            <field name="greengate_pos_id_full" readonly="1"/>
-                        </div>
-                    </div>
                 </div>
+
             </xpath>
         </field>
     </record>

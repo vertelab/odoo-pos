@@ -8,8 +8,7 @@ class PosConfig(models.Model):
     use_greengate = fields.Boolean(
         string="Use GreenGate Integration"
     )
-    
-    
+
     greengate_mode = fields.Selection(
         string="GreenGate Mode",
         selection=[
@@ -21,13 +20,13 @@ class PosConfig(models.Model):
         help="Switch between test and production GreenGate endpoints.",
     )
      
-    greengate_url = fields.Char(
-        string="GreenGate Url"
-    )
+    #greengate_url = fields.Char(
+    #    string="GreenGate Url"
+    #)
 
-    greengate_test_url = fields.Char(
-        string="GreenGate Test Url"
-    )
+    #greengate_test_url = fields.Char(
+    #    string="GreenGate Test Url"
+    #)
 
     greengate_username = fields.Char(
         string="GreenGate Username",
@@ -70,6 +69,7 @@ class PosConfig(models.Model):
         for rec in self:
             pos_id = (rec.greengate_pos_id or "").strip()
             org_no_raw = (rec.company_id.company_registry or "").strip()
+            print("org_no_raw", org_no_raw)
 
             # Remove dashes and keep only digits
             org_no_digits = "".join(c for c in org_no_raw if c.isdigit())
@@ -78,3 +78,15 @@ class PosConfig(models.Model):
                 rec.greengate_pos_id_full = pos_id + org_no_digits
             else:
                 rec.greengate_pos_id_full = False
+
+    def _get_greengate_api_url(self):
+        self.ensure_one()
+        return (
+            "https://greengateonline.origum.se/xccsp"
+            if self.greengate_mode == "prod"
+            else "https://greengateonlinetest.origum.se/xccsp"
+        )
+
+    def _get_greengate_receipt_type(self):
+        self.ensure_one()
+        return "normal" if self.greengate_mode == "prod" else "ovning"
