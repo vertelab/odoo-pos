@@ -17,12 +17,6 @@ class PosOrder(models.Model):
     unit_id = fields.Char(readonly=True)
     first_print_date = fields.Datetime(string="First Print Date", readonly=True, copy=False)
 
-    @api.model
-    def _load_pos_data_fields(self, config_id):
-        params = super()._load_pos_data_fields(config_id)
-        params += ["green_gate_signature", "unit_id", "first_print_date"]
-        return params
-
     greengate_receipt_id = fields.Integer(
         string="GreenGate ReceiptId",
         readonly=True,

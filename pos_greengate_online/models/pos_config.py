@@ -69,7 +69,6 @@ class PosConfig(models.Model):
         for rec in self:
             pos_id = (rec.greengate_pos_id or "").strip()
             org_no_raw = (rec.company_id.company_registry or "").strip()
-            print("org_no_raw", org_no_raw)
 
             # Remove dashes and keep only digits
             org_no_digits = "".join(c for c in org_no_raw if c.isdigit())

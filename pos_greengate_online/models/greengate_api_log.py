@@ -155,9 +155,7 @@ class GreenGateApiLog(models.Model):
 
         dt_local = fields.Datetime.context_timestamp(self, fields.Datetime.now())
         date_str = dt_local.strftime("%Y%m%d%H%M")
-        print(cfg)
-        print(cfg.company_id)
-        print(cfg.company_id.company_registry)
+
         if not cfg.company_id.company_registry:
             raise ValidationError("Company registry not configured")
         org_no = cfg.company_id.company_registry.replace("-", "")

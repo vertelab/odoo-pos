@@ -22,7 +22,7 @@
     </t>
 
     <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
-        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+        <xpath expr="//ReceiptHeader" position="after">
             <t t-if="props.data.nbPrint > 0">
                 <div class="pos-receipt-center-align" style="font-weight: bold; font-size: 1.2em;">
                     KOPIA
@@ -56,4 +56,3 @@
         </xpath>
     </t>
 </templates>
-
