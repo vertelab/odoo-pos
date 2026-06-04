@@ -17,6 +17,12 @@
                             <t t-esc="props.data.greenGateSignature"/>
                     </div>
                 </t>
+                <t t-if="props.data.companyRegistry">
+                    <div>
+                    <span>Org nr: </span>
+                        <t t-esc="props.data.companyRegistry"/>
+                    </div>
+                </t>
             
         </xpath>
     </t>
@@ -50,7 +56,14 @@
                         <span>Signature: </span>
                             <t t-esc="props.data.greenGateSignature"/>
                         </div>
-                        
+                </div>
+            </t>
+            <t t-if="props.data.companyRegistry">
+                <div style="font-size: 75%;">
+                    <div>
+                    <span>Org nr: </span>
+                        <t t-esc="props.data.companyRegistry"/>
+                    </div>
                 </div>
             </t>
         </xpath>
