@@ -4,11 +4,26 @@
               inherit_id="point_of_sale.pos_session_sales_details"
               active="True"
               priority="50">
+
+        <!-- Org nr i headern där företagsinfo visas -->
+        <xpath expr="//address[contains(@class, 'mb-0 text-muted')]" position="after">
+            <t t-if="company.company_registry">
+                <br/>
+                <strong>Org nr:</strong>
+                <span t-out="company.company_registry"/>
+            </t>
+        </xpath>
+
+        <!-- GreenGate POS ID + Org nr i sessions-sektionen -->
         <xpath expr="//t[@t-if='session_name']" position="after">
             <t t-if="config_id.greengate_pos_id_full">
                 <br/>
                 <strong>GreenGate POS ID (Kassanummer):</strong>
                 <span t-out="config_id.greengate_pos_id_full"/><br/>
+            </t>
+            <t t-if="company.company_registry">
+                <strong>Org nr:</strong>
+                <span t-out="company.company_registry"/><br/>
             </t>
         </xpath>
     </template>
