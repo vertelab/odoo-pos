@@ -1,0 +1,506 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_greengate_online
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260604\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-04 09:07+0000\n"
+"PO-Revision-Date: 2026-06-04 11:22+0200\n"
+"Last-Translator: \n"
+"Language-Team: sv_SE\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.pos_session_sales_details_greengate
+msgid ""
+"<br/>\n"
+"                <strong>GreenGate POS ID (Kassanummer):</strong>"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__receipt_type__kopia
+msgid "A copy of a normal receipt."
+msgstr "En kopia av ett vanligt kvitto."
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__receipt_type__normal
+msgid "A normal sales or refund receipt."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__receipt_type__profo
+msgid "A pro forma receipt (table bill etc.)."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "API Response Summary"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__receipt_type__ovning
+msgid "Any receipt produced in training mode."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__url
+msgid "Called URL"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Counters and identifiers used in GreenGate fiscal receipts"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__create_uid
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__create_date
+msgid "Created on"
+msgstr "Skapad den"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Enable GreenGate fiscal integration for this Point of Sale"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__fault_code
+msgid "Fault Code"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "Fault Information"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__fault_message
+msgid "Fault Message"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__response_type__fault
+msgid "Fault/Error"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__firmware
+msgid "Firmware"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_order__first_print_date
+msgid "First Print Date"
+msgstr "Första utskriftsdatum"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_pos_id_full
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Full POS ID (PosId + OrgNo)"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.xml:0
+msgid "Getting signature..."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Global ReceiptNo Counter"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_receipt_id
+msgid "Global ReceiptNo counter"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Global SerialNo Counter"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_serial_no
+msgid "Global SerialNo counter"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__green_gate_signature
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_order__green_gate_signature
+msgid "Green Gate Signature"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.js:0
+msgid "GreenGate"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model,name:pos_greengate_online.model_greengate_api_log
+msgid "GreenGate API Attempt Log"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_order__greengate_log_ids
+msgid "GreenGate API Log"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "GreenGate Integration"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_order__green_gate_api_log_count
+msgid "GreenGate Log Count"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_pos_form_greengate_inherit
+msgid "GreenGate Logs"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_mode
+msgid "GreenGate Mode"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "GreenGate POS Identity"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_password
+msgid "GreenGate Password"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__receipt_type
+msgid "GreenGate Receipt Type"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_order__greengate_receipt_id
+msgid "GreenGate ReceiptId"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_username
+msgid "GreenGate Username"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.js:0
+msgid ""
+"GreenGate did not return a signature, so this order cannot be validated "
+"yet. Please try again."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,help:pos_greengate_online.field_pos_config__greengate_serial_no
+msgid ""
+"Increments for each RegisterReceipt XML message sent (not per receipt)."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,help:pos_greengate_online.field_pos_config__greengate_receipt_id
+msgid ""
+"Increments for first time an pos order is sent to greengate (not per "
+"attempt)."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__greengate_is_new_session
+msgid "IsNewSession"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/receipt_screen/order_receipt.xml:0
+msgid "KOPIA"
+msgstr "KOPIA"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad den"
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Mode"
+msgstr "Läge"
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "Order Info"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/receipt_screen/order_receipt.xml:0
+msgid "Org nr:"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/receipt_screen/order_receipt.xml:0
+msgid "Original printdatum:"
+msgstr "Ursprungligt utskriftsdatum:"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__pos_config_id
+msgid "POS"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "POS ID"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,help:pos_greengate_online.field_pos_config__greengate_pos_id_full
+msgid ""
+"POS ID concatenated with company organisation number (10 digits, no dash)."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__greengate_pos_id
+msgid "POS ID for GreenGate"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,help:pos_greengate_online.field_pos_config__greengate_pos_id
+msgid ""
+"POS ID for GreenGate integration (1–6 alphanumeric characters). Sent as the "
+"first part of <PosId><OrgNo> when syncing to GreenGate Online."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__pos_order_id
+msgid "POS Order"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Password"
+msgstr "Lösenord"
+
+#. module: pos_greengate_online
+#: model:ir.model,name:pos_greengate_online.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Kassakonfigurering"
+
+#. module: pos_greengate_online
+#: model:ir.model,name:pos_greengate_online.model_report_point_of_sale_report_saledetails
+msgid "Point of Sale Details"
+msgstr "Kassa Detaljer"
+
+#. module: pos_greengate_online
+#: model:ir.model,name:pos_greengate_online.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Kassaorder"
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/receipt_screen/order_receipt.xml:0
+msgid "Pos id:"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__pos_config__greengate_mode__prod
+msgid "Production"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "Raw Response"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__greengate_receipt_id
+msgid "ReceiptId"
+msgstr "Kvittoid"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__response_type__registerreceiptresponse
+msgid "Register Receipt"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "Request"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.js:0
+msgid "Requesting GreenGate signature before validation..."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__response
+msgid "Response"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__response_type
+msgid "Response Type"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_pos_form_greengate_inherit
+msgid "Send to GreenGate"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__greengate_serial_no
+msgid "SerialNo"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/receipt_screen/order_receipt.xml:0
+msgid "Signature:"
+msgstr "Signatur:"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__greengate_api_log__response_type__statusresponse
+msgid "Status"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__status_code
+msgid "Status Code"
+msgstr "Statuskod"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,help:pos_greengate_online.field_pos_config__greengate_mode
+msgid "Switch between test and production GreenGate endpoints."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields.selection,name:pos_greengate_online.selection__pos_config__greengate_mode__test
+msgid "Test (GreenGate Online test)"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.js:0
+msgid ""
+"The GreenGate signature request failed, so this order was not validated. "
+"Check the connection and try again."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "Transaction Details"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,help:pos_greengate_online.field_pos_order__greengate_receipt_id
+msgid "Unbroken ascending number series for this POS (1, 2, 3, ...)."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_order__unit_id
+msgid "Unit"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "Unit & Status Info"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/receipt_screen/order_receipt.xml:0
+msgid "Unit id:"
+msgstr "Enhets-id:"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__unit_id
+msgid "UnitId"
+msgstr "EnhetsID"
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__unit_main_status
+msgid "UnitMainStatus"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__unit_storage_status
+msgid "UnitStorageStatus"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_pos_config__use_greengate
+msgid "Use GreenGate Integration"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "Username"
+msgstr "Användarnamn"
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.xml:0
+msgid "Validate"
+msgstr "Validera"
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.js:0
+msgid "Validation Blocked"
+msgstr ""
+
+#. module: pos_greengate_online
+#. odoo-javascript
+#: code:addons/pos_greengate_online/static/src/overrides/components/payment_screen/payment_screen.xml:0
+msgid "Waiting for GreenGate before finalizing this payment."
+msgstr ""
+
+#. module: pos_greengate_online
+#: model:ir.model.fields,field_description:pos_greengate_online.field_greengate_api_log__xml_payload
+msgid "XML Payload"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_greengate_api_log_form
+msgid "XML Payloads"
+msgstr ""
+
+#. module: pos_greengate_online
+#: model_terms:ir.ui.view,arch_db:pos_greengate_online.view_pos_config_form_greengate
+msgid "e.g. PosA or 01"
+msgstr ""
