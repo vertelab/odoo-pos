@@ -73,4 +73,18 @@
             </form>
         </field>
     </record>
+
+    <!-- Action för att öppna loggvyn -->
+    <record id="action_greengate_api_log" model="ir.actions.act_window">
+        <field name="name">GreenGate API Logs</field>
+        <field name="res_model">greengate.api.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menyval under Point of Sale -> Rapportering -->
+    <menuitem id="menu_greengate_api_log"
+              name="GreenGate API Logs"
+              parent="point_of_sale.menu_point_rep"
+              action="action_greengate_api_log"
+              sequence="100"/>
 </odoo>

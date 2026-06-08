@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
+    <!-- 1. Extend ReceiptHeader to handle Org nr instead of Skattenummer -->
     <t t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+        <!-- Add GreenGate specific info (Pos id, etc.) before contact div -->
         <xpath expr="//div[hasclass('pos-receipt-contact')]" position="before">
-                <t t-if="props.data.useGreengate">
+            <t t-if="props.data.useGreengate">
                 <br/>
-                    <div>
-                        <span>Pos id: </span>
-                            <t t-esc="props.data.posID"/>
-                        </div>
-                        <div>
-                        <span>Unit id: </span>
-                            <t t-esc="props.data.unitID"/>
-                        </div>
-                        <div>
-                        <span>Signature: </span>
-                            <t t-esc="props.data.greenGateSignature"/>
-                    </div>
-                </t>
-                <t t-if="props.data.companyRegistry">
-                    <div>
-                    <span>Org nr: </span>
-                        <t t-esc="props.data.companyRegistry"/>
-                    </div>
-                </t>
-            
+                <div>
+                    <span>Pos id: </span>
+                    <t t-esc="props.data.posID"/>
+                </div>
+                <div>
+                    <span>Unit id: </span>
+                    <t t-esc="props.data.unitID"/>
+                </div>
+                <div>
+                    <span>Signature: </span>
+                    <t t-esc="props.data.greenGateSignature"/>
+                </div>
+            </t>
+        </xpath>
+        
+        <!-- Add Org nr in contact info -->
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">
+            <t t-if="props.data.headerData and props.data.headerData.company and props.data.headerData.company.companyRegistry">
+                <div style="font-size: 14px;">Org. Nr: <t t-esc="props.data.headerData.company.companyRegistry"/></div>
+            </t>
+            <t t-elif="props.data.companyRegistry">
+                <div style="font-size: 14px;">Org. Nr: <t t-esc="props.data.companyRegistry"/></div>
+            </t>
         </xpath>
     </t>
 
+    <!-- 2. Extend OrderReceipt for Kopia/Footer info -->
     <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-receipt')]" position="inside">
+            <t t-if="props.data.headerData and props.data.headerData.company and props.data.headerData.company.companyRegistry">
+                <div class="pos-receipt-center-align" style="font-size: 14px; margin-top: 5px;">Org. Nr: <t t-esc="props.data.headerData.company.companyRegistry"/></div>
+            </t>
+        </xpath>
+
         <xpath expr="//ReceiptHeader" position="after">
             <t t-if="props.data.nbPrint > 0">
                 <div class="pos-receipt-center-align" style="font-weight: bold; font-size: 1.2em;">
@@ -40,32 +52,6 @@
                 </t>
             </t>
         </xpath>
-        <xpath expr="//div[hasclass('after-footer')]" position="after">
-            <t t-if="props.data.useGreengate">
-                <div style="font-size: 75%;">
-                    <br/>
-                        <div>
-                        <span>Pos id: </span>
-                            <t t-esc="props.data.posID"/>
-                        </div>
-                        <div>
-                        <span>Unit id: </span>
-                            <t t-esc="props.data.unitID"/>
-                        </div>
-                        <div>
-                        <span>Signature: </span>
-                            <t t-esc="props.data.greenGateSignature"/>
-                        </div>
-                </div>
-            </t>
-            <t t-if="props.data.companyRegistry">
-                <div style="font-size: 75%;">
-                    <div>
-                    <span>Org nr: </span>
-                        <t t-esc="props.data.companyRegistry"/>
-                    </div>
-                </div>
-            </t>
-        </xpath>
+        <!-- Removed Org nr footer display as per user request -->
     </t>
 </templates>

@@ -106,6 +106,10 @@ patch(PosOrder.prototype, {
     export_for_printing(baseUrl, headerData) {
         const result = super.export_for_printing(...arguments);
         result.companyRegistry = this.company.company_registry;
+        if (headerData && headerData.company) {
+            headerData.company.companyRegistry = this.company.company_registry;
+        }
+        result.configName = this.config.name;
         if (!this.config.use_greengate) {
             return result;
         }

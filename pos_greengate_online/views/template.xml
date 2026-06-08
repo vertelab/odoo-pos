@@ -21,10 +21,6 @@
                 <strong>GreenGate POS ID (Kassanummer):</strong>
                 <span t-out="config_id.greengate_pos_id_full"/><br/>
             </t>
-            <t t-if="company.company_registry">
-                <strong>Org nr:</strong>
-                <span t-out="company.company_registry"/><br/>
-            </t>
         </xpath>
     </template>
 </odoo>
