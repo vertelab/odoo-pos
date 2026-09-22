@@ -9,7 +9,7 @@
     """,
     "category": "Point of Sale",
     "author": "Vertel Sverige AB",
-    "website": "https://vertel.se",
+    "website": "https://vertel.se/apps/odoo-pos/pos_greengate_online",
     "license": "AGPL-3",
     "depends": [
         "point_of_sale",
