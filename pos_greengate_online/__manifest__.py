@@ -2,7 +2,7 @@
 
 {
     "name": "GreenGate Online POS Integration",
-    "version": "18.0.1.0",
+    'version': '18.0.1.0.0',
     "summary": "POS integration with GreenGate Online",
     "description": """
         This module connects Odoo 18 Point of Sale with GreenGate Online,
