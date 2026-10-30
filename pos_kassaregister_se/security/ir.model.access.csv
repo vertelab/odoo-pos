@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_registration_unit_user,pos.registration.unit.user,model_pos_registration_unit,base.group_user,1,0,0,0
+access_pos_registration_unit_manager,pos.registration.unit.manager,model_pos_registration_unit,point_of_sale.group_pos_manager,1,1,1,0
+access_pos_journal_entry_user,pos.journal.entry.user,model_pos_journal_entry,base.group_user,1,0,0,0
+access_pos_journal_entry_manager,pos.journal.entry.manager,model_pos_journal_entry,point_of_sale.group_pos_manager,1,0,0,0

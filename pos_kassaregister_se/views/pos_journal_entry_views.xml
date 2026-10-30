@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_journal_entry_view_list" model="ir.ui.view">
+        <field name="name">pos.journal.entry.list</field>
+        <field name="model">pos.journal.entry</field>
+        <field name="arch" type="xml">
+            <list string="Journal Memory"
+                  create="false" edit="false" delete="false">
+                <field name="unit_id"/>
+                <field name="sequence"/>
+                <field name="occurred_at"/>
+                <field name="event_type"/>
+                <field name="user_id"/>
+                <field name="order_id" optional="show"/>
+                <field name="amount" sum="Total"/>
+                <field name="entry_hash" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="pos_journal_entry_view_form" model="ir.ui.view">
+        <field name="name">pos.journal.entry.form</field>
+        <field name="model">pos.journal.entry</field>
+        <field name="arch" type="xml">
+            <form string="Journal Entry" create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="alert alert-info" role="status">
+                        The journal memory is append-only. Entries cannot be
+                        changed or deleted (4 kap. 10 § SKVFS 2021:17).
+                    </div>
+                    <group>
+                        <group string="Entry">
+                            <field name="unit_id"/>
+                            <field name="sequence"/>
+                            <field name="event_type"/>
+                            <field name="occurred_at"/>
+                        </group>
+                        <group string="Context">
+                            <field name="user_id"/>
+                            <field name="session_id"/>
+                            <field name="order_id"/>
+                            <field name="amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payload" name="payload">
+                            <field name="payload"/>
+                        </page>
+                        <page string="Integrity" name="integrity">
+                            <group>
+                                <field name="previous_hash"/>
+                                <field name="entry_hash"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_journal_entry_view_search" model="ir.ui.view">
+        <field name="name">pos.journal.entry.search</field>
+        <field name="model">pos.journal.entry</field>
+        <field name="arch" type="xml">
+            <search string="Journal Memory">
+                <field name="unit_id"/>
+                <field name="sequence"/>
+                <field name="order_id"/>
+                <field name="user_id"/>
+                <filter name="today" string="Today"
+                        domain="[('occurred_at', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter name="sales" string="Sales"
+                        domain="[('event_type', 'in', ['Kassakvitto', 'Returkvitto'])]"/>
+                <filter name="drawer" string="Drawer openings"
+                        domain="[('event_type', '=', 'OppnaKassaladaVidNollforsaljning')]"/>
+                <separator/>
+                <filter name="group_unit" string="Registration Unit"
+                        context="{'group_by': 'unit_id'}"/>
+                <filter name="group_event" string="Event Type"
+                        context="{'group_by': 'event_type'}"/>
+                <filter name="group_day" string="Day"
+                        context="{'group_by': 'occurred_at:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="pos_journal_entry_action" model="ir.actions.act_window">
+        <field name="name">Journal Memory</field>
+        <field name="res_model">pos.journal.entry</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="pos_journal_entry_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No journal memory entries yet
+            </p>
+            <p>
+                Entries appear here as soon as a POS session is opened on a
+                configured cash register.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Technical menu lives under base.menu_custom; parent before child. -->
+    <record id="menu_kassaregister_root" model="ir.ui.menu">
+        <field name="name">Cash Register</field>
+        <field name="parent_id" ref="base.menu_custom"/>
+        <field name="sequence">60</field>
+    </record>
+
+    <record id="menu_pos_registration_unit" model="ir.ui.menu">
+        <field name="name">Registration Units</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="pos_registration_unit_action"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="menu_pos_journal_entry" model="ir.ui.menu">
+        <field name="name">Journal Memory</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="pos_journal_entry_action"/>
+        <field name="sequence">20</field>
+    </record>
+
+</odoo>
