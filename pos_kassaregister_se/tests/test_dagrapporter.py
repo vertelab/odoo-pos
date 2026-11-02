@@ -38,13 +38,15 @@ class TestDagrapporter(TransactionCase):
             'name': 'Kontant',
             'is_cash_count': True,
             'journal_id': cls.env['account.journal'].search(
-                [('type', '=', 'cash')], limit=1).id,
+                [('type', '=', 'cash'),
+                 ('company_id', '=', cls.env.company.id)], limit=1).id,
         })
         cls.bank_method = cls.env['pos.payment.method'].create({
             'name': 'Kort',
             'is_cash_count': False,
             'journal_id': cls.env['account.journal'].search(
-                [('type', '=', 'bank')], limit=1).id,
+                [('type', '=', 'bank'),
+                 ('company_id', '=', cls.env.company.id)], limit=1).id,
         })
         cls.tax_25 = cls.env['account.tax'].create({
             'name': 'Moms 25%',

@@ -81,6 +81,15 @@ class PosRegistrationUnit(models.Model):
         help="Unbroken sequence reserved for Z-dagrapporter only, separate "
              "from the receipt series (7 kap. 3 § SKVFS 2021:17).",
     )
+    receipt_sequence_id = fields.Many2one(
+        comodel_name='ir.sequence',
+        string='Receipt Sequence',
+        readonly=True,
+        copy=False,
+        help="Unbroken series for kassakvitton and returkvitton on this unit. "
+             "Only those two kinds consume a number — copies, training and "
+             "pro forma receipts do not (7 kap. 1 § SKVFS 2021:17).",
+    )
     journal_entry_ids = fields.One2many(
         comodel_name='pos.journal.entry',
         inverse_name='unit_id',
@@ -119,6 +128,16 @@ class PosRegistrationUnit(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         """Create a no-gap journal sequence for every new unit."""
+        # Validate config_id before provisioning anything. Without this the
+        # method would first create three ir.sequence records with the code
+        # suffix "None" and only then hit the NOT NULL constraint on
+        # config_id, leaving orphan sequences behind and surfacing the
+        # failure as a raw NotNullViolation instead of a readable error.
+        for vals in vals_list:
+            if not vals.get('config_id'):
+                raise ValidationError(_(
+                    "A registration unit must be linked to a POS "
+                    "configuration (4 kap. 2 § SKVFS 2021:17)."))
         for vals in vals_list:
             if not vals.get('sequence_id'):
                 config_id = vals.get('config_id')
@@ -141,6 +160,19 @@ class PosRegistrationUnit(models.Model):
                     'code': 'pos.report.z.%s' % config_id,
                     'implementation': 'no_gap',
                     'padding': 6,
+                    'number_next': 1,
+                    'number_increment': 1,
+                    'company_id': self.env['pos.config'].browse(
+                        config_id).company_id.id or self.env.company.id,
+                }).id
+            if not vals.get('receipt_sequence_id'):
+                config_id = vals.get('config_id')
+                name = vals.get('name') or _('Cash register')
+                vals['receipt_sequence_id'] = self.env['ir.sequence'].create({
+                    'name': _('Kassakvitto: %(unit)s', unit=name),
+                    'code': 'pos.receipt.%s' % config_id,
+                    'implementation': 'no_gap',
+                    'padding': 4,
                     'number_next': 1,
                     'number_increment': 1,
                     'company_id': self.env['pos.config'].browse(

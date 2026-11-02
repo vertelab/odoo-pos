@@ -32,9 +32,26 @@ class PosConfig(models.Model):
         compute='_compute_registration_unit_ready',
         string='Cash Register Configured',
     )
+    sales_street = fields.Char(
+        string='Försäljningsställets adress',
+        help="Gatunamn och nummer för den fysiska plats där försäljningen "
+             "sker. Anges på kassakvittot (7 kap. 1 § b SKVFS 2021:17).",
+    )
+    sales_zip = fields.Char(string='Postnummer')
+    sales_city = fields.Char(
+        string='Ort',
+        help="Ortsnamn för försäljningsstället (7 kap. 1 § b).",
+    )
 
     @api.depends('name')
     def _compute_registration_unit(self):
+        """Resolve the unit that points back at this config.
+
+        The dependency is on ``id`` because the unit is found by searching
+        for ``config_id == self.id``. Depending on ``name`` (as this used to
+        do) meant the field was only recomputed when the config was renamed,
+        so a freshly created config could keep an empty registration unit.
+        """
         Unit = self.env['pos.registration.unit']
         for config in self:
             config.registration_unit_id = Unit.search(

@@ -252,8 +252,12 @@ class PosReportZ(models.Model):
         receipt count; moms is reported on sales only, without deduction
         for returns (7 kap. 3 §).
         """
+        # Training-mode sales never enter the Z report (4 kap. 11 §). They
+        # are journal events in their own right, but their amounts must not
+        # touch the total sales figure or the VAT breakdown.
         orders = session.order_ids.filtered(
-            lambda o: o.state in ('paid', 'done', 'invoiced'))
+            lambda o: o.state in ('paid', 'done', 'invoiced')
+            and not o.receipt_ids.filtered('is_training'))
 
         total_sales = sum(orders.mapped('amount_total'))
         receipts = orders.filtered(lambda o: o.amount_total >= 0)

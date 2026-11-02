@@ -10,12 +10,21 @@
 #    License, or (at your option) any later version.
 #
 ##############################################################################
-from odoo import api, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class PosSession(models.Model):
     """Log session start and stop to the journal memory."""
     _inherit = 'pos.session'
+
+    is_training = fields.Boolean(
+        string='Övningsläge',
+        default=False,
+        help="I övningsläge registreras samtliga transaktioner som "
+             "övningskvitton. Beloppen hålls åtskilda från skarp försäljning "
+             "och ingår inte i Z-dagrapporten (4 kap. 11 § SKVFS 2021:17).",
+    )
 
     def _journal(self, event_type, **kwargs):
         """Write a journal entry for this session, if a unit is configured."""
@@ -45,6 +54,8 @@ class PosSession(models.Model):
         sessions = super().create(vals_list)
         for session in sessions:
             session._journal('StartAvKassaregister')
+            if session.is_training:
+                session._journal('StallaOmTillOvningslage')
         return sessions
 
     def action_pos_session_closing_control(self, *args, **kwargs):

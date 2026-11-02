@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Kassakvitto — SKVFS 2021:17 7 kap. 1 § (fält a–m)
+         ================================================================ -->
+    <record id="paperformat_pos_receipt" model="report.paperformat">
+        <field name="name">Kassakvitto (rulle 80 mm)</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">80</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">4</field>
+        <field name="margin_left">4</field>
+        <field name="margin_right">4</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">203</field>
+    </record>
+
+    <record id="action_report_pos_receipt" model="ir.actions.report">
+        <field name="name">Kassakvitto</field>
+        <field name="model">pos.receipt</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_kassaregister_se.report_pos_receipt</field>
+        <field name="report_file">pos_kassaregister_se.report_pos_receipt</field>
+        <field name="print_report_name">'Kassakvitto %s-%s' % (object.register_name, object.sequence)</field>
+        <field name="paperformat_id" ref="paperformat_pos_receipt"/>
+        <field name="binding_model_id" ref="model_pos_receipt"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_pos_receipt_document">
+        <t t-call="web.basic_layout">
+            <t t-set="o" t-value="o.with_context(lang='sv_SE')"/>
+            <div class="page kassakvitto" style="font-family: monospace; font-size: 10px;">
+
+                <!-- Markeringstext — minst dubbelt så stor som beloppstexten
+                     (5 kap. 5 §). Kopia 1em, övning/pro forma 2em. -->
+                <div t-if="o.kind == 'copy'"
+                     style="text-align: center; font-size: 2em; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">
+                    kopia
+                </div>
+                <div t-if="o.kind == 'training'"
+                     style="text-align: center; font-size: 2em; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">
+                    övning (ovning)
+                </div>
+                <div t-if="o.kind == 'proforma'"
+                     style="text-align: center; font-size: 2em; font-weight: bold; text-transform: uppercase; margin-bottom: 4px;">
+                    ej kvitto
+                </div>
+
+                <!-- Fält a — företagets namn och organisationsnummer -->
+                <div style="text-align: center; font-weight: bold;">
+                    <div t-field="o.company_name"/>
+                    <div>Org.nr: <span t-field="o.company_vat"/></div>
+                </div>
+
+                <!-- Fält b — adress där försäljningen sker -->
+                <div style="text-align: center; margin-top: 2px;">
+                    <div t-field="o.street"/>
+                    <div>
+                        <span t-field="o.zip"/> <span t-field="o.city"/>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Fält c — datum och klockslag, svensk normaltid -->
+                <div>
+                    <span t-esc="o.produced_at"
+                          t-options='{"widget": "datetime", "format": "yyyy-MM-dd HH:mm"}'/>
+                </div>
+
+                <!-- Fält d + e — kassabeteckning i anslutning till löpnumret -->
+                <div style="font-weight: bold;">
+                    <span t-field="o.register_name"/> · <span t-field="o.sequence"/>
+                </div>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Fält f, g, h — artikel/tjänst, antal, belopp inkl. moms -->
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tbody>
+                        <tr t-foreach="o.line_ids" t-as="line">
+                            <td style="padding: 1px 0;">
+                                <span t-field="line.name"/>
+                                <t t-if="line.is_service">
+                                    <em>(tjänst)</em>
+                                </t>
+                            </td>
+                            <td style="text-align: right; white-space: nowrap; padding-left: 4px;">
+                                <span t-field="line.qty"/>
+                                <span t-if="line.discount" t-esc="' -%g%%' % line.discount"/>
+                            </td>
+                            <td style="text-align: right; white-space: nowrap; padding-left: 4px;">
+                                <span t-field="line.price_subtotal_incl"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Fält h — totalt försäljningsbelopp att betala -->
+                <table style="width: 100%; font-weight: bold;">
+                    <tr>
+                        <td>TOTALT</td>
+                        <td style="text-align: right;">
+                            <span t-field="o.amount_total"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Belopp även i SEK om försäljningen sker i annan valuta -->
+                <table t-if="o.amount_total_sek != o.amount_total"
+                       style="width: 100%; margin-top: 2px;">
+                    <tr>
+                        <td>varav SEK</td>
+                        <td style="text-align: right;">
+                            <span t-field="o.amount_total_sek"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Fält i + j — moms och momsens fördelning per skattesats -->
+                <div style="font-weight: bold;">Moms</div>
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr t-foreach="o.tax_line_ids" t-as="tax">
+                            <td><span t-field="tax.name"/></td>
+                            <td style="text-align: right;">
+                                <span t-field="tax.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Summa moms</td>
+                            <td style="text-align: right;">
+                                <span t-field="o.amount_tax"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Fält k — betalningsmedel -->
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr t-foreach="o.payment_line_ids" t-as="pay">
+                            <td><span t-field="pay.name"/></td>
+                            <td style="text-align: right;">
+                                <span t-field="pay.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Fält l — kontrollenhetens tillverkningsnummer -->
+                <div>
+                    <span>Kontrollenhet: </span>
+                    <span t-field="o.control_unit_serial"/>
+                </div>
+                <div t-if="o.control_code">
+                    <span>Kontrollkod: </span>
+                    <span t-field="o.control_code"/>
+                </div>
+
+                <!-- Fält m — elektroniskt kassakvitto -->
+                <div t-if="o.is_electronic" style="font-weight: bold; margin-top: 2px;">
+                    elektroniskt kassakvitto
+                </div>
+
+                <div style="border-top: 1px dashed #000; margin: 4px 0;"/>
+
+                <!-- Sidfot: programversion och modellbeteckning -->
+                <div style="text-align: center; font-size: 8px;">
+                    <div>
+                        <span t-field="o.unit_id.model_designation"/>
+                    </div>
+                    <div>Programversion 18.0.1.1.0</div>
+                    <div t-if="o.kind == 'copy'">Kopia av kvitto <span t-field="o.sequence"/></div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_pos_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="pos_kassaregister_se.report_pos_receipt_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

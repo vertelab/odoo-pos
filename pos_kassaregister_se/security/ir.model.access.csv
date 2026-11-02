@@ -11,3 +11,11 @@ access_pos_report_x_user,pos.report.x.user,model_pos_report_x,base.group_user,1,
 access_pos_report_x_manager,pos.report.x.manager,model_pos_report_x,point_of_sale.group_pos_manager,1,0,0,0
 access_pos_report_x_line_user,pos.report.x.line.user,model_pos_report_x_line,base.group_user,1,0,0,0
 access_pos_report_x_line_manager,pos.report.x.line.manager,model_pos_report_x_line,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_receipt_user,pos.receipt.user,model_pos_receipt,base.group_user,1,0,0,0
+access_pos_receipt_manager,pos.receipt.manager,model_pos_receipt,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_receipt_line_user,pos.receipt.line.user,model_pos_receipt_line,base.group_user,1,0,0,0
+access_pos_receipt_line_manager,pos.receipt.line.manager,model_pos_receipt_line,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_receipt_tax_line_user,pos.receipt.tax.line.user,model_pos_receipt_tax_line,base.group_user,1,0,0,0
+access_pos_receipt_tax_line_manager,pos.receipt.tax.line.manager,model_pos_receipt_tax_line,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_receipt_payment_line_user,pos.receipt.payment.line.user,model_pos_receipt_payment_line,base.group_user,1,0,0,0
+access_pos_receipt_payment_line_manager,pos.receipt.payment.line.manager,model_pos_receipt_payment_line,point_of_sale.group_pos_manager,1,0,0,0
