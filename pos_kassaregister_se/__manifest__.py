@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'POS Kassaregister SE',
-    'version': '18.0.1.4.0',
+    'version': '18.0.1.5.0',
     'category': 'Point of Sale',
     'summary': 'Swedish cash register (kassaregister) per SKVFS 2021:17',
     'description': """
@@ -78,6 +78,7 @@ later than two weeks before market release (8 kap. 4 §).
         'report/report_dagrapporter.xml',
         'report/receipt_kassaregister.xml',
         'views/pos_report_views.xml',
+        'wizard/pos_journal_export_wizard_views.xml',
         'views/menu.xml',
     ],
     'assets': {

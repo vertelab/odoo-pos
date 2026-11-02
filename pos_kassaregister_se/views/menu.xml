@@ -36,4 +36,11 @@
         <field name="sequence">40</field>
     </record>
 
+    <record id="menu_pos_journal_export" model="ir.ui.menu">
+        <field name="name">Exportera journalminne</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="action_pos_journal_export_wizard"/>
+        <field name="sequence">50</field>
+    </record>
+
 </odoo>
