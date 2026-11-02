@@ -56,11 +56,33 @@ class PosSession(models.Model):
             session._journal('StartAvKassaregister')
             if session.is_training:
                 session._journal('StallaOmTillOvningslage')
+            # The cash float at start is a mandatory Z-report figure
+            # (7 kap. 3 §) and must be captured when the session opens.
+            session._journal(
+                'ForandraVaxelkassa',
+                amount=session.cash_register_balance_start or 0.0,
+                payload={
+                    'old_float': 0.0,
+                    'new_float': session.cash_register_balance_start or 0.0,
+                    'reason': 'Öppningsväxelkassa',
+                },
+            )
         return sessions
 
     def action_pos_session_closing_control(self, *args, **kwargs):
         result = super().action_pos_session_closing_control(*args, **kwargs)
         for session in self:
+            # The closing cash float is a mandatory Z-report figure
+            # (7 kap. 3 §); log it before the register stops.
+            session._journal(
+                'ForandraVaxelkassa',
+                amount=session.cash_register_balance_end_real or 0.0,
+                payload={
+                    'old_float': session.cash_register_balance_start or 0.0,
+                    'new_float': session.cash_register_balance_end_real or 0.0,
+                    'reason': 'Stängningsväxelkassa',
+                },
+            )
             session._journal('StoppAvKassaregister')
             # A Z-report is produced when the sales day is closed, before the
             # session stops being the authoritative record (7 kap. 3 §).
