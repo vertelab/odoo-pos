@@ -86,6 +86,11 @@ later than two weeks before market release (8 kap. 4 §).
             'pos_kassaregister_se/static/src/**/*',
         ],
     },
+    # The XSD files are needed at runtime for export validation.
+    'include': [
+        'schemas/xmls/**/*.xsd',
+        'docs/*.md',
+    ],
     'post_init_hook': 'post_init_hook',
     'uninstall_hook': 'uninstall_hook',
     'application': False,
