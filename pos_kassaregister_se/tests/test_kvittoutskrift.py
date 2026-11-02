@@ -28,7 +28,7 @@ class TestKvittoutskrift(TransactionCase):
         cls.env.company.write({'vat': '556012345601'})
         cls.config = cls.env['pos.config'].create({'name': 'Kassa kvitto-test'})
         cls.unit = cls.config.registration_unit_id
-        cls.unit.write({'control_unit_serial': 'CU-123456'})
+        cls.unit.write({'control_unit_serial': 'CU-12345600000001'})
         cls.config.write({
             'sales_street': 'Storgatan 12',
             'sales_zip': '111 22',
@@ -284,7 +284,7 @@ class TestKvittoutskrift(TransactionCase):
         })
         config_2 = self.env['pos.config'].create({'name': 'Kassa två'})
         unit_2 = config_2.registration_unit_id
-        unit_2.write({'control_unit_serial': 'CU-999'})
+        unit_2.write({'control_unit_serial': 'CU-99900000000003'})
         config_2.write({
             'payment_method_ids': [(6, 0, cash_2.ids)],
             'sales_street': 'Västra Hamngatan 3',

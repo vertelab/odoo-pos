@@ -5,3 +5,4 @@ from . import test_dagrapporter
 from . import test_kvittoutskrift
 from . import test_otillatna_funktioner
 from . import test_journalminne_handelser
+from . import test_xml_export

@@ -63,7 +63,8 @@ class PosRegistrationUnit(models.Model):
         string='Control Unit Serial',
         help="Manufacturing number of the certified control unit "
              "(kontrollenhet) or control system (kontrollsystem), depending "
-             "on which is connected.",
+             "on which is connected. The number is exactly 17 characters in "
+             "the SKVFS 2021:16 export schema.",
     )
     sequence_id = fields.Many2one(
         comodel_name='ir.sequence',
@@ -113,6 +114,18 @@ class PosRegistrationUnit(models.Model):
     def _compute_journal_entry_count(self):
         for unit in self:
             unit.journal_entry_count = len(unit.journal_entry_ids)
+
+    @api.constrains('control_unit_serial')
+    def _check_control_unit_serial(self):
+        """The control unit serial must be 17 characters (SKVFS 2021:16)."""
+        for unit in self:
+            serial = unit.control_unit_serial or ''
+            if serial and len(serial) != 17:
+                raise ValidationError(_(
+                    "Tillverkningsnumret för kontrollenheten måste vara "
+                    "exakt 17 tecken (SKVFS 2021:16 5 kap.). \"%(serial)s\" "
+                    "är %(length)s tecken.",
+                    serial=serial, length=len(serial)))
 
     @api.constrains('model_designation')
     def _check_model_designation(self):

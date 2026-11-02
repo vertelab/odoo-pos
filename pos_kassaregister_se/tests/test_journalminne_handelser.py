@@ -30,7 +30,7 @@ class TestJournalminneHandelser(TransactionCase):
         super().setUpClass()
         cls.config = cls.env['pos.config'].create({'name': 'Kassa minne-test'})
         cls.unit = cls.config.registration_unit_id
-        cls.unit.write({'control_unit_serial': 'CU-321'})
+        cls.unit.write({'control_unit_serial': 'CU-32100000000001'})
         cls.config.write({
             'sales_street': 'Storgatan 1', 'sales_city': 'Stockholm',
         })

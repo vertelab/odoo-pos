@@ -29,7 +29,7 @@ class TestOtillatnaFunktioner(TransactionCase):
         cls.env.company.write({'vat': '556012345601'})
         cls.config = cls.env['pos.config'].create({'name': 'Kassa spärr-test'})
         cls.unit = cls.config.registration_unit_id
-        cls.unit.write({'control_unit_serial': 'CU-555'})
+        cls.unit.write({'control_unit_serial': 'CU-55500000000001'})
         cls.config.write({
             'sales_street': 'Storgatan 1',
             'sales_city': 'Stockholm',
@@ -76,7 +76,7 @@ class TestOtillatnaFunktioner(TransactionCase):
             'sales_street': 'Storgatan 1',
             'sales_city': 'Stockholm',
         })
-        config.registration_unit_id.write({'control_unit_serial': 'CU-777'})
+        config.registration_unit_id.write({'control_unit_serial': 'CU-77700000000002'})
         return config, method
 
     def _order(self, session, qty=1):

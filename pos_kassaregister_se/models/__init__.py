@@ -8,3 +8,4 @@ from . import pos_report
 from . import pos_receipt
 from . import pos_order_line
 from . import pos_session_journal
+from . import pos_journal_export

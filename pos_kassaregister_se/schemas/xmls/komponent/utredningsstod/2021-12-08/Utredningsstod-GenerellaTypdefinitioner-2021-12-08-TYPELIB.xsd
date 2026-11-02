@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:utreko="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:annotation>
+		<xs:appinfo>
+			<SchemaMetadata xmlns="se/skatteverket/zl/SchemaMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/terms/" xsi:schemaLocation="se/skatteverket/zl/SchemaMetadata/1.0 http://xmls.skatteverket.se/se/skatteverket/zl/SchemaMetadata/1.0/SchemaMetadata.xsd">
+				<dc:title>Export av journalminne enligt SKVFS2021:16 - Komponentschema</dc:title>
+				<dc:description>Data från journalminne</dc:description>
+				<dc:publisher>Skatteverket</dc:publisher>
+				<dc:creator>
+					<dcq:contact>https://skatteverket.se/</dcq:contact>
+					<dcq:owner>Skatteverket</dcq:owner>
+				</dc:creator>
+				<dc:date>
+					<dcq:created>2021-12-08</dcq:created>
+				</dc:date>
+				<dc:subject>XML-schema</dc:subject>
+				<dc:subject>XML</dc:subject>
+				<dc:subject>kassaregister</dc:subject>
+				<dc:subject>journalminne</dc:subject>
+				<dc:subject>utredningsstöd</dc:subject>
+				<dc:subject>komponentschema</dc:subject>
+				<dc:subject>generella typdefinitioner</dc:subject>
+			</SchemaMetadata>
+		</xs:appinfo>
+	</xs:annotation>
+	<!-- Typ för organisationsnummer -->
+	<xs:element name="OrganisationsnummerTEST" type="utreko:OrganisationsnummerTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för organisationsnummer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="OrganisationsnummerTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för organisationsnummer (utan bindestreck)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="10"/>
+			<xs:pattern value="[\d]{2}[2-9]{1}[\d]{7}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för personnummer -->
+	<xs:element name="PersonnummerMedSekelTEST" type="utreko:PersonnummerMedSekelTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för personnummer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="PersonnummerMedSekelTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för personnummer utan att bindestreck/plustecken anges, men med två inledande siffor som anger under vilket århundrade (sekel) personen är född.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="12"/>
+			<xs:pattern value="((((19|20)[0-9][0-9])(((01|03|05|07|08|10|12)(0[1-9]|1[0-9]|2[0-9]|3[0-1]))|((04|06|09|11)(0[1-9]|1[0-9]|2[0-9]|30))|((02)(0[1-9]|1[0-9]|2[0-8]))))|(((19|20)(04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)(0229))|(20000229)))(00[1-9]|0[1-9][0-9]|[1-9][0-9][0-9])[0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för organisationsnummer eller personnummer -->
+	<xs:element name="OrganisationsnummerEllerPersonnummerTEST" type="utreko:OrganisationsnummerEllerPersonnummerTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för identitetsbeteckning för person begränsat till organisationsnummer eller personnummer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="OrganisationsnummerEllerPersonnummerTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för identitetsbeteckning för person i form av organisationsnummer eller personnummer (EJ samordningsnummer) utan att bindestreck/plustecken anges, men för fysisk person med två inledande siffor som anger under vilket århundrade personen är född (inledande sekelangivelse).</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="utreko:OrganisationsnummerTYPE utreko:PersonnummerMedSekelTYPE"/>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för löpnummer -->
+	<xs:element name="LopnummerTEST" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för löpnummer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för löpnummer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="12"/>
+			<xs:pattern value="\d*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för datum och klockslag -->
+	<xs:element name="DatumOchKlockslagTEST" type="utreko:DatumOchKlockslagTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för vanligt förekommande tidpunkt.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DatumOchKlockslagTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för vanligt förekommande tidpunkt (datum och klockslag).</xs:documentation>
+			<xs:documentation>Årtalet i datumdelen är begränsat till ett i intervallet 2010-2099.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:dateTime">
+			<xs:pattern value="[2]{1}[0]{1}[1-9]{1}[0-9]{1}.{15}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för tillverkningsnummer  för kontrollenheten-->
+	<xs:element name="TillverkningsnummerForKontrollenhetenTEST" type="utreko:TillverkningsnummerForKontrollenhetenTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för tillverkningsnummer för kontrollenheten.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TillverkningsnummerForKontrollenhetenTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för tillverkningsnummer för kontrollenheten.</xs:documentation>
+			<xs:documentation>Tecken för tillverkningsnumret får endast utgöras av a–z, A–Z, 0–9, mellanslag och bindestreck.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="17"/>
+			<xs:pattern value="([a-z]|[A-Z]|[0-9]|[ ]|[\-])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för tillverkningsnummer  för kontrollsystemet-->
+	<xs:element name="TillverkningsnummerForKontrollsystemetTEST" type="utreko:TillverkningsnummerForKontrollsystemetTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för tillverkningsnummer för kontrollsystemet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TillverkningsnummerForKontrollsystemetTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för tillverkningsnummer för kontrollsystemet.</xs:documentation>
+			<xs:documentation>Tecken för tillverkningsnumret får endast utgöras av a–z, A–Z, 0–9, mellanslag och bindestreck.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="17"/>
+			<xs:pattern value="([a-z]|[A-Z]|[0-9]|[ ])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för tillverkningsnummer för kassaregistret-->
+	<xs:element name="TillverkningsnummerForKassaregistretTEST" type="utreko:TillverkningsnummerForKassaregistretTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för tillverkningsnummer för kassaregistret</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TillverkningsnummerForKassaregistretTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för tillverkningsnummer för kassaregistret.</xs:documentation>
+			<xs:documentation>Tecken för tillverkningsnumret får endast utgöras av a–z, A–Z, 0–9, mellanslag och bindestreck.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="48"/>
+			<xs:minLength value="1"/>
+			<xs:pattern value="(([0-9]|[a-z]|[A-Z]|[\-]){1})(([0-9]|[a-z]|[A-Z]|[\-]|[ ][0-9]|[ ][a-z]|[ ][A-Z]|[ ][\-])*)(([0-9]|[a-z]|[A-Z]|[\-])?)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Typ för utländsk valuta -->
+	<xs:element name="UtlandskValutaTEST" type="utreko:UtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation>Element för teständamål för utländsk valuta.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="UtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation>Typ för utländsk valuta.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+			<xs:pattern value="([A-Z]|[Å]|[Ä]|[Ö]|[a-z]|[å]|[ä]|[ö])*"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

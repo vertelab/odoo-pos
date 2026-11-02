@@ -1,0 +1,981 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Infil   : file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/2021-11-30_15.45.05_10_TransformeraTermerOchKomponentdefinitioner_v0.31.xsl.xml--><!--XSLT-fil: file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/30_ElementAvSammansattTyp_v0.28.xsl--><!--XSLT-fil: file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/XSLTallmanKod_v0.11.xsl--><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:utreko="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" targetNamespace="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xml:lang="sv">
+	<xs:annotation>
+		<xs:appinfo>
+			<SchemaMetadata xmlns="se/skatteverket/zl/SchemaMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/terms/" xsi:schemaLocation="se/skatteverket/zl/SchemaMetadata/1.0 http://xmls.skatteverket.se/se/skatteverket/zl/SchemaMetadata/1.0/SchemaMetadata.xsd">
+				<dc:title>Export av journalminne enligt SKVFS 2021:16 - Komponentschema</dc:title>
+				<dc:description>Data från journalminne</dc:description>
+				<dc:publisher>Skatteverket</dc:publisher>
+				<dc:creator>
+					<dcq:contact>https://skatteverket.se/</dcq:contact>
+					<dcq:owner>Skatteverket</dcq:owner>
+				</dc:creator>
+				<dc:date>
+					<dcq:created>2021-12-08</dcq:created>
+				</dc:date>
+				<dc:subject>XML-schema</dc:subject>
+				<dc:subject>XML</dc:subject>
+				<dc:subject>kassaregister</dc:subject>
+				<dc:subject>journalminne</dc:subject>
+				<dc:subject>utredningsstöd</dc:subject>
+				<dc:subject>komponentschema</dc:subject>
+				<dc:subject>element av sammansatt typ</dc:subject>
+			</SchemaMetadata>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="Utredningsstod-ElementAvEnkelTyp-2021-12-08-COMPONENT.xsd"/>
+	<xs:element name="AndraParkeradArtikel" type="utreko:AndraParkeradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ändra parkerad artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Ändring av antal, enhet eller pris på en artikel som parkerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AndraParkeradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareAntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareMangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:TidigareEnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:TidigarePrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:TidigarePrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareRabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TidigareMervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareMervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:UrsprungligRegistreringstidpunkt"/>
+			<xs:element ref="utreko:OrsakTillAndring" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="AndraRegistreradArtikel" type="utreko:AndraRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ändra registrerad artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Ändring av artikel som inte slagits in som betald eller har parkerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AndraRegistreradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareAntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareMangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:TidigareEnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:TidigarePrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:TidigarePrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareRabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TidigareMervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:TidigareMervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:UrsprungligRegistreringstidpunkt"/>
+			<xs:element ref="utreko:OrsakTillAndring" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="BeteckningPaValdaKassaregisterForExportAvDataFranJournalminnenLISTA" type="utreko:BeteckningPaValdaKassaregisterForExportAvDataFranJournalminnenLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Beteckning på valda kassaregister för export av data från journalminnen   
+Källreferens: -   
+Beskrivning: Företagets beteckning på valda kassaregister för export av data från journalminnet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BeteckningPaValdaKassaregisterForExportAvDataFranJournalminnenLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:BeteckningPaValtKassaregisterForExportAvDataFranJournalminnet" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FlyttaParkeradArtikel" type="utreko:FlyttaParkeradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Flytta parkerad artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Flytt av en artikel som parkerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="FlyttaParkeradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:IdentitetsbeteckningForTidigareParkering" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ForandraVaxelkassa" type="utreko:ForandraVaxelkassaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Förändra växelkassa   
+Källreferens: 39 kap. 8 § SFL 
+5 kap. 1 § SKVFS 2014:9    
+Beskrivning: Insättning eller uttag ur växelkassa. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ForandraVaxelkassaTYPE">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element ref="utreko:ForandringAvVaxelkassaISvenskaKronor"/>
+				<xs:element ref="utreko:ForandringAvVaxelkassaIUtlandskValuta"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ForandringAvVaxelkassaIUtlandskValuta" type="utreko:ForandringAvVaxelkassaIUtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Förändring av växelkassa i utländsk valuta   
+Källreferens: -   
+Beskrivning: Förändring av växelkassa i utländsk valuta.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ForandringAvVaxelkassaIUtlandskValutaTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:UtlandskValuta"/>
+			<xs:element ref="utreko:BeloppIUtlandskValuta"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Handelse" type="utreko:HandelseTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Händelse   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Händelse som registreras i kassaregister.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="HandelseTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:InloggadAnvandare" minOccurs="0"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:Registreringstidpunkt"/>
+			<xs:choice>
+				<xs:element ref="utreko:RegistreraArtikel"/>
+				<xs:element ref="utreko:AndraRegistreradArtikel"/>
+				<xs:element ref="utreko:RaderaRegistreradArtikel"/>
+				<xs:element ref="utreko:ParkeraRegistreradArtikel"/>
+				<xs:element ref="utreko:OppnaParkering"/>
+				<xs:element ref="utreko:RaderaParkeradArtikel"/>
+				<xs:element ref="utreko:AndraParkeradArtikel"/>
+				<xs:element ref="utreko:FlyttaParkeradArtikel"/>
+				<xs:element ref="utreko:StangaParkering"/>
+				<xs:element ref="utreko:OppnaKassaladaVidNollforsaljning"/>
+				<xs:element ref="utreko:AnvandaClear"/>
+				<xs:element ref="utreko:StallaPrisforfragan"/>
+				<xs:element ref="utreko:ForandraVaxelkassa"/>
+				<xs:element ref="utreko:Kassakvitto"/>
+				<xs:element ref="utreko:Returkvitto"/>
+				<xs:element ref="utreko:KopiaAvKassakvitto"/>
+				<xs:element ref="utreko:ProFormaKvitto"/>
+				<xs:element ref="utreko:Ovningskvitto"/>
+				<xs:element ref="utreko:XDagrapport"/>
+				<xs:element ref="utreko:ZDagrapport"/>
+				<xs:element ref="utreko:OvrigRapport"/>
+				<xs:element ref="utreko:StartAvKassaregister"/>
+				<xs:element ref="utreko:StoppAvKassaregister"/>
+				<xs:element ref="utreko:OmstartAvKassaregister"/>
+				<xs:element ref="utreko:InloggningIKassaregister"/>
+				<xs:element ref="utreko:UtloggningUrKassaregister"/>
+				<xs:element ref="utreko:StallaOmKlockan"/>
+				<xs:element ref="utreko:StallaOmTillOvningslage"/>
+				<xs:element ref="utreko:StallaOmTillNormallage"/>
+				<xs:element ref="utreko:StatuskodFranKontrollprogrammet"/>
+				<xs:element ref="utreko:VerifieringAvKvittodataMellanKontrollprogramOchKontrollserver"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="InformationOmForetaget" type="utreko:InformationOmForetagetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Information om företaget   
+Källreferens: -   
+Beskrivning: Information om företaget exporten av data från journalminnet avseer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="InformationOmForetagetTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:NamnPaVerksamheten" minOccurs="0"/>
+			<xs:element ref="utreko:DenAdressDarForsaljningSker"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Kassakvitto" type="utreko:KassakvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kassakvitto   
+Källreferens: 39 kap. 8 § SFL 
+4 kap. 2 § SKVFS 2014:9   
+Beskrivning: Framställan av kassakvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KassakvittoTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DenAdressDarForsaljningSker"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarKvittoFramstalls"/>
+			<xs:element ref="utreko:LopnummerForKassakvitto"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:SaldaArtiklarLISTA"/>
+			<xs:element ref="utreko:RabatterPaKvittonivaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltRabattbeloppPaKvitto" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltForsaljningsbeloppISvenskaKronor"/>
+			<xs:element ref="utreko:TotalaForsaljningsbeloppIUtlandskValutaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattPaForsaljningsbeloppet"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTA"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:element ref="utreko:ElektronisktKassakvitto" minOccurs="0"/>
+			<xs:element ref="utreko:LopnummerForZDagrapportPaKvitto"/>
+			<xs:choice>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollenheten"/>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollsystemet"/>
+			</xs:choice>
+			<xs:choice>
+				<xs:element ref="utreko:Kontrollkod"/>
+				<xs:element ref="utreko:Avstamningskod"/>
+				<xs:element ref="utreko:UtskriftAvKvittoUtanAttKontrollprogrammetHarKontaktMedKontrollservern"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="KassaregistersystemLISTA" type="utreko:KassaregistersystemLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kassaregistersystem   
+Källreferens: -   
+Beskrivning: De kassaregistersystem som exporten av data från journalminnet avser.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KassaregistersystemLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:Kassaregistersystemet" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Kassaregistersystemet" type="utreko:KassaregistersystemetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kassaregistersystemet   
+Källreferens: -   
+Beskrivning: Ett kassaregistersystem ska bestå av ett tillverkardeklarerat kassaregister och ett certifierat kontrollsystem eller en certifierad kontrollenhet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KassaregistersystemetTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:TillverkningsnummerForKassaregistret"/>
+			<xs:element ref="utreko:ModellbeteckningForKassaregistret"/>
+			<xs:element ref="utreko:ModellEllerProgramForKassaregistret"/>
+			<xs:element ref="utreko:VersionsnummerForKassaregistret"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:choice>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollenheten"/>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollsystemet"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="KopiaAvKassakvitto" type="utreko:KopiaAvKassakvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kopia av kassakvitto   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Framställan av kvittokopia.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="KopiaAvKassakvittoTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DenAdressDarForsaljningSker"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarKvittoFramstalls"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarOriginalkvittoFramstalldes"/>
+			<xs:element ref="utreko:LopnummerForKvittokopia"/>
+			<xs:element ref="utreko:LopnummerPaOriginalkvitto"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:SaldaArtiklarLISTA"/>
+			<xs:element ref="utreko:RabatterPaKvittonivaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltRabattbeloppPaKvitto" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltForsaljningsbeloppISvenskaKronor"/>
+			<xs:element ref="utreko:TotalaForsaljningsbeloppIUtlandskValutaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattPaForsaljningsbeloppet"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTA"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:element ref="utreko:KontrollkodPaKopiaAvKassakvitto" minOccurs="0"/>
+			<xs:element ref="utreko:ElektroniskKopiaAvKassakvitto" minOccurs="0"/>
+			<xs:element ref="utreko:LopnummerForZDagrapportPaKvitto"/>
+			<xs:choice>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollenheten"/>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollsystemet"/>
+			</xs:choice>
+			<xs:choice>
+				<xs:element ref="utreko:KontrollkodForKvittotSomKopianAvser"/>
+				<xs:element ref="utreko:AvstamningskodForKvittotSomKopianAvser"/>
+				<xs:element ref="utreko:OriginalkvittoUtskrivetUtanKontaktMedKontrollservern"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MervardesskattPaOlikaSkattesatserLISTA" type="utreko:MervardesskattPaOlikaSkattesatserLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskatt på olika skattesatser   
+Källreferens: -   
+Beskrivning: Mervärdesskatt på olika skattesatser.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="MervardesskattPaOlikaSkattesatserLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:MervardesskattPerSkattesats" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="MervardesskattPerSkattesats" type="utreko:MervardesskattPerSkattesatsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskatt per skattesats   
+Källreferens: -   
+Beskrivning: Mervärdesskatt per skattesats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="MervardesskattPerSkattesatsTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:Mervardesskattesats"/>
+			<xs:element ref="utreko:TotaltMervardesskattebeloppPerSkattesats"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="OppnaParkering" type="utreko:OppnaParkeringTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Öppna parkering   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Öppna parkering.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OppnaParkeringTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Ovningskvitto" type="utreko:OvningskvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Övningskvitto   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Framställan av övningskvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OvningskvittoTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DenAdressDarForsaljningSker"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarKvittoFramstalls"/>
+			<xs:element ref="utreko:LopnummerForOvningskvitto" minOccurs="0"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:SaldaArtiklarLISTA"/>
+			<xs:element ref="utreko:RabatterPaKvittonivaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltRabattbeloppPaKvitto" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltForsaljningsbeloppISvenskaKronor"/>
+			<xs:element ref="utreko:TotalaForsaljningsbeloppIUtlandskValutaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattPaForsaljningsbeloppet"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTA"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:element ref="utreko:LopnummerForZDagrapportPaKvitto"/>
+			<xs:choice>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollenheten"/>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollsystemet"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="OvrigRapport" type="utreko:OvrigRapportTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Övrig rapport   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Framtagning (skapande) av annan rapport än X- eller Z-dagrapport.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="OvrigRapportTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:NamnPaOvrigRapport"/>
+			<xs:element ref="utreko:Sokparameter"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ParkeraRegistreradArtikel" type="utreko:ParkeraRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Parkera registrerad artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Parkering av registrerad artikel som ska slås in som betald vid ett senare tillfälle.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ParkeraRegistreradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ProFormaKvitto" type="utreko:ProFormaKvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Pro forma kvitto   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Framställan av pro forma kvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ProFormaKvittoTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DenAdressDarForsaljningSker"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarProFormaKvittoFramstalls"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:SaldaArtiklarLISTA"/>
+			<xs:element ref="utreko:RabatterPaKvittonivaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltRabattbeloppPaKvitto" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltForsaljningsbeloppISvenskaKronor"/>
+			<xs:element ref="utreko:MervardesskattPaForsaljningsbeloppet"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:choice>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollenheten"/>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollsystemet"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RabattPaKvittoniva" type="utreko:RabattPaKvittonivaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatt på kvittonivå   
+Källreferens: -   
+Beskrivning: Rabatt på totala kvittosumman.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RabattPaKvittonivaTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:BenamningPaRabatt" minOccurs="0"/>
+			<xs:element ref="utreko:RabattensBeloppPaKvittoniva"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RabattPaRegistreradArtikel" type="utreko:RabattPaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatt på registrerad artikel   
+Källreferens: -   
+Beskrivning: Rabatt på registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RabattPaRegistreradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:BenamningPaRabatt" minOccurs="0"/>
+			<xs:element ref="utreko:RabattensBelopp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RabattPaSaldArtikel" type="utreko:RabattPaSaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatt på såld artikel   
+Källreferens: -   
+Beskrivning: Rabatt på såld artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RabattPaSaldArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:BenamningPaRabatt" minOccurs="0"/>
+			<xs:element ref="utreko:RabattensBelopp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RabatterPaKvittonivaLISTA" type="utreko:RabatterPaKvittonivaLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatter på kvittonivå   
+Källreferens: -   
+Beskrivning: Rabatter på totala kvittosumman.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RabatterPaKvittonivaLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:RabattPaKvittoniva" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RabatterPaRegistreradArtikelLISTA" type="utreko:RabatterPaRegistreradArtikelLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatter på registrerad artikel   
+Källreferens: -   
+Beskrivning: Rabatter på registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RabatterPaRegistreradArtikelLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:RabattPaRegistreradArtikel" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RabatterPaSaldArtikelLISTA" type="utreko:RabatterPaSaldArtikelLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatter på såld artikel   
+Källreferens: -   
+Beskrivning: Rabatter på såld artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RabatterPaSaldArtikelLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:RabattPaSaldArtikel" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RaderaParkeradArtikel" type="utreko:RaderaParkeradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Radera parkerad artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Radering av en artikel som parkerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RaderaParkeradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+			<xs:element ref="utreko:UrsprungligRegistreringstidpunkt"/>
+			<xs:element ref="utreko:TypAvRadering" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RaderaRegistreradArtikel" type="utreko:RaderaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Radera registrerad artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Radering av artikel som inte slagits in som betald eller har parkerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RaderaRegistreradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+			<xs:element ref="utreko:UrsprungligRegistreringstidpunkt"/>
+			<xs:element ref="utreko:TypAvRadering" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegistreraArtikel" type="utreko:RegistreraArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Registrera artikel   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Uppgifter som skapas vid registrering av en artikel inför en försäljning.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RegistreraArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvRegistreradArtikel"/>
+			<xs:element ref="utreko:MangdAvRegistreradArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaRegistreradArtikel"/>
+			<xs:element ref="utreko:RabatterPaRegistreradArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForRegistreradArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaRegistreradArtikel"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegistreringLISTA" type="utreko:RegistreringLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Registrering   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Registrering i kassaregister.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="RegistreringLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:Handelse" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Returkvitto" type="utreko:ReturkvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Returkvitto   
+Källreferens: 39 kap. 8 § SFL
+7 kap. 1 § tredje stycket SKVFS 2014:9   
+Beskrivning: Framställan av returkvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ReturkvittoTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DenAdressDarForsaljningSker"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarReturkvittoFramstalls"/>
+			<xs:element ref="utreko:LopnummerForKassakvitto"/>
+			<xs:element ref="utreko:LopnummerForUrsprungligtKassakvitto" minOccurs="0"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:SaldaArtiklarLISTA"/>
+			<xs:element ref="utreko:RabatterPaKvittonivaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltRabattbeloppPaKvitto" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltForsaljningsbeloppISvenskaKronor"/>
+			<xs:element ref="utreko:TotalaForsaljningsbeloppIUtlandskValutaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattPaForsaljningsbeloppet"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTA"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:element ref="utreko:ElektronisktKassakvitto" minOccurs="0"/>
+			<xs:element ref="utreko:LopnummerForZDagrapportPaKvitto"/>
+			<xs:choice>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollenheten"/>
+				<xs:element ref="utreko:TillverkningsnummerForKontrollsystemet"/>
+			</xs:choice>
+			<xs:choice>
+				<xs:element ref="utreko:Kontrollkod"/>
+				<xs:element ref="utreko:Avstamningskod"/>
+				<xs:element ref="utreko:UtskriftAvKvittoUtanAttKontrollprogrammetHarKontaktMedKontrollservern"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SaldArtikel" type="utreko:SaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Såld artikel   
+Källreferens: -   
+Beskrivning: Såld artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SaldArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningForRegistreringAvArtiklar" minOccurs="0"/>
+			<xs:element ref="utreko:TypAvArtikel"/>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:AntalAvSaldArtikel"/>
+			<xs:element ref="utreko:MangdAvSaldArtikel" minOccurs="0"/>
+			<xs:element ref="utreko:EnhetForViktLangdTidEllerVolym" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPerEnhet" minOccurs="0"/>
+			<xs:element ref="utreko:PrisPaSaldArtikel"/>
+			<xs:element ref="utreko:RabatterPaSaldArtikelLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattesatsForSaldArtikel"/>
+			<xs:element ref="utreko:MervardesskattPaSaldArtikel"/>
+			<xs:element ref="utreko:ArtikelnsRegistreringstidpunkt"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SaldaArtiklarLISTA" type="utreko:SaldaArtiklarLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Sålda artiklar   
+Källreferens: -   
+Beskrivning: Sålda artiklar.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="SaldaArtiklarLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:SaldArtikel" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StallaOmKlockan" type="utreko:StallaOmKlockanTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ställa om klockan   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Ändring av inställningen för klockan i kassaregistret.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StallaOmKlockanTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:NyTidVidOmstallningAvKlockan"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StallaPrisforfragan" type="utreko:StallaPrisforfraganTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ställa prisförfrågan   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Förfrågan av vilket pris en specifik artikel har.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StallaPrisforfraganTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnummer" minOccurs="0"/>
+			<xs:element ref="utreko:Artikelnamn"/>
+			<xs:element ref="utreko:PrisPaEfterfragadArtikel"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StangaParkering" type="utreko:StangaParkeringTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Stänga parkering   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Stänga en parkering.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="StangaParkeringTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:IdentitetsbeteckningPaParkering" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TidigareRabattPaRegistreradArtikel" type="utreko:TidigareRabattPaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare rabatt på registrerad artikel   
+Källreferens: -   
+Beskrivning: Tidigare rabatt på registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TidigareRabattPaRegistreradArtikelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:TidigareBenamningPaRabatt" minOccurs="0"/>
+			<xs:element ref="utreko:TidigareBeloppPaRabatten"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TidigareRabatterPaRegistreradArtikelLISTA" type="utreko:TidigareRabatterPaRegistreradArtikelLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare rabatter på registrerad artikel   
+Källreferens: -   
+Beskrivning: Tidigare rabatter på registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TidigareRabatterPaRegistreradArtikelLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:TidigareRabattPaRegistreradArtikel" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TotalForsaljningssummaForOlikaHuvudgrupper" type="utreko:TotalForsaljningssummaForOlikaHuvudgrupperTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Total försäljningssumma för olika huvudgrupper   
+Källreferens: -   
+Beskrivning: Total försäljningssumma inklusive mervärdesskatt för olika huvudgrupper om huvudgrupper används, utan hänsyn till eventuella returer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TotalForsaljningssummaForOlikaHuvudgrupperTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:NamnPaHuvudgrupp" minOccurs="0"/>
+			<xs:element ref="utreko:TotalForsaljningssummaForHuvudgrupp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TotalForsaljningssummaPerBetalningsmedel" type="utreko:TotalForsaljningssummaPerBetalningsmedelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Total försäljningssumma per betalningsmedel   
+Källreferens: -   
+Beskrivning: Total försäljningssumma inklusive mervärdesskatt per betalningsmedel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TotalForsaljningssummaPerBetalningsmedelTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:Betalningsmedel"/>
+			<xs:element ref="utreko:ForsaljningssummaPerBetalningsmedel"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TotalaForsaljningsbeloppIUtlandskValutaLISTA" type="utreko:TotalaForsaljningsbeloppIUtlandskValutaLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totala försäljningsbelopp i utländsk valuta   
+Källreferens: -   
+Beskrivning: Totala försäljningsbelopp i utländska valutor.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TotalaForsaljningsbeloppIUtlandskValutaLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:TotaltForsaljningsbeloppIUtlandskValuta" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TotalaForsaljningssummorForOlikaHuvudgrupperLISTA" type="utreko:TotalaForsaljningssummorForOlikaHuvudgrupperLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totala försäljningssummor för olika huvudgrupper   
+Källreferens: -   
+Beskrivning: Totala försäljningssummor inklusive mervärdesskatt för olika huvudgrupper om huvudgrupp används, utan hänsyn till eventuella returer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TotalaForsaljningssummorForOlikaHuvudgrupperLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:TotalForsaljningssummaForOlikaHuvudgrupper" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TotalaForsaljningssummorPerBetalningsmedelLISTA" type="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totala försäljningssummor per betalningsmedel   
+Källreferens: -   
+Beskrivning: Totala försäljningssummor inklusive mervärdesskatt per betalningsmedel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TotalaForsaljningssummorPerBetalningsmedelLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:TotalForsaljningssummaPerBetalningsmedel" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="TotaltForsaljningsbeloppIUtlandskValuta" type="utreko:TotaltForsaljningsbeloppIUtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt försäljningsbelopp i utländsk valuta   
+Källreferens: -   
+Beskrivning: Totalt försäljningsbelopp per utländsk valuta, för kunden att betala.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TotaltForsaljningsbeloppIUtlandskValutaTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:UtlandskValuta"/>
+			<xs:element ref="utreko:BeloppIUtlandskValuta"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ValdPeriodForExportAvDataFranJournalminne" type="utreko:ValdPeriodForExportAvDataFranJournalminneTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Vald period för export av data från journalminne   
+Källreferens: -   
+Beskrivning: Vald period för export av data från journalminne.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ValdPeriodForExportAvDataFranJournalminneTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ValdStarttidpunktForExportAvDataFranJournalminnet"/>
+			<xs:element ref="utreko:ValdSluttidpunktForExportAvDataFranJournalminnet"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VaxelkassaIUtlandskValuta" type="utreko:VaxelkassaIUtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Växelkassa i utländsk valuta   
+Källreferens: -   
+Beskrivning: Växelkassa i utländsk valuta.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VaxelkassaIUtlandskValutaTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:UtlandskValuta"/>
+			<xs:element ref="utreko:BeloppIUtlandskValuta"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VaxelkassorIUtlandskValutaLISTA" type="utreko:VaxelkassorIUtlandskValutaLISTATYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Växelkassor i utländsk valuta   
+Källreferens: -   
+Beskrivning: Växelkassor i utländsk valuta.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VaxelkassorIUtlandskValutaLISTATYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:VaxelkassaIUtlandskValuta" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="VerifieringAvKvittodataMellanKontrollprogramOchKontrollserver" type="utreko:VerifieringAvKvittodataMellanKontrollprogramOchKontrollserverTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Verifiering av kvittodata mellan kontrollprogram och kontrollserver   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Verifiering att kontrollprogrammet, efter avbrott, återigen fått kontakt med kontrollservern</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="VerifieringAvKvittodataMellanKontrollprogramOchKontrollserverTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:LopnummerForKassakvitto"/>
+			<xs:element ref="utreko:Avstamningskod"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="XDagrapport" type="utreko:XDagrapportTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">X-dagrapport   
+Källreferens: 39 kap. 8 § SFL
+4 kap. 2 § SKVFS 2014:9   
+Beskrivning: Framtagning (skapande) av X-dagrapport.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="XDagrapportTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarRapportFramstalls"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:TotalForsaljningssumma"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorForOlikaHuvudgrupperLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:element ref="utreko:VaxelkassansBeloppISvenskaKronor"/>
+			<xs:element ref="utreko:VaxelkassorIUtlandskValutaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:AntalSaldaVaror" minOccurs="0"/>
+			<xs:element ref="utreko:AntalSaldaTjanster" minOccurs="0"/>
+			<xs:element ref="utreko:AntalKassakvitton"/>
+			<xs:element ref="utreko:AntalKassaladoppningar" minOccurs="0"/>
+			<xs:element ref="utreko:AntalKvittokopior" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltBeloppPaKvittokopior" minOccurs="0"/>
+			<xs:element ref="utreko:AntalKvittonSomTagitsFramIOvningslage" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltBeloppIOvningslage" minOccurs="0"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTA"/>
+			<xs:element ref="utreko:AntalReturer"/>
+			<xs:element ref="utreko:ReturernasBelopp"/>
+			<xs:element ref="utreko:RabatternasBelopp"/>
+			<xs:element ref="utreko:AntalOvrigaRegistreringarSomMinskatDagensForsaljningsbelopp"/>
+			<xs:element ref="utreko:TotaltBeloppAvOvrigaRegistreringarSomMinskatDagensForsaljningsbelopp"/>
+			<xs:element ref="utreko:AntalOavslutadeForsaljningar"/>
+			<xs:element ref="utreko:TotaltBeloppAvOavslutadeForsaljningar"/>
+			<xs:element ref="utreko:GrandTotalForsaljning"/>
+			<xs:element ref="utreko:GrandTotalRetur"/>
+			<xs:element ref="utreko:GrandTotalNetto"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ZDagrapport" type="utreko:ZDagrapportTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Z-dagrapport   
+Källreferens: 39 kap. 8 § SFL
+4 kap. 2 § SKVFS 2014:9   
+Beskrivning: Framtagning (skapande) av Z-dagrapport.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ZDagrapportTYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:ForetagetsNamn"/>
+			<xs:element ref="utreko:OrganisationsnummerEllerPersonnummer"/>
+			<xs:element ref="utreko:DatumOchKlockslagNarRapportFramstalls"/>
+			<xs:element ref="utreko:LopnummerForZDagrapport"/>
+			<xs:element ref="utreko:Kassabeteckning"/>
+			<xs:element ref="utreko:TillverkningsnummerForKassaregistret"/>
+			<xs:element ref="utreko:ModellbeteckningForKassaregistret"/>
+			<xs:element ref="utreko:ModellEllerProgramForKassaregistret"/>
+			<xs:element ref="utreko:VersionsnummerForKassaregistret"/>
+			<xs:element ref="utreko:TotalForsaljningssumma"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorForOlikaHuvudgrupperLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:MervardesskattPaOlikaSkattesatserLISTA"/>
+			<xs:element ref="utreko:VaxelkassansBeloppISvenskaKronor"/>
+			<xs:element ref="utreko:VaxelkassorIUtlandskValutaLISTA" minOccurs="0"/>
+			<xs:element ref="utreko:AntalSaldaVaror" minOccurs="0"/>
+			<xs:element ref="utreko:AntalSaldaTjanster" minOccurs="0"/>
+			<xs:element ref="utreko:AntalKassakvitton"/>
+			<xs:element ref="utreko:AntalKassaladoppningar" minOccurs="0"/>
+			<xs:element ref="utreko:AntalKvittokopior" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltBeloppPaKvittokopior" minOccurs="0"/>
+			<xs:element ref="utreko:AntalKvittonSomTagitsFramIOvningslage" minOccurs="0"/>
+			<xs:element ref="utreko:TotaltBeloppIOvningslage" minOccurs="0"/>
+			<xs:element ref="utreko:TotalaForsaljningssummorPerBetalningsmedelLISTA"/>
+			<xs:element ref="utreko:AntalReturer"/>
+			<xs:element ref="utreko:ReturernasBelopp"/>
+			<xs:element ref="utreko:RabatternasBelopp"/>
+			<xs:element ref="utreko:AntalOvrigaRegistreringarSomMinskatDagensForsaljningsbelopp"/>
+			<xs:element ref="utreko:TotaltBeloppAvOvrigaRegistreringarSomMinskatDagensForsaljningsbelopp"/>
+			<xs:element ref="utreko:AntalOavslutadeForsaljningar"/>
+			<xs:element ref="utreko:TotaltBeloppAvOavslutadeForsaljningar"/>
+			<xs:element ref="utreko:GrandTotalForsaljning"/>
+			<xs:element ref="utreko:GrandTotalRetur"/>
+			<xs:element ref="utreko:GrandTotalNetto"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
