@@ -1,7 +1,7 @@
 # Tillverkardeklaration — pos_kassaregister_se
 
 **Utfärdad av:** Vertel Sverige AB
-**Gäller version:** 18.0.1.5.0
+**Gäller version:** 18.0.1.6.0
 **Datum:** 2026-11-02
 **Regelverk:** SKVFS 2021:17 (kassaregister), SKVFS 2021:16 (standardexport)
 
@@ -10,7 +10,7 @@
 ## 1. Deklaration
 
 Vertel Sverige AB deklarerar härmed att kassaregisterprogrammet
-`pos_kassaregister_se` version 18.0.1.5.0 är testat enligt de metoder som
+`pos_kassaregister_se` version 18.0.1.6.0 är testat enligt de metoder som
 anges i detta dokument och i det medföljande testprotokollet, samt att
 programmet överensstämmer med Skatteverkets föreskrifter om kassaregister
 (SKVFS 2021:17) och om standardexport av data från journalminne
@@ -38,7 +38,7 @@ denna deklaration:
 
 Programmet testas på tre nivåer:
 
-1. **Automatiska enhetstester** — 102 tester i Odoo:s testramverk, körda
+1. **Automatiska enhetstester** — 104 tester i Odoo:s testramverk, körda
    mot en testdatabas. Varje test motsvarar ett krav eller ett scenario i
    specifikationen. Samtliga tester är godkända vid deklarationsdatum.
 
@@ -60,6 +60,12 @@ Programmet testas på tre nivåer:
   producera kvitton och att exportera — den gissar aldrig.
 - **Kontrollenhetens tillverkningsnummer** måste vara exakt 17 tecken
   enligt exportschemat. Värdet valideras vid inmatning.
+- **Kassaterminalens gränssnitt är inte byggt.** Journalminnets
+  händelsemetoder (kassalåda, växelkassa, prisförfrågan, clear,
+  klockjustering, parkering) är implementerade och testade men anropas
+  inte av något gränssnitt. Arbetet är blockerat i avvaktan på val av
+  kassaterminal — se `docs/integrationsspecifikation.md` avsnitt 2 och
+  `../../openspec/changes/kassaterminal-integration/`.
 - **Organisationsnummer** måste finnas på företaget. Export utan
   organisationsnummer nekas.
 - **Blackbox-verifiering** mot Skatteverkets kontrollserver
@@ -83,7 +89,7 @@ Deklaration och utdrag ur testprotokollet sänds till Skatteverket senast
 
 | Version | Inskickad | Tidigast tillhandahållande |
 |---|---|---|
-| 18.0.1.5.0 | *ej inskickad* | *14 dagar efter inskickning* |
+| 18.0.1.6.0 | *ej inskickad* | *14 dagar efter inskickning* |
 
 **Deadline för första inskickning: 2026-12-18.**
 

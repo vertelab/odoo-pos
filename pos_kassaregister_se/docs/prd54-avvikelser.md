@@ -102,5 +102,26 @@ Skatteverkets vägledning innan deklarationen skickas in.
 ## Återstår före inskickning
 
 1. Bekräfta tolkningen av 2.30 och 3.5.
-2. Skicka deklaration och testprotokoll till Skatteverket (12.3).
-3. Vänta ut tvåveckorsfristen innan utrullning (12.4).
+2. **Välj kassaterminal** — blockerar kassagränssnittet, se
+   `integrationsspecifikation.md` avsnitt 2 och
+   `../../openspec/changes/kassaterminal-integration/`.
+3. Skicka deklaration och testprotokoll till Skatteverket (12.3).
+4. Vänta ut tvåveckorsfristen innan utrullning (12.4).
+
+### Om kassaterminalen
+
+Journalminnets händelsemetoder (kassalåda, växelkassa, prisförfrågan,
+clear, klockjustering, parkering) är implementerade och testade men
+**anropas inte av något gränssnitt**. Det finns ingen POS-frontend i
+modulen.
+
+Detta är avsiktligt: ett gränssnitt kan inte byggas förrän det är känt
+vilken terminal som ska användas, om den kan integreras och om den får
+anslutas. Backend-API:t ligger under det beslutet och är därför
+terminaloberoende.
+
+Konsekvens för deklarationen: registret kan i dag **inte användas som
+kassaregister i drift** — en kassör kan inte öppna lådan utan
+försäljning, fylla på växelkassa eller parkera en artikel på ett
+spårbart sätt. Det behöver inte hindra inskickning av deklarationen, men
+måste vara känt vid utrullning.
