@@ -47,10 +47,10 @@ class PosConfig(models.Model):
     def _compute_registration_unit(self):
         """Resolve the unit that points back at this config.
 
-        The dependency is on ``id`` because the unit is found by searching
-        for ``config_id == self.id``. Depending on ``name`` (as this used to
-        do) meant the field was only recomputed when the config was renamed,
-        so a freshly created config could keep an empty registration unit.
+        The unit is found by searching for ``config_id == self.id``. The
+        compute depends on ``name`` only to have a trigger; the unit itself
+        is provisioned by ``pos.registration.unit.create()``, which runs when
+        the config is created.
         """
         Unit = self.env['pos.registration.unit']
         for config in self:
