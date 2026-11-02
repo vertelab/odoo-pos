@@ -356,8 +356,10 @@ class TestKvittoutskrift(TransactionCase):
 
     def test_receipt_refused_when_control_unit_unreachable(self):
         """Scenario: kontrollenheten svarar inte."""
-        self.unit.write({'control_unit_serial': False})
+        # The session needs a configured unit to open (4 kap. 9 §); the unit
+        # is disconnected afterwards, which is the case this test is about.
         session = self._open_session()
+        self.unit.write({'control_unit_serial': False})
         order = self._make_order(session, [(self.goods, 1)])
 
         with self.assertRaises(UserError) as ctx:

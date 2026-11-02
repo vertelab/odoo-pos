@@ -29,6 +29,9 @@ class TestDagrapporter(TransactionCase):
         super().setUpClass()
         cls.config = cls.env['pos.config'].create({'name': 'Kassa Z-test'})
         cls.unit = cls.config.registration_unit_id
+        # A register without a control unit cannot open a session once the
+        # bridge is installed (4 kap. 9 §), so give the unit one.
+        cls.unit.write({'control_unit_serial': 'CU-32100000000002'})
         cls.ReportZ = cls.env['pos.report.z']
         cls.ReportX = cls.env['pos.report.x']
         cls.Session = cls.env['pos.session']
