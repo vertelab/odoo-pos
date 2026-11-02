@@ -22,4 +22,18 @@
         <field name="sequence">20</field>
     </record>
 
+    <record id="menu_pos_report_z" model="ir.ui.menu">
+        <field name="name">Z-dagrapporter</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="action_pos_report_z"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="menu_pos_report_x" model="ir.ui.menu">
+        <field name="name">X-dagrapporter</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="action_pos_report_x"/>
+        <field name="sequence">40</field>
+    </record>
+
 </odoo>

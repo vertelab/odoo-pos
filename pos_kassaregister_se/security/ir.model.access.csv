@@ -3,3 +3,11 @@ access_pos_registration_unit_user,pos.registration.unit.user,model_pos_registrat
 access_pos_registration_unit_manager,pos.registration.unit.manager,model_pos_registration_unit,point_of_sale.group_pos_manager,1,1,1,0
 access_pos_journal_entry_user,pos.journal.entry.user,model_pos_journal_entry,base.group_user,1,0,0,0
 access_pos_journal_entry_manager,pos.journal.entry.manager,model_pos_journal_entry,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_report_z_user,pos.report.z.user,model_pos_report_z,base.group_user,1,0,0,0
+access_pos_report_z_manager,pos.report.z.manager,model_pos_report_z,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_report_z_line_user,pos.report.z.line.user,model_pos_report_z_line,base.group_user,1,0,0,0
+access_pos_report_z_line_manager,pos.report.z.line.manager,model_pos_report_z_line,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_report_x_user,pos.report.x.user,model_pos_report_x,base.group_user,1,0,0,0
+access_pos_report_x_manager,pos.report.x.manager,model_pos_report_x,point_of_sale.group_pos_manager,1,0,0,0
+access_pos_report_x_line_user,pos.report.x.line.user,model_pos_report_x_line,base.group_user,1,0,0,0
+access_pos_report_x_line_manager,pos.report.x.line.manager,model_pos_report_x_line,point_of_sale.group_pos_manager,1,0,0,0

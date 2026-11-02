@@ -73,6 +73,14 @@ class PosRegistrationUnit(models.Model):
         help="Unbroken sequence for journal memory entries on this unit "
              "(4 kap. 2 § SKVFS 2021:17).",
     )
+    z_sequence_id = fields.Many2one(
+        comodel_name='ir.sequence',
+        string='Z-report Sequence',
+        readonly=True,
+        copy=False,
+        help="Unbroken sequence reserved for Z-dagrapporter only, separate "
+             "from the receipt series (7 kap. 3 § SKVFS 2021:17).",
+    )
     journal_entry_ids = fields.One2many(
         comodel_name='pos.journal.entry',
         inverse_name='unit_id',
@@ -120,6 +128,19 @@ class PosRegistrationUnit(models.Model):
                     'code': 'pos.journal.entry.%s' % config_id,
                     'implementation': 'no_gap',
                     'padding': 8,
+                    'number_next': 1,
+                    'number_increment': 1,
+                    'company_id': self.env['pos.config'].browse(
+                        config_id).company_id.id or self.env.company.id,
+                }).id
+            if not vals.get('z_sequence_id'):
+                config_id = vals.get('config_id')
+                name = vals.get('name') or _('Cash register')
+                vals['z_sequence_id'] = self.env['ir.sequence'].create({
+                    'name': _('Z-dagrapport: %(unit)s', unit=name),
+                    'code': 'pos.report.z.%s' % config_id,
+                    'implementation': 'no_gap',
+                    'padding': 6,
                     'number_next': 1,
                     'number_increment': 1,
                     'company_id': self.env['pos.config'].browse(

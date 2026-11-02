@@ -51,4 +51,25 @@ class PosSession(models.Model):
         result = super().action_pos_session_closing_control(*args, **kwargs)
         for session in self:
             session._journal('StoppAvKassaregister')
+            # A Z-report is produced when the sales day is closed, before the
+            # session stops being the authoritative record (7 kap. 3 §).
+            session._generate_z_report()
         return result
+
+    def _generate_z_report(self):
+        """Produce the Z-dagrapport that closes this session's sales day."""
+        self.ensure_one()
+        return self.env['pos.report.z']._generate_z_report(self)
+
+    def action_generate_x_report(self):
+        """Take an X-dagrapport snapshot without closing the session."""
+        self.ensure_one()
+        report = self.env['pos.report.x']._generate_x_report(self)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'X-dagrapport',
+            'res_model': 'pos.report.x',
+            'res_id': report.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }

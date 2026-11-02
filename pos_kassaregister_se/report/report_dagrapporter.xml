@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Z-dagrapport — SKVFS 2021:17 7 kap. 3 §
+         ================================================================ -->
+    <record id="paperformat_pos_report_z" model="report.paperformat">
+        <field name="name">Kassaregister Z-dagrapport</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_pos_report_z" model="ir.actions.report">
+        <field name="name">Z-dagrapport</field>
+        <field name="model">pos.report.z</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_kassaregister_se.report_pos_report_z</field>
+        <field name="report_file">pos_kassaregister_se.report_pos_report_z</field>
+        <field name="print_report_name">'Z-dagrapport %s %s' % (object.unit_id.name, object.sequence)</field>
+        <field name="paperformat_id" ref="paperformat_pos_report_z"/>
+        <field name="binding_model_id" ref="model_pos_report_z"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_pos_report_z_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang='sv_SE')"/>
+            <div class="page">
+                <h2 class="text-center">Z-dagrapport</h2>
+                <p class="text-center">
+                    <em>Framställd enligt SKVFS 2021:17 7 kap. 3 §</em>
+                </p>
+
+                <!-- Företagsuppgifter -->
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width: 45%;"><strong>Företag</strong></td>
+                        <td><span t-field="o.company_name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Organisationsnummer</strong></td>
+                        <td><span t-field="o.company_vat"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kassabeteckning</strong></td>
+                        <td><span t-field="o.unit_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Löpnummer (Z-serie)</strong></td>
+                        <td><span t-field="o.sequence"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Försäljningsdag</strong></td>
+                        <td><span t-field="o.sales_date"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Framställningstid</strong></td>
+                        <td>
+                            <span t-esc="o.produced_at" t-options='{"widget": "datetime", "format": "yyyy-MM-dd HH:mm:ss"}'/>
+                            <em class="text-muted">(svensk normaltid)</em>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Total försäljningssumma -->
+                <h3>Total försäljningssumma</h3>
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width: 45%;"><strong>Försäljning inkl. moms</strong></td>
+                        <td class="text-end">
+                            <span t-field="o.total_sales"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Växelkassa vid öppning</strong></td>
+                        <td class="text-end">
+                            <span t-field="o.cash_register_balance_start"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Växelkassa vid stängning</strong></td>
+                        <td class="text-end">
+                            <span t-field="o.cash_register_balance_end"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Huvudgrupper -->
+                <h3>Huvudgrupper</h3>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Huvudgrupp</th>
+                            <th class="text-end">Belopp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.line_ids.filtered(lambda l: l.line_type == 'group')"
+                            t-as="line">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-end">
+                                <span t-field="line.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="not o.line_ids.filtered(lambda l: l.line_type == 'group')">
+                            <td colspan="2"><em>Inga huvudgrupper</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Momsfördelning -->
+                <h3>Momsfördelning</h3>
+                <p class="text-muted">
+                    <em>Utan hänsyn till returer (7 kap. 3 §).</em>
+                </p>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Skattesats</th>
+                            <th class="text-end">Moms i kronor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.line_ids.filtered(lambda l: l.line_type == 'tax')"
+                            t-as="line">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-end">
+                                <span t-field="line.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr t-if="not o.line_ids.filtered(lambda l: l.line_type == 'tax')">
+                            <td colspan="2"><em>Ingen moms redovisad</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Betalningsmedel -->
+                <h3>Betalningsmedel</h3>
+                <p class="text-muted">
+                    <em>Inklusive returkvitton med negativa belopp.
+                        Exklusive dricks och växel.</em>
+                </p>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Betalningsmedel</th>
+                            <th class="text-end">Belopp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.line_ids.filtered(lambda l: l.line_type == 'payment')"
+                            t-as="line">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-end">
+                                <span t-field="line.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Antal -->
+                <h3>Räkenskaper</h3>
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width: 45%;"><strong>Antal kassakvitton</strong></td>
+                        <td><span t-field="o.receipt_count"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Antal returkvitton</strong></td>
+                        <td><span t-field="o.return_count"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Antal lådöppningar</strong></td>
+                        <td><span t-field="o.drawer_open_count"/></td>
+                    </tr>
+                    <tr t-if="o.tip_total">
+                        <td><strong>Dricks</strong></td>
+                        <td>
+                            <span t-field="o.tip_total"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                    <tr t-if="o.open_order_count">
+                        <td><strong>Oavslutade försäljningar</strong></td>
+                        <td>
+                            <span t-field="o.open_order_count"/> st,
+                            <span t-field="o.open_order_amount"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </table>
+
+                <p class="mt-4 text-muted small">
+                    Rapporten är registrerad i kassaregistrets journalminne och
+                    kan tas fram igen utan att skapas på nytt.
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_pos_report_z">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="pos_kassaregister_se.report_pos_report_z_document"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- ================================================================
+         X-dagrapport
+         ================================================================ -->
+    <record id="action_report_pos_report_x" model="ir.actions.report">
+        <field name="name">X-dagrapport</field>
+        <field name="model">pos.report.x</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pos_kassaregister_se.report_pos_report_x</field>
+        <field name="report_file">pos_kassaregister_se.report_pos_report_x</field>
+        <field name="print_report_name">'X-dagrapport %s' % (object.unit_id.name)</field>
+        <field name="paperformat_id" ref="paperformat_pos_report_z"/>
+        <field name="binding_model_id" ref="model_pos_report_x"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_pos_report_x_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang='sv_SE')"/>
+            <div class="page">
+                <h2 class="text-center">X-dagrapport</h2>
+                <p class="text-center">
+                    <em>Avstämning under pågående försäljningsdag.
+                        Förbrukar inget löpnummer ur Z-serien.</em>
+                </p>
+
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width: 45%;"><strong>Företag</strong></td>
+                        <td><span t-field="o.company_name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Organisationsnummer</strong></td>
+                        <td><span t-field="o.company_vat"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kassabeteckning</strong></td>
+                        <td><span t-field="o.unit_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Försäljningsdag</strong></td>
+                        <td><span t-field="o.sales_date"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Framställningstid</strong></td>
+                        <td>
+                            <span t-esc="o.produced_at" t-options='{"widget": "datetime", "format": "yyyy-MM-dd HH:mm:ss"}'/>
+                            <em class="text-muted">(svensk normaltid)</em>
+                        </td>
+                    </tr>
+                </table>
+
+                <h3>Total försäljningssumma</h3>
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width: 45%;"><strong>Försäljning inkl. moms</strong></td>
+                        <td class="text-end">
+                            <span t-field="o.total_sales"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Växelkassa vid öppning</strong></td>
+                        <td class="text-end">
+                            <span t-field="o.cash_register_balance_start"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </table>
+
+                <h3>Momsfördelning</h3>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Skattesats</th>
+                            <th class="text-end">Moms i kronor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.line_ids.filtered(lambda l: l.line_type == 'tax')"
+                            t-as="line">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-end">
+                                <span t-field="line.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Betalningsmedel</h3>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Betalningsmedel</th>
+                            <th class="text-end">Belopp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="o.line_ids.filtered(lambda l: l.line_type == 'payment')"
+                            t-as="line">
+                            <td><span t-field="line.name"/></td>
+                            <td class="text-end">
+                                <span t-field="line.amount"
+                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Räkenskaper</h3>
+                <table class="table table-sm">
+                    <tr>
+                        <td style="width: 45%;"><strong>Antal kassakvitton</strong></td>
+                        <td><span t-field="o.receipt_count"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Antal returkvitton</strong></td>
+                        <td><span t-field="o.return_count"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Antal lådöppningar</strong></td>
+                        <td><span t-field="o.drawer_open_count"/></td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_pos_report_x">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="pos_kassaregister_se.report_pos_report_x_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>
