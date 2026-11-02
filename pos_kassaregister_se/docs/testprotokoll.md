@@ -23,7 +23,8 @@ Testnamnen nedan är hämtade ur källkoden. Varje rad motsvarar en metod i
 | `test_otillatna_funktioner.py` | 14 | Godkänd |
 | `test_registration_unit.py` | 7 | Godkänd |
 | `test_xml_export.py` | 22 | Godkänd |
-| **Summa** | **102** | **102 godkända, 0 underkända** |
+| `pos_kassaregister_se_blackbox/tests/test_blackbox.py` | 11 | Godkänd |
+| **Summa** | **113** | **113 godkända, 0 underkända** |
 
 Kommando:
 
@@ -175,6 +176,25 @@ Returkod `0` = samtliga tester godkända.
 | 100 | Exporten loggas i journalminnet | 4:10 | `test_xml_export.test_export_is_logged_in_journal` | Godkänd |
 | 101 | Exportloggen bär period, enheter och användare | 4:10 | `test_xml_export.test_export_log_records_period_and_units` | Godkänd |
 | 102 | Startdatum efter slutdatum nekas | 4 kap. | `test_xml_export.test_start_after_end_is_refused` | Godkänd |
+
+### 2.8 Kontrollenhetsbrygga (`pos_kassaregister_se_blackbox`)
+
+| # | Testpunkt | Krav | Testmetod | Resultat |
+|---|---|---|---|---|
+| 103 | Kontraktet finns i kärnmodulen | 7:1 | `test_blackbox.test_contract_method_exists` | Godkänd |
+| 104 | Kvittodatat bär det enheten behöver | 7:1 | `test_blackbox.test_receipt_data_carries_what_the_unit_needs` | Godkänd |
+| 105 | Bryggan implementerar kontraktet | 7:1 | `test_blackbox.test_bridge_overrides_the_contract` | Godkänd |
+| 106 | En kontrollkod returneras | 7:1 | `test_blackbox.test_control_code_is_returned` | Godkänd |
+| 107 | Samma kvitto ger samma kod | 7:1 | `test_blackbox.test_control_code_is_deterministic` | Godkänd |
+| 108 | Olika kvitton ger olika koder | 7:1 | `test_blackbox.test_different_receipts_get_different_codes` | Godkänd |
+| 109 | Koden sparas på kvittot | 7:1 | `test_blackbox.test_signing_stores_the_code_on_the_receipt` | Godkänd |
+| 110 | Utan tillverkningsnummer nekas signering | 7:1 | `test_blackbox.test_missing_control_unit_serial_is_refused` | Godkänd |
+| 111 | Tyst enhet nekar kvittot | 7:1 | `test_blackbox.test_silent_unit_is_refused` | Godkänd |
+| 112 | Session nekas utan kontrollenhet | 4:9 | `test_blackbox.test_session_refused_without_control_unit` | Godkänd |
+| 113 | Session tillåts med kontrollenhet | 4:9 | `test_blackbox.test_session_allowed_with_control_unit` | Godkänd |
+
+**Verifierat utöver testsviten:** en betald order ger en `Kassakvitto`-post i
+journalminnet som bär kontrollkoden, och hash-kedjan håller efteråt.
 
 ---
 
