@@ -274,6 +274,42 @@ class PosReceipt(models.Model):
         self.write({'control_code': code})
         return code
 
+    def _receipt_data(self):
+        """Return the receipt data a control unit needs to sign.
+
+        The dict is the contract between the register and a control unit
+        driver. It carries what the control unit must see to produce a
+        control code: the register identity, the receipt number, the time
+        and the amount.
+        """
+        self.ensure_one()
+        return {
+            'register_name': self.register_name,
+            'model_designation': self.unit_id.model_designation,
+            'control_unit_serial': self.unit_id.control_unit_serial,
+            'sequence': self.sequence,
+            'kind': self.kind,
+            'produced_at': fields.Datetime.to_string(self.produced_at),
+            'amount_total': self.amount_total,
+            'amount_tax': self.amount_tax,
+            'amount_total_sek': self.amount_total_sek,
+            'currency': self.currency_id.name,
+            'company_vat': self.company_vat,
+        }
+
+    def _send_receipt_data(self, receipt_dict):
+        """Send receipt data to the control unit and return its control code.
+
+        This is the interface a control unit driver implements — a physical
+        control unit over a serial line, a control system over a network, or
+        a blackbox service. The base implementation is deliberately absent:
+        a register without a driver cannot sign, and must not pretend to.
+        """
+        raise NotImplementedError(
+            "Ingen kontrollenhetsdrivrutin är installerad. Modulen "
+            "pos_kassaregister_se_blackbox kopplar in en kontrollenhet."
+        )
+
     def _control_unit_sign(self):
         """Return the control code for this receipt.
 
