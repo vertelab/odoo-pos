@@ -166,14 +166,52 @@ class TestJournalminneHandelser(TransactionCase):
         self.assertEqual(entry.payload['new_float'], 1500.0)
         self.assertEqual(entry.payload['difference'], 500.0)
 
+    def test_cash_float_change_uses_counted_opening_float(self):
+        """En påfyllning räknar från den räknade öppningsväxelkassan.
+
+        Regression: ``cash_float_start`` sattes inte vid öppning, så den
+        första påfyllningen loggade ``old_float = 0`` trots att kassan
+        innehöll 1500 kr. Journalminnet påstod då att kassan gick 0 → 2000.
+        """
+        session = self.env['pos.session'].create({
+            'config_id': self.config.id,
+        })
+        session.set_opening_control(1500.0, 'Öppningsräkning')
+        session.log_cash_float_change(2000.0, reason='Påfyllning')
+
+        entry = self._events(session, 'ForandraVaxelkassa').filtered(
+            lambda e: e.payload.get('reason') == 'Påfyllning')
+        self.assertEqual(len(entry), 1)
+        self.assertEqual(entry.payload['old_float'], 1500.0,
+                         "Ska räkna från den räknade öppningskassan, inte 0")
+        self.assertEqual(entry.payload['difference'], 500.0)
+
     def test_opening_float_is_logged(self):
-        """Öppningsväxelkassan loggas när sessionen öppnas."""
+        """Öppningsväxelkassan loggas när kassören räknar kassalådan."""
+        session = self.env['pos.session'].create({
+            'config_id': self.config.id,
+        })
+        # The float only becomes known when the cashier opens the register
+        # and counts the drawer, not when the session row is created.
+        session.set_opening_control(1500.0, 'Öppningsräkning')
+
+        entries = self._events(session, 'ForandraVaxelkassa')
+        self.assertTrue(entries, "Öppningsväxelkassan ska loggas")
+        self.assertEqual(entries[0].payload['reason'], 'Öppningsväxelkassa')
+        self.assertEqual(entries[0].payload['new_float'], 1500.0,
+                         "Det räknade beloppet ska loggas, inte 0")
+
+    def test_opening_float_not_logged_before_count(self):
+        """Ingen växelkasselogg innan kassalådan räknats."""
         session = self.env['pos.session'].create({
             'config_id': self.config.id,
         })
         entries = self._events(session, 'ForandraVaxelkassa')
-        self.assertTrue(entries, "Öppningsväxelkassan ska loggas")
-        self.assertEqual(entries[0].payload['reason'], 'Öppningsväxelkassa')
+        self.assertFalse(
+            entries,
+            "Växelkassan är okänd innan kassören räknat lådan — "
+            "en logg med 0 skulle vara vilseledande",
+        )
 
     # ------------------------------------------------------------------
     # 4.9 — prisförfrågan och clear

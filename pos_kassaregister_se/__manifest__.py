@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'POS Kassaregister SE',
-    'version': '18.0.1.5.0',
+    'version': '18.0.1.6.0',
     'category': 'Point of Sale',
     'summary': 'Swedish cash register (kassaregister) per SKVFS 2021:17',
     'description': """

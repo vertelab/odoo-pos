@@ -36,6 +36,19 @@ class PosSessionCashDrawer(models.Model):
         help="Kontantbelopp i kassalådan när sessionen öppnades.",
     )
 
+    def _current_cash_float(self):
+        """Return the cash float as the register currently knows it.
+
+        ``cash_float_start`` only tracks float changes made through
+        :meth:`log_cash_float_change`. Until the first such change the
+        authoritative figure is the opening float the cashier counted,
+        which Odoo stores in ``cash_register_balance_start``.
+        """
+        self.ensure_one()
+        if self.cash_float_start:
+            return self.cash_float_start
+        return self.cash_register_balance_start or 0.0
+
     def log_cash_drawer_opening(self, reason=None):
         """Log an opening of the cash drawer without a sale (4 kap. 4 §).
 
@@ -55,7 +68,7 @@ class PosSessionCashDrawer(models.Model):
         the journal memory shows what the float was before and after.
         """
         self.ensure_one()
-        old = self.cash_float_start or 0.0
+        old = self._current_cash_float()
         entry = self._journal(
             'ForandraVaxelkassa',
             amount=new_float,

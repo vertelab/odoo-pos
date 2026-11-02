@@ -56,18 +56,30 @@ class PosSession(models.Model):
             session._journal('StartAvKassaregister')
             if session.is_training:
                 session._journal('StallaOmTillOvningslage')
-            # The cash float at start is a mandatory Z-report figure
-            # (7 kap. 3 §) and must be captured when the session opens.
+        return sessions
+
+    def _set_opening_control_data(self, cashbox_value, notes):
+        """Log the opening cash float once the cashier has entered it.
+
+        The float is a mandatory Z-report figure (7 kap. 3 §), but
+        ``cash_register_balance_start`` is still 0 when the session is
+        created — the amount only becomes known here, when the cashier
+        counts the drawer. Logging it in ``create`` would always record 0.
+        """
+        super()._set_opening_control_data(cashbox_value, notes)
+        for session in self:
+            # Keep the float tracker in step with what the cashier counted,
+            # so a later float change reports the right old amount.
+            session.cash_float_start = cashbox_value or 0.0
             session._journal(
                 'ForandraVaxelkassa',
-                amount=session.cash_register_balance_start or 0.0,
+                amount=cashbox_value or 0.0,
                 payload={
                     'old_float': 0.0,
-                    'new_float': session.cash_register_balance_start or 0.0,
+                    'new_float': cashbox_value or 0.0,
                     'reason': 'Öppningsväxelkassa',
                 },
             )
-        return sessions
 
     def action_pos_session_closing_control(self, *args, **kwargs):
         result = super().action_pos_session_closing_control(*args, **kwargs)
