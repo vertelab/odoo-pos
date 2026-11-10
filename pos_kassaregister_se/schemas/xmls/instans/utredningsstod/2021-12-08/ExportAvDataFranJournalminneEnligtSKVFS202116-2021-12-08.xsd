@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by  (Skatteverket) -->
+<!--Infil   : file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/2021-11-30_15.45.05_10_TransformeraTermerOchKomponentdefinitioner_v0.31.xsl.xml-->
+<!--XSLT-fil: file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/50_Instansschema_v0.19.xsl-->
+<!--XSLT-fil: file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/XSLTallmanKod_v0.11.xsl-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:utrein="http://xmls.skatteverket.se/se/skatteverket/td/instans/utredningsstod/1.0" xmlns:utreko="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" targetNamespace="http://xmls.skatteverket.se/se/skatteverket/td/instans/utredningsstod/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xml:lang="sv">
+	<xs:annotation>
+		<xs:appinfo>
+			<SchemaMetadata xmlns="se/skatteverket/zl/SchemaMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/terms/" xsi:schemaLocation="se/skatteverket/zl/SchemaMetadata/1.0 http://xmls.skatteverket.se/se/skatteverket/zl/SchemaMetadata/1.0/SchemaMetadata.xsd">
+				<dc:title>Export av data från journalminne enligt SKVFS 2021:16</dc:title>
+				<dc:description>Data från journalminne</dc:description>
+				<dc:publisher>Skatteverket</dc:publisher>
+				<dc:creator>
+					<dcq:contact>https://skatteverket.se/</dcq:contact>
+					<dcq:owner>Skatteverket</dcq:owner>
+				</dc:creator>
+				<dc:date>
+					<dcq:created>2021-12-08</dcq:created>
+				</dc:date>
+				<dc:subject>XML-schema</dc:subject>
+				<dc:subject>XML</dc:subject>
+				<dc:subject>kassaregister</dc:subject>
+				<dc:subject>journalminne</dc:subject>
+				<dc:subject>utredningsstöd</dc:subject>
+				<dc:subject>instansschema</dc:subject>
+			</SchemaMetadata>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:import namespace="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" schemaLocation="../../../komponent/utredningsstod/2021-12-08/Utredningsstod-ElementAvSammansattTyp-2021-12-08-COMPONENT.xsd"/>
+	<xs:element name="ExportAvDataFranJournalminneEnligtSKVFS2021-16" type="utrein:ExportAvDataFranJournalminneEnligtSKVFS2021-16TYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Export av data från journalminne enligt SKVFS 2021:16   
+Källreferens: 4 kap. 10 § andra stycket SKVFS 2014:9   
+Beskrivning: Export av data från journalminne enligt SKVFS 2021:16.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ExportAvDataFranJournalminneEnligtSKVFS2021-16TYPE">
+		<xs:sequence>
+			<xs:element ref="utreko:InloggadAnvandareVidExportAvDataFranJournalminnet" minOccurs="0"/>
+			<xs:element ref="utreko:BeteckningPaDetKassaregisterSomExportAvDataFranJournalminnetSkerIfran"/>
+			<xs:element ref="utreko:TidpunktForNarExportAvDataFranJournalminnetSker"/>
+			<xs:element ref="utreko:ValdPeriodForExportAvDataFranJournalminne"/>
+			<xs:element ref="utreko:BeteckningPaValdaKassaregisterForExportAvDataFranJournalminnenLISTA"/>
+			<xs:element ref="utreko:InformationOmForetaget"/>
+			<xs:element ref="utreko:KassaregistersystemLISTA"/>
+			<xs:element ref="utreko:RegistreringLISTA"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Technical menu lives under base.menu_custom; parent before child. -->
+    <record id="menu_kassaregister_root" model="ir.ui.menu">
+        <field name="name">Cash Register</field>
+        <field name="parent_id" ref="base.menu_custom"/>
+        <field name="sequence">60</field>
+    </record>
+
+    <record id="menu_pos_registration_unit" model="ir.ui.menu">
+        <field name="name">Registration Units</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="pos_registration_unit_action"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="menu_pos_journal_entry" model="ir.ui.menu">
+        <field name="name">Journal Memory</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="pos_journal_entry_action"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="menu_pos_report_z" model="ir.ui.menu">
+        <field name="name">Z-dagrapporter</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="action_pos_report_z"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="menu_pos_report_x" model="ir.ui.menu">
+        <field name="name">X-dagrapporter</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="action_pos_report_x"/>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="menu_pos_journal_export" model="ir.ui.menu">
+        <field name="name">Exportera journalminne</field>
+        <field name="parent_id" ref="menu_kassaregister_root"/>
+        <field name="action" ref="action_pos_journal_export_wizard"/>
+        <field name="sequence">50</field>
+    </record>
+
+</odoo>

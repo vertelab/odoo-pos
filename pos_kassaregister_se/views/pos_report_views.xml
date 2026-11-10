@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         Z-dagrapport
+         ================================================================ -->
+    <record id="view_pos_report_z_list" model="ir.ui.view">
+        <field name="name">pos.report.z.list</field>
+        <field name="model">pos.report.z</field>
+        <field name="arch" type="xml">
+            <list string="Z-dagrapporter" create="false" edit="false" delete="false">
+                <field name="unit_id"/>
+                <field name="sequence"/>
+                <field name="sales_date"/>
+                <field name="produced_at"/>
+                <field name="receipt_count"/>
+                <field name="total_sales" sum="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_pos_report_z_form" model="ir.ui.view">
+        <field name="name">pos.report.z.form</field>
+        <field name="model">pos.report.z</field>
+        <field name="arch" type="xml">
+            <form string="Z-dagrapport" create="false" edit="false" delete="false">
+                <header>
+                    <button name="%(action_report_pos_report_z)d" type="action"
+                            string="Skriv ut" class="btn-primary"
+                            icon="fa-print"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Företagsuppgifter">
+                            <field name="company_name"/>
+                            <field name="company_vat"/>
+                        </group>
+                        <group string="Rapport">
+                            <field name="unit_id"/>
+                            <field name="sequence"/>
+                            <field name="sales_date"/>
+                            <field name="produced_at"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Försäljning">
+                            <field name="total_sales"/>
+                            <field name="receipt_count"/>
+                            <field name="return_count"/>
+                            <field name="tip_total"/>
+                        </group>
+                        <group string="Kassalåda">
+                            <field name="cash_register_balance_start"/>
+                            <field name="cash_register_balance_end"/>
+                            <field name="drawer_open_count"/>
+                        </group>
+                    </group>
+                    <group string="Oavslutade försäljningar"
+                           invisible="open_order_count == 0">
+                        <field name="open_order_count"/>
+                        <field name="open_order_amount"/>
+                    </group>
+                    <notebook>
+                        <page string="Betalningsmedel" name="payment">
+                            <field name="line_ids"
+                                   domain="[('line_type','=','payment')]"
+                                   readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="amount" sum="Summa"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Momsfördelning" name="tax">
+                            <field name="line_ids"
+                                   domain="[('line_type','=','tax')]"
+                                   readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="rate"/>
+                                    <field name="amount" sum="Summa"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Huvudgrupper" name="group">
+                            <field name="line_ids"
+                                   domain="[('line_type','=','group')]"
+                                   readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="amount" sum="Summa"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pos_report_z_search" model="ir.ui.view">
+        <field name="name">pos.report.z.search</field>
+        <field name="model">pos.report.z</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="unit_id"/>
+                <field name="sales_date"/>
+                <filter name="today" string="Idag"
+                        domain="[('sales_date','=',context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Gruppera efter">
+                    <filter name="group_unit" string="Registreringsenhet"
+                            context="{'group_by':'unit_id'}"/>
+                    <filter name="group_date" string="Försäljningsdag"
+                            context="{'group_by':'sales_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_pos_report_z" model="ir.actions.act_window">
+        <field name="name">Z-dagrapporter</field>
+        <field name="res_model">pos.report.z</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Inga Z-dagrapporter ännu
+            </p>
+            <p>
+                En Z-dagrapport skapas automatiskt när en kassasession stängs.
+            </p>
+        </field>
+    </record>
+
+    <!-- ================================================================
+         X-dagrapport
+         ================================================================ -->
+    <record id="view_pos_report_x_list" model="ir.ui.view">
+        <field name="name">pos.report.x.list</field>
+        <field name="model">pos.report.x</field>
+        <field name="arch" type="xml">
+            <list string="X-dagrapporter" create="false" edit="false" delete="false">
+                <field name="unit_id"/>
+                <field name="sales_date"/>
+                <field name="produced_at"/>
+                <field name="receipt_count"/>
+                <field name="total_sales" sum="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_pos_report_x_form" model="ir.ui.view">
+        <field name="name">pos.report.x.form</field>
+        <field name="model">pos.report.x</field>
+        <field name="arch" type="xml">
+            <form string="X-dagrapport" create="false" edit="false" delete="false">
+                <header>
+                    <button name="%(action_report_pos_report_x)d" type="action"
+                            string="Skriv ut" class="btn-primary"
+                            icon="fa-print"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Företagsuppgifter">
+                            <field name="company_name"/>
+                            <field name="company_vat"/>
+                        </group>
+                        <group string="Rapport">
+                            <field name="unit_id"/>
+                            <field name="sales_date"/>
+                            <field name="produced_at"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Försäljning">
+                            <field name="total_sales"/>
+                            <field name="receipt_count"/>
+                            <field name="return_count"/>
+                        </group>
+                        <group string="Kassalåda">
+                            <field name="cash_register_balance_start"/>
+                            <field name="cash_register_balance_end"/>
+                            <field name="drawer_open_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Betalningsmedel" name="payment">
+                            <field name="line_ids"
+                                   domain="[('line_type','=','payment')]"
+                                   readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="amount" sum="Summa"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Momsfördelning" name="tax">
+                            <field name="line_ids"
+                                   domain="[('line_type','=','tax')]"
+                                   readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="rate"/>
+                                    <field name="amount" sum="Summa"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pos_report_x" model="ir.actions.act_window">
+        <field name="name">X-dagrapporter</field>
+        <field name="res_model">pos.report.x</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

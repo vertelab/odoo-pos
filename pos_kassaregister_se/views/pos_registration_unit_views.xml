@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_registration_unit_view_list" model="ir.ui.view">
+        <field name="name">pos.registration.unit.list</field>
+        <field name="model">pos.registration.unit</field>
+        <field name="arch" type="xml">
+            <list string="Registration Units">
+                <field name="name"/>
+                <field name="config_id"/>
+                <field name="model_designation"/>
+                <field name="serial_number"/>
+                <field name="control_unit_serial" optional="hide"/>
+                <field name="journal_entry_count"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="pos_registration_unit_view_form" model="ir.ui.view">
+        <field name="name">pos.registration.unit.form</field>
+        <field name="model">pos.registration.unit</field>
+        <field name="arch" type="xml">
+            <form string="Registration Unit">
+                <header>
+                    <button name="action_view_journal_entries"
+                            type="object"
+                            string="Journal Memory"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived"
+                            bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <group>
+                        <group string="Cash Register">
+                            <field name="name"/>
+                            <field name="config_id"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Identification">
+                            <field name="model_designation"/>
+                            <field name="serial_number"/>
+                            <field name="control_unit_serial"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Journal Memory">
+                        <field name="sequence_id" groups="base.group_no_one"/>
+                        <field name="journal_entry_count"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pos_registration_unit_view_search" model="ir.ui.view">
+        <field name="name">pos.registration.unit.search</field>
+        <field name="model">pos.registration.unit</field>
+        <field name="arch" type="xml">
+            <search string="Registration Units">
+                <field name="name"/>
+                <field name="config_id"/>
+                <field name="serial_number"/>
+                <filter name="inactive" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_config" string="POS Configuration"
+                            context="{'group_by': 'config_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="pos_registration_unit_action" model="ir.actions.act_window">
+        <field name="name">Cash Registers</field>
+        <field name="res_model">pos.registration.unit</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure a cash register
+            </p>
+            <p>
+                Each POS configuration needs a registration unit with a cash
+                register designation, a model designation containing "SE" and
+                a serial number (4 kap. 2 § and 6 § SKVFS 2021:17).
+            </p>
+        </field>
+    </record>
+
+</odoo>

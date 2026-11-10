@@ -1,0 +1,1713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2021 (x64) (http://www.altova.com) by  (Skatteverket) -->
+<!--Infil   : file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/2021-11-30_15.45.05_10_TransformeraTermerOchKomponentdefinitioner_v0.31.xsl.xml-->
+<!--XSLT-fil: file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/20_ElementAvEnkelTyp_v0.31.xsl-->
+<!--XSLT-fil: file:///O:/xmlstr/Kassaregister/2021-11-30 St%C3%B6d/XSLTallmanKod_v0.11.xsl-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:utreko="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" targetNamespace="http://xmls.skatteverket.se/se/skatteverket/td/komponent/utredningsstod/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" xml:lang="sv">
+	<xs:annotation>
+		<xs:appinfo>
+			<SchemaMetadata xmlns="se/skatteverket/zl/SchemaMetadata/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcq="http://purl.org/dc/terms/" xsi:schemaLocation="se/skatteverket/zl/SchemaMetadata/1.0 http://xmls.skatteverket.se/se/skatteverket/zl/SchemaMetadata/1.0/SchemaMetadata.xsd">
+				<dc:title>Export av data från journalminne enligt SKVFS 2021:16 - Komponentschema</dc:title>
+				<dc:description>Data från journalminne</dc:description>
+				<dc:publisher>Skatteverket</dc:publisher>
+				<dc:creator>
+					<dcq:contact>https://skatteverket.se/</dcq:contact>
+					<dcq:owner>Skatteverket</dcq:owner>
+				</dc:creator>
+				<dc:date>
+					<dcq:created>2021-12-08</dcq:created>
+				</dc:date>
+				<dc:subject>XML-schema</dc:subject>
+				<dc:subject>XML</dc:subject>
+				<dc:subject>kassaregister</dc:subject>
+				<dc:subject>journalminne</dc:subject>
+				<dc:subject>utredningsstöd</dc:subject>
+				<dc:subject>komponentschema</dc:subject>
+				<dc:subject>element av enkel typ</dc:subject>
+			</SchemaMetadata>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="Utredningsstod-GenerellaTypdefinitioner-2021-12-08-TYPELIB.xsd"/>
+	<xs:element name="AntalAvRegistreradArtikel" type="utreko:AntalAvRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal av registrerad artikel   
+Källreferens: 7 kap. 1 § f SKVFS 2014:9
+7 kap. 1 § g SKVFS 2014:9   
+Beskrivning: Antal av registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalAvRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalAvSaldArtikel" type="utreko:AntalAvSaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal av såld artikel   
+Källreferens: 7 kap. 1 § f SKVFS 2014:9
+7 kap. 1 § g SKVFS 2014:9   
+Beskrivning: Antal av såld artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalAvSaldArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalKassakvitton" type="utreko:AntalKassakvittonTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal kassakvitton   
+Källreferens: 7 kap. 2 § k SKVFS 2014:9
+7 kap. 3 § l SKVFS 2014:9   
+Beskrivning: Antal kassakvitton.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalKassakvittonTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalKassaladoppningar" type="utreko:AntalKassaladoppningarTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal kassalådöppningar   
+Källreferens: 7 kap. 2 § l SKVFS 2014:9
+7 kap. 3 § m SKVFS 2014:9   
+Beskrivning: Antal öppningar av kassalådan utan att någon försäljning skett.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalKassaladoppningarTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalKvittokopior" type="utreko:AntalKvittokopiorTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal kvittokopior   
+Källreferens: 7 kap. 2 § m SKVFS 2014:9
+7 kap. 3 § n SKVFS 2014:9   
+Beskrivning: Antal kvittokopior.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalKvittokopiorTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalKvittonSomTagitsFramIOvningslage" type="utreko:AntalKvittonSomTagitsFramIOvningslageTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal kvitton som tagits fram i övningsläge.   
+Källreferens: 7 kap. 2 § n SKVFS 2014:9
+7 kap. 3 § o SKVFS 2014:9   
+Beskrivning: Antal kvitton som tagits fram i övningsläge.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalKvittonSomTagitsFramIOvningslageTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalOavslutadeForsaljningar" type="utreko:AntalOavslutadeForsaljningarTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal oavslutade försäljningar   
+Källreferens: 7 kap. 2 § s SKVFS 2014:9
+7 kap. 3 § t SKVFS 2014:9   
+Beskrivning: Antal oavslutade försäljningar.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalOavslutadeForsaljningarTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalOvrigaRegistreringarSomMinskatDagensForsaljningsbelopp" type="utreko:AntalOvrigaRegistreringarSomMinskatDagensForsaljningsbeloppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal övriga registreringar som minskat dagens försäljningsbelopp   
+Källreferens: 7 kap. 2 § r SKVFS 2014:9
+7 kap. 3 § s SKVFS 2014:9   
+Beskrivning: Antal övriga registreringar som minskat dagens försäljningsbelopp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalOvrigaRegistreringarSomMinskatDagensForsaljningsbeloppTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalReturer" type="utreko:AntalReturerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal returer   
+Källreferens: 7 kap. 2 § p SKVFS 2014:9
+7 kap. 3 § q SKVFS 2014:9   
+Beskrivning: Antal returer och återköp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalReturerTYPE">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="9999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalSaldaTjanster" type="utreko:AntalSaldaTjansterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal sålda tjänster   
+Källreferens: 7 kap. 2 § j SKVFS 2014:9
+7 kap. 3 § k SKVFS 2014:9   
+Beskrivning: Antal sålda tjänster.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalSaldaTjansterTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AntalSaldaVaror" type="utreko:AntalSaldaVarorTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Antal sålda varor   
+Källreferens: 7 kap. 2 § i SKVFS 2014:9
+7 kap. 3 § j SKVFS 2014:9   
+Beskrivning: Antal sålda varor.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AntalSaldaVarorTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AnvandaClear" type="utreko:AnvandaClearTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Använda clear   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Borttag med hjälp av  clearfunktionen.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AnvandaClearTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Artikelnamn" type="utreko:ArtikelnamnTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Artikelnamn   
+Källreferens: 7 kap. 1 § f SKVFS 2014:9
+7 kap. 1 § g SKVFS 2014:9   
+Beskrivning: Artikelnamn.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ArtikelnamnTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ArtikelnsRegistreringstidpunkt" type="utreko:ArtikelnsRegistreringstidpunktTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Artikelns registreringstidpunkt   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidpunkt för när artikeln registrerades.
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ArtikelnsRegistreringstidpunktTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Artikelnummer" type="utreko:ArtikelnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Artikelnummer   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Artikelnummer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ArtikelnummerTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Avstamningskod" type="utreko:AvstamningskodTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Avstämningskod   
+Källreferens: 5 kap. 45-46 §§ SKVFS 2020:9
+8 kap. 34 § SKVFS 2020:9
+4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Avstämningskod från kontrollserver.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AvstamningskodTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="113"/>
+			<xs:maxLength value="113"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="AvstamningskodForKvittotSomKopianAvser" type="utreko:AvstamningskodForKvittotSomKopianAvserTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Avstämningskod för kvittot som kopian avser   
+Källreferens: 5 kap. 45-46 §§ SKVFS 2020:9
+8 kap. 34 § SKVFS 2020:9
+4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Avstämningskod för kvittot som kopian avser.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="AvstamningskodForKvittotSomKopianAvserTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="113"/>
+			<xs:maxLength value="113"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="BeloppIUtlandskValuta" type="utreko:BeloppIUtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Belopp i utländsk valuta   
+Källreferens: 39 kap. 8 § SFL
+5 kap. 1 § SKVFS 2014:9 
+7 kap. 2 § h SKVFS 2014:9
+7 kap. 3 § i SKVFS 2014:9   
+Beskrivning: Belopp i utländsk valuta.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="BeloppIUtlandskValutaTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="BenamningPaRabatt" type="utreko:BenamningPaRabattTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Benämning på rabatt   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Benämning på rabatt.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="BenamningPaRabattTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Betalningsmedel" type="utreko:BetalningsmedelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Betalningsmedel   
+Källreferens: 7 kap. 1§ k SKVFS 2014:9
+7 kap. 2 § o SKVFS 2014:9
+7 kap. 3 § p SKVFS 2014:9   
+Beskrivning: Typ av betalningsmedel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="BetalningsmedelTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="BeteckningPaDetKassaregisterSomExportAvDataFranJournalminnetSkerIfran" type="utreko:BeteckningPaDetKassaregisterSomExportAvDataFranJournalminnetSkerIfranTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Beteckning på det kassaregister som export av data från journalminnet sker ifrån   
+Källreferens: 2 kap. 7 § SKVFS 2014:9   
+Beskrivning: Företagets beteckning på det kassaregister som export av data från journalminnet sker ifrån.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="BeteckningPaDetKassaregisterSomExportAvDataFranJournalminnetSkerIfranTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="BeteckningPaValtKassaregisterForExportAvDataFranJournalminnet" type="utreko:BeteckningPaValtKassaregisterForExportAvDataFranJournalminnetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Beteckning på valt kassaregister för export av data från journalminnet   
+Källreferens: 2 kap. 7 § SKVFS 2014:9   
+Beskrivning: Företagets beteckning på valt kassaregister för export av data från journalminnet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="BeteckningPaValtKassaregisterForExportAvDataFranJournalminnetTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="DatumOchKlockslagNarKvittoFramstalls" type="utreko:DatumOchKlockslagNarKvittoFramstallsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Datum och klockslag när kvitto framställs   
+Källreferens: 7 kap. 1 § c SKVFS 2014:9    
+Beskrivning: Den tidpunkt när kvitto tas fram (skapas).
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DatumOchKlockslagNarKvittoFramstallsTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="DatumOchKlockslagNarOriginalkvittoFramstalldes" type="utreko:DatumOchKlockslagNarOriginalkvittoFramstalldesTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Datum och klockslag när originalkvitto framställdes   
+Källreferens: 7 kap. 1 § c SKVFS 2014:9    
+Beskrivning: Den tidpunkt när originalkvitto togs fram (skapades).
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DatumOchKlockslagNarOriginalkvittoFramstalldesTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="DatumOchKlockslagNarProFormaKvittoFramstalls" type="utreko:DatumOchKlockslagNarProFormaKvittoFramstallsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Datum och klockslag när pro forma kvitto framställs   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Den tidpunkt när pro forma kvitto tas fram (skapas).
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DatumOchKlockslagNarProFormaKvittoFramstallsTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="DatumOchKlockslagNarRapportFramstalls" type="utreko:DatumOchKlockslagNarRapportFramstallsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Datum och klockslag när rapport framställs   
+Källreferens: 7 kap. 2 § b SKVFS 2014:9
+7 kap. 3 § b SKVFS 2014:9   
+Beskrivning: Datum och klockslag för när rapport tas fram (skapas). </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DatumOchKlockslagNarRapportFramstallsTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="DatumOchKlockslagNarReturkvittoFramstalls" type="utreko:DatumOchKlockslagNarReturkvittoFramstallsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Datum och klockslag när returkvitto framställs   
+Källreferens: 7 kap. 1 § c SKVFS 2014:9    
+Beskrivning: Den tidpunkt när returkvitto tas fram (skapas).
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DatumOchKlockslagNarReturkvittoFramstallsTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="DenAdressDarForsaljningSker" type="utreko:DenAdressDarForsaljningSkerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Den adress där försäljning sker   
+Källreferens: 7 kap. 1 § b SKVFS 2014:9
+   
+Beskrivning: Gatunamn, nummer och ortsnamn.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="DenAdressDarForsaljningSkerTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ElektroniskKopiaAvKassakvitto" type="utreko:ElektroniskKopiaAvKassakvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Elektronisk kopia av kassakvitto   
+Källreferens: 7 kap. 1 § m SKVFS 2014:9   
+Beskrivning: Uppgift om elektronisk kopia av kassakvitto har skapats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ElektroniskKopiaAvKassakvittoTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ElektronisktKassakvitto" type="utreko:ElektronisktKassakvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Elektroniskt kassakvitto   
+Källreferens: 7 kap. 1 § m SKVFS 2014:9   
+Beskrivning: Uppgift om elektroniskt kassakvitto har skapats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ElektronisktKassakvittoTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="EnhetForViktLangdTidEllerVolym" type="utreko:EnhetForViktLangdTidEllerVolymTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Enhet för vikt, längd, tid eller volym   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Enhet för vikt, längd, tid, volym eller annan enhet som registreras.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="EnhetForViktLangdTidEllerVolymTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ForandringAvVaxelkassaISvenskaKronor" type="utreko:ForandringAvVaxelkassaISvenskaKronorTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Förändring av växelkassa i svenska kronor   
+Källreferens: 5 kap. 1 § SKVFS 2014:9    
+Beskrivning: Förändring av växelkassa i svenska kronor.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ForandringAvVaxelkassaISvenskaKronorTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ForetagetsNamn" type="utreko:ForetagetsNamnTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Företagets namn   
+Källreferens: 7 kap. 1 § a SKVFS 2014:9 
+7 kap. 2 § a SKVFS 2014:9 
+7 kap. 3 § a SKVFS 2014:9    
+Beskrivning: Juridiska eller fysiska personens namn.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ForetagetsNamnTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ForsaljningssummaPerBetalningsmedel" type="utreko:ForsaljningssummaPerBetalningsmedelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Försäljningssumma per betalningsmedel   
+Källreferens: 7 kap. 1§ k SKVFS 2014:9
+7 kap. 2 § o SKVFS 2014:9
+7 kap. 3 § p SKVFS 2014:9   
+Beskrivning: Försäljningssumma inklusive mervärdesskatt per betalningsmedel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ForsaljningssummaPerBetalningsmedelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="GrandTotalForsaljning" type="utreko:GrandTotalForsaljningTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Grand total försäljning   
+Källreferens: 7 kap. 2 § t SKVFS 2014:9
+7 kap. 3 § u SKVFS 2014:9   
+Beskrivning: Ackumulerad försäljning utan hänsyn till returer och annat som minskat försäljningen.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="GrandTotalForsaljningTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="GrandTotalNetto" type="utreko:GrandTotalNettoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Grand total netto   
+Källreferens: 7 kap. 2 § v SKVFS 2014:9
+7 kap. 3 § w SKVFS 2014:9   
+Beskrivning: Summan av grand total försäljning reducerat med grand total retur.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="GrandTotalNettoTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="GrandTotalRetur" type="utreko:GrandTotalReturTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Grand total retur   
+Källreferens: 7 kap. 2 § u SKVFS 2014:9
+7 kap. 3 § v SKVFS 2014:9   
+Beskrivning: Ackumulerat belopp av returposter.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="GrandTotalReturTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="IdentitetsbeteckningForRegistreringAvArtiklar" type="utreko:IdentitetsbeteckningForRegistreringAvArtiklarTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Identitetsbeteckning för registrering av artiklar   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: En identitet/nyckel som skapas för att en artikel ska hamna på rätt kvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="IdentitetsbeteckningForRegistreringAvArtiklarTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="IdentitetsbeteckningForTidigareParkering" type="utreko:IdentitetsbeteckningForTidigareParkeringTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Identitetsbeteckning för tidigare parkering   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Identitetsbeteckning för tidigare parkering.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="IdentitetsbeteckningForTidigareParkeringTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="IdentitetsbeteckningPaParkering" type="utreko:IdentitetsbeteckningPaParkeringTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Identitetsbeteckning på parkering   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Identitetsbeteckning på parkering.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="IdentitetsbeteckningPaParkeringTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="InloggadAnvandare" type="utreko:InloggadAnvandareTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Inloggad användare   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Inloggad användare.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="InloggadAnvandareTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="InloggadAnvandareVidExportAvDataFranJournalminnet" type="utreko:InloggadAnvandareVidExportAvDataFranJournalminnetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Inloggad användare vid export av data från journalminnet   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Inloggad användare vid export av data från journalminnet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="InloggadAnvandareVidExportAvDataFranJournalminnetTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="InloggningIKassaregister" type="utreko:InloggningIKassaregisterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Inloggning i kassaregister   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Inloggning i kassaregistret</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="InloggningIKassaregisterTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Kassabeteckning" type="utreko:KassabeteckningTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kassabeteckning   
+Källreferens: 7 kap. 1 § e SKVFS 2014:9
+7 kap. 2 § d SKVFS 2014:9
+7 kap. 3 § e SKVFS 2014:9   
+Beskrivning: Företagets beteckning på ett kassaregister.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="KassabeteckningTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Kontrollkod" type="utreko:KontrollkodTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kontrollkod   
+Källreferens: 4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Kontrollkod från kontrollenhet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="KontrollkodTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="59"/>
+			<xs:maxLength value="59"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="KontrollkodForKvittotSomKopianAvser" type="utreko:KontrollkodForKvittotSomKopianAvserTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kontrollkod för kvittot som kopian avser   
+Källreferens: 4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Kontrollkod för kvittot som kopian avser.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="KontrollkodForKvittotSomKopianAvserTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="59"/>
+			<xs:maxLength value="59"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="KontrollkodPaKopiaAvKassakvitto" type="utreko:KontrollkodPaKopiaAvKassakvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Kontrollkod på kopia av kassakvitto   
+Källreferens: 4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Kontrollkod från kontrollenhet på kopia av kassakvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="KontrollkodPaKopiaAvKassakvittoTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="59"/>
+			<xs:maxLength value="59"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="LopnummerForKassakvitto" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer för kassakvitto   
+Källreferens: 7 kap. 1 § d SKVFS 2014:9   
+Beskrivning: Kassakvittots löpnummer i en obruten stigande nummerserie.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LopnummerForKvittokopia" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer för kvittokopia   
+Källreferens: 7 kap. 1 § d SKVFS 2014:9    
+Beskrivning: Kvittokopians löpnummer i en egen obruten stigande nummerserie.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LopnummerForOvningskvitto" type="utreko:LopnummerForOvningskvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer för övningskvitto   
+Källreferens: 7 kap. 1 § d SKVFS 2014:9    
+Beskrivning: Löpnummer för övningskvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="LopnummerForOvningskvittoTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="LopnummerForUrsprungligtKassakvitto" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer för ursprungligt kassakvitto   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Löpnumret på det ursprungliga kvittot där den returnerade artikeln ingår.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LopnummerForZDagrapport" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer för Z-dagrapport   
+Källreferens: 7 kap. 3 § c SKVFS 2014:9   
+Beskrivning: Z-dagrapportens löpnummer i en obruten stigande nummerserie.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LopnummerForZDagrapportPaKvitto" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer för Z-dagrapport på kvitto
+   
+Källreferens: 7 kap. 3 § c SKVFS 2014:9   
+Beskrivning: Löpnummer för Z-dagrapport som kvittot kommer ingå i.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="LopnummerPaOriginalkvitto" type="utreko:LopnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Löpnummer på originalkvitto   
+Källreferens: 7 kap. 1 § d SKVFS 2014:9    
+Beskrivning: Löpnummer på originalkvitto.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MangdAvRegistreradArtikel" type="utreko:MangdAvRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mängd av registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Mängd av registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MangdAvRegistreradArtikelTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MangdAvSaldArtikel" type="utreko:MangdAvSaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mängd av såld artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Mängd av såld artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MangdAvSaldArtikelTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MervardesskattPaForsaljningsbeloppet" type="utreko:MervardesskattPaForsaljningsbeloppetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskatt på försäljningsbeloppet
+   
+Källreferens: 7 kap. 1 § i SKVFS 2014:9   
+Beskrivning: Mervärdesskatt på det totala försäljningsbeloppet.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MervardesskattPaForsaljningsbeloppetTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MervardesskattPaRegistreradArtikel" type="utreko:MervardesskattPaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskatt på registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Mervärdesskatt på registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MervardesskattPaRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MervardesskattPaSaldArtikel" type="utreko:MervardesskattPaSaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskatt på såld artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Mervärdesskatt på såld artikel</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MervardesskattPaSaldArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Mervardesskattesats" type="utreko:MervardesskattesatsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskattesats   
+Källreferens: 7 kap. 1§ j SKVFS 2014:9
+7 kap. 2 § g SKVFS 2014:9
+7 kap. 3 § h SKVFS 2014:9   
+Beskrivning: Mervärdesskattesats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MervardesskattesatsTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MervardesskattesatsForRegistreradArtikel" type="utreko:MervardesskattesatsForRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskattesats för registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Mervärdesskattesats för registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MervardesskattesatsForRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="MervardesskattesatsForSaldArtikel" type="utreko:MervardesskattesatsForSaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Mervärdesskattesats för såld artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Mervärdesskattesats för såld artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="MervardesskattesatsForSaldArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ModellEllerProgramForKassaregistret" type="utreko:ModellEllerProgramForKassaregistretTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Modell eller program för kassaregistret   
+Källreferens: 4 kap. 6 § SKVFS 2014:9   
+Beskrivning: Modell eller program för kassaregistret.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ModellEllerProgramForKassaregistretTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ModellbeteckningForKassaregistret" type="utreko:ModellbeteckningForKassaregistretTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Modellbeteckning för kassaregistret   
+Källreferens: 4 kap. 6 § SKVFS 2014:9   
+Beskrivning: Modellbeteckning för kassaregistret.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ModellbeteckningForKassaregistretTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="NamnPaHuvudgrupp" type="utreko:NamnPaHuvudgruppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Namn på huvudgrupp   
+Källreferens: 7 kap. 2 § f SKVFS 2014:9
+7 kap. 3 § g SKVFS 2014:9   
+Beskrivning: Gruppering av varor och tjänster.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="NamnPaHuvudgruppTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="NamnPaOvrigRapport" type="utreko:NamnPaOvrigRapportTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Namn på övrig rapport   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Namn på övrig rapport.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="NamnPaOvrigRapportTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="NamnPaVerksamheten" type="utreko:NamnPaVerksamhetenTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Namn på verksamheten   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Det namn som används i den utåtriktade verksamheten.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="NamnPaVerksamhetenTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="NyTidVidOmstallningAvKlockan" type="utreko:NyTidVidOmstallningAvKlockanTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ny tid vid omställning av klockan   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Kassaregistrets nya tid vid omställning av klockan. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="NyTidVidOmstallningAvKlockanTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="OmstartAvKassaregister" type="utreko:OmstartAvKassaregisterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Omstart av kassaregister   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Omstart av kassaregisterprogrammet</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="OmstartAvKassaregisterTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="OppnaKassaladaVidNollforsaljning" type="utreko:OppnaKassaladaVidNollforsaljningTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Öppna kassalåda vid nollförsäljning   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Öppning av kassalådan utan att någon försäljning sker.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="OppnaKassaladaVidNollforsaljningTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="OrganisationsnummerEllerPersonnummer" type="utreko:OrganisationsnummerEllerPersonnummerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Organisationsnummer eller personnummer   
+Källreferens: 7 kap. 1 § a SKVFS 2014:9 
+7 kap. 2 § a SKVFS 2014:9 
+7 kap. 3 § a SKVFS 2014:9    
+Beskrivning: Organisationsnummer eller personnummer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="OriginalkvittoUtskrivetUtanKontaktMedKontrollservern" type="utreko:OriginalkvittoUtskrivetUtanKontaktMedKontrollservernTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Originalkvitto utskrivet utan kontakt med kontrollservern   
+Källreferens: 5 kap. 46 § SKVFS 2020:9
+4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Uppgift om att originalkvitto skapats och tagits fram utan kontakt med kontrollservern.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="OriginalkvittoUtskrivetUtanKontaktMedKontrollservernTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="OrsakTillAndring" type="utreko:OrsakTillAndringTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Orsak till ändring   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Text som beskriver orsaken till den ändring som gjorts.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="OrsakTillAndringTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="PrisPaEfterfragadArtikel" type="utreko:PrisPaEfterfragadArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Pris på efterfrågad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Pris på artikel som efterfrågats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="PrisPaEfterfragadArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="PrisPaRegistreradArtikel" type="utreko:PrisPaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Pris på registrerad artikel   
+Källreferens: 7 kap. 1 § h SKVFS 2014:9   
+Beskrivning: Försäljningsbelopp för artikeln.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="PrisPaRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="PrisPaSaldArtikel" type="utreko:PrisPaSaldArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Pris på såld artikel   
+Källreferens: 7 kap. 1 § h SKVFS 2014:9   
+Beskrivning: Försäljningsbelopp för artikeln.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="PrisPaSaldArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="PrisPerEnhet" type="utreko:PrisPerEnhetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Pris per enhet   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Pris per enhet för artikel som registreras.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="PrisPerEnhetTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RabattensBelopp" type="utreko:RabattensBeloppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabattens belopp   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Rabattens belopp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="RabattensBeloppTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RabattensBeloppPaKvittoniva" type="utreko:RabattensBeloppPaKvittonivaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabattens belopp på kvittonivå   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Rabattens belopp på kvittonivå.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="RabattensBeloppPaKvittonivaTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RabatternasBelopp" type="utreko:RabatternasBeloppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Rabatternas belopp   
+Källreferens: 7 kap. 2 § q SKVFS 2014:9
+7 kap. 3 § r SKVFS 2014:9   
+Beskrivning: Summan inklusive mervärdesskatt av rabatter.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="RabatternasBeloppTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Registreringstidpunkt" type="utreko:RegistreringstidpunktTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Registreringstidpunkt   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidpunkt när registrering av en händelse sker.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="RegistreringstidpunktTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ReturernasBelopp" type="utreko:ReturernasBeloppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Returernas belopp   
+Källreferens: 7 kap. 2 § p SKVFS 2014:9
+7 kap. 3 § q SKVFS 2014:9   
+Beskrivning: Summan inklusive mervärdesskatt av returer och återköp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ReturernasBeloppTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Sokparameter" type="utreko:SokparameterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Sökparameter   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Parametrar för uttagen rapport.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="SokparameterTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="256"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StallaOmTillNormallage" type="utreko:StallaOmTillNormallageTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ställa om till normalläge   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Omställning till normalläge från övningsläge.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="StallaOmTillNormallageTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StallaOmTillOvningslage" type="utreko:StallaOmTillOvningslageTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ställa om till övningsläge   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Omställning till övningsläge från normalläge.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="StallaOmTillOvningslageTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StartAvKassaregister" type="utreko:StartAvKassaregisterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Start av kassaregister   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Start av kassaregisterprogrammet</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="StartAvKassaregisterTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StatuskodFranKontrollprogrammet" type="utreko:StatuskodFranKontrollprogrammetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Statuskod från kontrollprogrammet   
+Källreferens: 39 kap. 8 § SFL
+4 kap. 9 § SKVFS 2014:9
+5 kap. 12 § SKVFS 2020:9   
+Beskrivning: Fördefinierade statuskoder från kontrollprogrammet.
+
+STATUS_OK
+EJ_KONTAKT_MED_KS
+KONTAKT_MED_KS
+EJ_KONFIGURERAD
+KONTAKTA_TILLVERKARE
+ANMAL_FEL_24H
+ANMAL_FEL_48H
+
+Ytterligare statuskoder får användas.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="StatuskodFranKontrollprogrammetTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="StoppAvKassaregister" type="utreko:StoppAvKassaregisterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Stopp av kassaregister   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Stop av kassaregisterprogrammet</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="StoppAvKassaregisterTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareAntalAvRegistreradArtikel" type="utreko:TidigareAntalAvRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare antal av registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare antal av registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareAntalAvRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareBeloppPaRabatten" type="utreko:TidigareBeloppPaRabattenTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare belopp på rabatten   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare belopp på rabatten.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareBeloppPaRabattenTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareBenamningPaRabatt" type="utreko:TidigareBenamningPaRabattTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare benämning på rabatt   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare benämning på rabatt.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareBenamningPaRabattTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareEnhetForViktLangdTidEllerVolym" type="utreko:TidigareEnhetForViktLangdTidEllerVolymTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare enhet för vikt, längd, tid eller volym   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare enhet för vikt, längd, tid, volym eller annan enhet som registrerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareEnhetForViktLangdTidEllerVolymTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareMangdAvRegistreradArtikel" type="utreko:TidigareMangdAvRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare mängd av registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare mängd av registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareMangdAvRegistreradArtikelTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareMervardesskattPaRegistreradArtikel" type="utreko:TidigareMervardesskattPaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare mervärdesskatt på registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare mervärdesskatt  på registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareMervardesskattPaRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigareMervardesskattesatsForRegistreradArtikel" type="utreko:TidigareMervardesskattesatsForRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare mervärdesskattesats för registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare mervärdesskattesats för registrerad artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigareMervardesskattesatsForRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigarePrisPaRegistreradArtikel" type="utreko:TidigarePrisPaRegistreradArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare pris på registrerad artikel   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare försäljningsbelopp för artikeln.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigarePrisPaRegistreradArtikelTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidigarePrisPerEnhet" type="utreko:TidigarePrisPerEnhetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidigare pris per enhet   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidigare pris per enhet för artikel som registrerats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidigarePrisPerEnhetTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TidpunktForNarExportAvDataFranJournalminnetSker" type="utreko:TidpunktForNarExportAvDataFranJournalminnetSkerTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tidpunkt för när export av data från journalminnet sker   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidpunkt för när export av data från journalminnet sker.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TidpunktForNarExportAvDataFranJournalminnetSkerTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TillverkningsnummerForKassaregistret" type="utreko:TillverkningsnummerForKassaregistretTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tillverkningsnummer för kassaregistret   
+Källreferens: 2 kap. 23 § SKVFS 2014:9   
+Beskrivning: Kassaregistrets tillverkningsnummer är ett unikt nummer på högst 48 alfanumeriska tecken om det kopplas till en kontrollenhet och högst 17 alfanumeriska tecken om det kopplas till ett kontrollsystem.
+Tillverkningsnumret ska identifiera kassaregistret och tillverkaren.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TillverkningsnummerForKontrollenheten" type="utreko:TillverkningsnummerForKontrollenhetenTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tillverkningsnummer för kontrollenheten   
+Källreferens: 2 kap. 11 § SKVFS 2009:2   
+Beskrivning: Kontrollenhetens tillverkningsnummer är ett unikt nummer av 17 alfanumeriska tecken som identifierar tillverkaren och kontrollenheten.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TillverkningsnummerForKontrollsystemet" type="utreko:TillverkningsnummerForKontrollsystemetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Tillverkningsnummer för kontrollsystemet   
+Källreferens: 8 kap. 37 § SKVFS 2020:9   
+Beskrivning: Kontrollsystemets tillverkningsnummer är ett unikt nummer av 17 alfanumeriska tecken som identifierar tillverkaren och kontrollservern.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="TotalForsaljningssumma" type="utreko:TotalForsaljningssummaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Total försäljningssumma   
+Källreferens: 7 kap. 2 § e SKVFS 2014:9
+7 kap. 3 § f SKVFS 2014:9   
+Beskrivning: Total försäljningssumma inklusive mervärdesskatt utan hänsyn till eventuella returer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotalForsaljningssummaTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotalForsaljningssummaForHuvudgrupp" type="utreko:TotalForsaljningssummaForHuvudgruppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Total försäljningssumma för huvudgrupp   
+Källreferens: 7 kap. 2 § f SKVFS 2014:9
+7 kap. 3 § g SKVFS 2014:9   
+Beskrivning: Total försäljningssumma inklusive mervärdesskatt för  huvudgrupp om huvudgrupper används, utan hänsyn till eventuella returer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotalForsaljningssummaForHuvudgruppTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltBeloppAvOavslutadeForsaljningar" type="utreko:TotaltBeloppAvOavslutadeForsaljningarTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt belopp av oavslutade försäljningar   
+Källreferens: 7 kap. 2 § s SKVFS 2014:9
+7 kap. 3 § t SKVFS 2014:9   
+Beskrivning: Totalt belopp av oavslutade försäljningar.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltBeloppAvOavslutadeForsaljningarTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltBeloppAvOvrigaRegistreringarSomMinskatDagensForsaljningsbelopp" type="utreko:TotaltBeloppAvOvrigaRegistreringarSomMinskatDagensForsaljningsbeloppTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt belopp av övriga registreringar som minskat dagens försäljningsbelopp   
+Källreferens: 7 kap. 2 § r SKVFS 2014:9
+7 kap. 3 § s SKVFS 2014:9   
+Beskrivning: Totalt belopp av övriga registreringar som minskat dagens försäljningsbelopp.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltBeloppAvOvrigaRegistreringarSomMinskatDagensForsaljningsbeloppTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltBeloppIOvningslage" type="utreko:TotaltBeloppIOvningslageTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt belopp i övningsläge   
+Källreferens: 7 kap. 2 § n SKVFS 2014:9
+7 kap. 3 § o SKVFS 2014:9   
+Beskrivning: Totalt belopp i övningsläge.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltBeloppIOvningslageTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltBeloppPaKvittokopior" type="utreko:TotaltBeloppPaKvittokopiorTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt belopp på kvittokopior   
+Källreferens: 7 kap. 2 § m SKVFS 2014:9
+7 kap. 3 § n SKVFS 2014:9   
+Beskrivning: Totalt belopp på kvittokopior.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltBeloppPaKvittokopiorTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltForsaljningsbeloppISvenskaKronor" type="utreko:TotaltForsaljningsbeloppISvenskaKronorTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt försäljningsbelopp i svenska kronor   
+Källreferens: 7 kap. 1 § h SKVFS 2014:9
+5 kap. 7 § SKVFS 2014:9   
+Beskrivning: Totalt försäljningsbelopp, i svenska kronor, för kunden att betala.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltForsaljningsbeloppISvenskaKronorTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltMervardesskattebeloppPerSkattesats" type="utreko:TotaltMervardesskattebeloppPerSkattesatsTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt mervärdesskattebelopp per skattesats   
+Källreferens: 7 kap. 1§ j SKVFS 2014:9
+7 kap. 2 § g SKVFS 2014:9
+7 kap. 3 § h SKVFS 2014:9   
+Beskrivning: Totalt belopp per mervärdesskattesats.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltMervardesskattebeloppPerSkattesatsTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TotaltRabattbeloppPaKvitto" type="utreko:TotaltRabattbeloppPaKvittoTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Totalt rabattbelopp på kvitto   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Summan av rabatt på artikelnivå och rabatt på kvittonivå.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TotaltRabattbeloppPaKvittoTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TypAvArtikel" type="utreko:TypAvArtikelTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Typ av artikel   
+Källreferens: 7 kap. 1 § f SKVFS 2014:9
+7 kap. 1 § g SKVFS 2014:9   
+Beskrivning: Typ av artikel.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TypAvArtikelTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="VARA">
+				<xs:annotation>
+					<xs:documentation>VARA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TJANST">
+				<xs:annotation>
+					<xs:documentation>TJÄNST</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="TypAvRadering" type="utreko:TypAvRaderingTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Typ av radering   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Text som beskriver vilken typ av radering som gjorts.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="TypAvRaderingTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="UrsprungligRegistreringstidpunkt" type="utreko:UrsprungligRegistreringstidpunktTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Ursprunglig registreringstidpunkt   
+Källreferens: 39 kap. 8 § SFL   
+Beskrivning: Tidpunkt när artikeln ursprungligen registrerades. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="UrsprungligRegistreringstidpunktTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="UtlandskValuta" type="utreko:UtlandskValutaTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Utländsk valuta   
+Källreferens: 39 kap. 8 § SFL
+5 kap. 1 § SKVFS 2014:9
+7 kap. 2 § h SKVFS 2014:9
+7 kap. 3 § i SKVFS 2014:9   
+Beskrivning: Benämning på den utländska valutan enligt ISO 4217. Om valutan inte finns i ISO 4217 ska den skrivas i klartext.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="UtloggningUrKassaregister" type="utreko:UtloggningUrKassaregisterTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Utloggning ur kassaregister   
+Källreferens: 39 kap. 8 § SFL    
+Beskrivning: Utloggning ur kassaregistret.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="UtloggningUrKassaregisterTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="UtskriftAvKvittoUtanAttKontrollprogrammetHarKontaktMedKontrollservern" type="utreko:UtskriftAvKvittoUtanAttKontrollprogrammetHarKontaktMedKontrollservernTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Utskrift av kvitto utan att kontrollprogrammet har kontakt med kontrollservern   
+Källreferens: 5 kap. 46 § SKVFS 2020:9
+4 kap. 9 § SKVFS 2014:9   
+Beskrivning: Utskrift av kvitto utan att kontrollprogrammet har kontakt med kontrollservern.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="UtskriftAvKvittoUtanAttKontrollprogrammetHarKontaktMedKontrollservernTYPE">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="JA">
+				<xs:annotation>
+					<xs:documentation>JA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ValdSluttidpunktForExportAvDataFranJournalminnet" type="utreko:ValdSluttidpunktForExportAvDataFranJournalminnetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Vald sluttidpunkt för export av data från journalminnet   
+Källreferens: 4 kap. 10 § andra stycket SKVFS 2014:9   
+Beskrivning: Vald sluttidpunkt för export av data från journalminnet.
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ValdSluttidpunktForExportAvDataFranJournalminnetTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ValdStarttidpunktForExportAvDataFranJournalminnet" type="utreko:ValdStarttidpunktForExportAvDataFranJournalminnetTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Vald starttidpunkt för export av data från journalminnet   
+Källreferens: 4 kap. 10 § andra stycket SKVFS 2014:9   
+Beskrivning: Vald starttidpunkt export av data från journalminnet.
+</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="ValdStarttidpunktForExportAvDataFranJournalminnetTYPE">
+		<xs:restriction base="utreko:DatumOchKlockslagTYPE">
+			<xs:annotation>
+				<xs:documentation>YYYY-MM-DDTtt:mm:ss
+Tidigast 2010-01-01</xs:documentation>
+			</xs:annotation>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="VaxelkassansBeloppISvenskaKronor" type="utreko:VaxelkassansBeloppISvenskaKronorTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Växelkassans belopp i svenska kronor   
+Källreferens: 7 kap. 2 § h SKVFS 2014:9
+7 kap. 3 § i SKVFS 2014:9   
+Beskrivning: Växelkassans belopp i svenska kronor.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="VaxelkassansBeloppISvenskaKronorTYPE">
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="2"/>
+			<xs:minInclusive value="-9999999999.99"/>
+			<xs:maxInclusive value="99999999999.99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="VersionsnummerForKassaregistret" type="utreko:VersionsnummerForKassaregistretTYPE">
+		<xs:annotation>
+			<xs:documentation xml:lang="sv">Versionsnummer för kassaregistret   
+Källreferens: 4 kap. 3 § SKVFS 2014:9   
+Beskrivning: Versionsnummer för kassaregistret.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="VersionsnummerForKassaregistretTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="72"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

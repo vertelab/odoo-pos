@@ -1,0 +1,88 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan">Kassaregister enligt SKVFS 2021:17</h2>
+        <h3 class="oe_slogan">Svenskt kassaregister för Odoo Point of Sale</h3>
+        <div class="oe_span12">
+            <p class="oe_mt32">
+                Modulen gör Odoo Point of Sale till ett kassaregister som
+                uppfyller Skatteverkets föreskrifter om kassaregister
+                (SKVFS 2021:17) och föreskrifterna om standardexport av
+                journalminne (SKVFS 2021:16).
+            </p>
+        </div>
+    </div>
+
+    <div class="oe_row oe_spaced">
+        <h3>Journalminne</h3>
+        <div class="oe_span12">
+            <p>
+                Varje händelse som rör en försäljning registreras i ett
+                journalminne som inte kan ändras eller raderas. Posterna
+                binds samman i en SHA-256-kedja, så att en efterhandändring
+                upptäcks. Journalminnet omfattar 31 händelsetyper: från
+                start och stopp av kassaregistret, över artikelregistrering,
+                parkering, kassalåda och växelkassa, till klockjustering.
+            </p>
+        </div>
+    </div>
+
+    <div class="oe_row oe_spaced">
+        <h3>Kvitton</h3>
+        <div class="oe_span12">
+            <p>
+                Kassakvittot skrivs ut med samtliga uppgifter som krävs:
+                företagets namn och organisationsnummer, försäljningsställets
+                adress, kassabeteckning, löpnummer, artikelrader, moms per
+                skattesats i klartext, betalningsmedel och kontrollenhetens
+                uppgifter. En andra utskrift märks som kopia och förbrukar
+                inget nytt löpnummer; en tredje nekas.
+            </p>
+        </div>
+    </div>
+
+    <div class="oe_row oe_spaced">
+        <h3>Dagrapporter</h3>
+        <div class="oe_span12">
+            <p>
+                X- och Z-dagrapporter beräknas ur journalminnet — rapporten
+                visar vad som faktiskt registrerades, inte vad som råkar
+                finnas i ordertabellen. Z-rapporten stänger försäljningsdagen
+                och är oföränderlig.
+            </p>
+        </div>
+    </div>
+
+    <div class="oe_row oe_spaced">
+        <h3>Export till Skatteverket</h3>
+        <div class="oe_span12">
+            <p>
+                Journalminnet kan exporteras till XML enligt SKVFS 2021:16.
+                Filen valideras mot Skatteverkets schema innan den lämnas ut —
+                en fil som inte validerar levereras aldrig.
+            </p>
+        </div>
+    </div>
+
+    <div class="oe_row oe_spaced">
+        <h3>Spärrar mot otillåtna funktioner</h3>
+        <div class="oe_span12">
+            <p>
+                En betald försäljning kan inte ändras eller raderas.
+                Artikelbenämningen kan inte skrivas om i kassaläget.
+                Kvittoproduktionen är atomär med betalningen: misslyckas
+                kvittot blir ordern inte betald.
+            </p>
+        </div>
+    </div>
+
+    <div class="oe_row oe_spaced">
+        <h3>Tillverkare</h3>
+        <div class="oe_span12">
+            <p>
+                Vertel Sverige AB<br/>
+                Tillverkardeklaration och testprotokoll medföljer i
+                <code>docs/</code>.
+            </p>
+        </div>
+    </div>
+</section>

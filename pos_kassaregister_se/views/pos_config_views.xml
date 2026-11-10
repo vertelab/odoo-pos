@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_config_view_form_kassaregister" model="ir.ui.view">
+        <field name="name">pos.config.form.kassaregister</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <div class="alert alert-warning" role="alert"
+                     invisible="registration_unit_ready">
+                    This POS configuration has no complete cash register
+                    registration unit. A session cannot be opened until the
+                    cash register designation, model designation (must contain
+                    "SE") and serial number are set
+                    (4 kap. 2 § and 6 § SKVFS 2021:17).
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
